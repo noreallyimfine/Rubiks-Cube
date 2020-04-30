@@ -13,6 +13,13 @@ class CubeFace:
         self.bot_left = None
         self.bot_center = None
         self.bot_right = None
+        
+        self.edges = [self.top_center, self.mid_left, self.mid_right,
+                      self.bot_center]
+
+        self.corners = [self.top_left, self.top_right, self.bot_left,
+                        self.bot_right]
+        
 
     def __str__(self):
         formatted_face = f"""
@@ -32,8 +39,8 @@ class RubiksCube:
         self.upward = CubeFace()
         self.downward = CubeFace()
 
-        self.faces = faces = [self.front, self.back, self.left,
-                              self.right, self.upward, self.downward]
+        self.faces = [self.front, self.back, self.left,
+                      self.right, self.upward, self.downward]
 
         self.opposing_faces = [(self.front, self.back),
                                (self.left, self.right),
@@ -50,17 +57,27 @@ class RubiksCube:
     def initialize_edges(self):
         colors = ['w', 'y', 'o', 'r', 'b', 'g']
         color_count = {color: 0 for color in colors}
-        edges = ['top_center', 'mid_left', 'mid_right', 'bot_center']
         for face in self.faces:
-            for edge in edges:
+            for i in range(len(face.edges)):
+                print(face, face.edges[i])
                 # Check if edge is None
                 # if yes...
-                    # Select 
+                if face.edges[i] is None:
+                    # Randomly choose a color from the colors
+                    first_choice = random.choice(colors)
+                    # Set the face to that color
+                    face.edges[i] = first_choice
+                    # increment the value in dict
+                    color_count[first_choice] += 1
+        print(self.faces) 
+# Locate the face-edge attached to it
+                    # Choose a random color for that side
+                    # Check that it's not the same color or the opposing color
+                    # If it is, select again
+                    # If not, assign it and increment the dict
             # Can probably do both sides of the edge piece in one go
             # There will be 4 of each color ultimately
             # Each color will pair with every other color except the opposing color
-
-            pass
 
     def initialize_corners(self):
         pass
