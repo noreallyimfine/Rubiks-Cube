@@ -14,6 +14,14 @@ class CubeFace:
         self.bot_center = None
         self.bot_right = None
 
+    def __str__(self):
+        formatted_face = f"""
+        {self.top_left} | {self.top_center} | {self.top_right}
+        {self.mid_left} | {self.center} | {self.mid_right}
+        {self.bot_left} | {self.bot_center} | {self.bot_right}
+        """
+        return formatted_face
+
 
 class RubiksCube:
     def __init__(self):
@@ -23,14 +31,17 @@ class RubiksCube:
         self.face4 = CubeFace()
         self.face5 = CubeFace()
         self.face6 = CubeFace()
-        self.opposing_faces = [(self.face1, self.face2), (self.face3, self.face4, (self.face5, self.face6))]
+        self.opposing_faces = [(self.face1, self.face2),
+                               (self.face3, self.face4,
+                               (self.face5, self.face6))]
 
     def initialize_centers(self):
         colors = ['w', 'y', 'o', 'r', 'b', 'g']
 
         # set each faces center to a color, popping off list so to not rechoose
         # TODO: export to function
-        faces = [self.face1, self.face2, self.face3, self.face4, self.face5, self.face6]
+        faces = [self.face1, self.face2, self.face3,
+                 self.face4, self.face5, self.face6]
         for face in faces:
             face.center = random.choice(colors)
             colors.remove(face.center)
