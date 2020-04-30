@@ -25,31 +25,41 @@ class CubeFace:
 
 class RubiksCube:
     def __init__(self):
-        self.face1 = CubeFace()
-        self.face2 = CubeFace()
-        self.face3 = CubeFace()
-        self.face4 = CubeFace()
-        self.face5 = CubeFace()
-        self.face6 = CubeFace()
-        self.opposing_faces = [(self.face1, self.face2),
-                               (self.face3, self.face4,
-                               (self.face5, self.face6))]
+        self.front = CubeFace()
+        self.back = CubeFace()
+        self.left = CubeFace()
+        self.right = CubeFace()
+        self.upward = CubeFace()
+        self.downward = CubeFace()
+
+        self.faces = faces = [self.front, self.back, self.left,
+                              self.right, self.upward, self.downward]
+
+        self.opposing_faces = [(self.front, self.back),
+                               (self.left, self.right),
+                               (self.upward, self.downward)]
 
     def initialize_centers(self):
         colors = ['w', 'y', 'o', 'r', 'b', 'g']
 
         # set each faces center to a color, popping off list so to not rechoose
-        # TODO: export to function
-        faces = [self.face1, self.face2, self.face3,
-                 self.face4, self.face5, self.face6]
-        for face in faces:
+        for face in self.faces:
             face.center = random.choice(colors)
             colors.remove(face.center)
 
     def initialize_edges(self):
         colors = ['w', 'y', 'o', 'r', 'b', 'g']
+        color_count = {color: 0 for color in colors}
         edges = ['top_center', 'mid_left', 'mid_right', 'bot_center']
-        for edge in edges:
+        for face in self.faces:
+            for edge in edges:
+                # Check if edge is None
+                # if yes...
+                    # Select 
+            # Can probably do both sides of the edge piece in one go
+            # There will be 4 of each color ultimately
+            # Each color will pair with every other color except the opposing color
+
             pass
 
     def initialize_corners(self):
