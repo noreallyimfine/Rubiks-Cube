@@ -42,9 +42,7 @@ class RubiksCube:
         self.faces = [self.front, self.back, self.left,
                       self.right, self.upward, self.downward]
 
-        self.opposing_faces = [(self.front, self.back),
-                               (self.left, self.right),
-                               (self.upward, self.downward)]
+        self.opposing_colors = []
 
     def initialize_centers(self):
         colors = ['w', 'y', 'o', 'r', 'b', 'g']
@@ -54,22 +52,27 @@ class RubiksCube:
             face.center = random.choice(colors)
             colors.remove(face.center)
 
+        self.opposing_colors.append((self.front.center, self.back.center))
+        self.opposing_colors.append((self.left.center, self.right.center))
+        self.opposing_colors.append((self.upward.center, self.downward.center))
+
+        print(self.opposing_colors)
+
     def initialize_edges(self):
         colors = ['w', 'y', 'o', 'r', 'b', 'g']
         color_count = {color: 0 for color in colors}
-        for face in self.faces:
-            for i in range(len(face.edges)):
-                print(face, face.edges[i])
-                # Check if edge is None
-                # if yes...
-                if face.edges[i] is None:
-                    # Randomly choose a color from the colors
-                    first_choice = random.choice(colors)
-                    # Set the face to that color
-                    face.edges[i] = first_choice
-                    # increment the value in dict
-                    color_count[first_choice] += 1
-        print(self.faces) 
+        # Hardercoded
+        # Start from front face, top center
+        # choose random color, assign it
+        first_choice = random.choice(colors)
+        self.front.top_center = first_choice
+        # increment dict
+        color_count[first_choice] += 1
+        # choose another color 
+        second_choice = first_choice
+        # confirm its not opposing center from first color or the same color
+        # assign to up face
+        # increment color by one
 # Locate the face-edge attached to it
                     # Choose a random color for that side
                     # Check that it's not the same color or the opposing color
