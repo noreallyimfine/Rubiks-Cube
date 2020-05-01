@@ -39,7 +39,6 @@ class RubiksCube:
 
         # looping through center pieces
         for piece in centers:
-            print("Colors:", colors)
             color = random.choice(colors)
             # assign it a random choice from the colors
             piece.side1 = color
@@ -77,6 +76,8 @@ class RubiksCube:
 
         # looping through edges
         for edge in edges:
+            print('Colors:', colors)
+            print('Colors Count:', colors_count)
             # random choice from colors list
             # make sure it's not been picked out already
             # maybe remove from colors list once picked out
@@ -94,6 +95,10 @@ class RubiksCube:
             # increment both colors dict value
             colors_count[first_choice] += 1
             colors_count[second_choice] += 1
+            if colors_count[first_choice] == 4:
+                colors.remove(first_choice)
+            if colors_count[second_choice] == 4:
+                colors.remove(second_choice)
 
 
     def initialize_corners(self):
