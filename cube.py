@@ -74,10 +74,12 @@ class RubiksCube:
                  self.top_layer['left_middle'],
                  self.top_layer['right_middle']]
 
+        complete_edges = []
         # looping through edges
         for edge in edges:
             print('Colors:', colors)
             print('Colors Count:', colors_count)
+            print("Complete Edges:", complete_edges)
             # random choice from colors list
             # make sure it's not been picked out already
             # maybe remove from colors list once picked out
@@ -88,10 +90,14 @@ class RubiksCube:
             # select another choice
             second_choice = random.choice(colors)
             # confirm its not the same or the opposing color
-            while second_choice == first_choice or {first_choice, second_choice} in self.opposing_colors:
+            while ((second_choice == first_choice)
+            or ({first_choice, second_choice} in self.opposing_colors)
+            or ({first_choice, second_choice} in complete_edges)):
                 second_choice = random.choice(colors)
             # assign to second
             edge.side2 = second_choice
+            # append pair to list
+            complete_edges.append({first_choice, second_choice})
             # increment both colors dict value
             colors_count[first_choice] += 1
             colors_count[second_choice] += 1
