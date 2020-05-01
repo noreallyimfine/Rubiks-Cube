@@ -18,3 +18,19 @@ class RubiksCube:
                           'back_middle': Edge(), 'left_middle': Edge(),
                           'right_middle': Edge()}
 
+    def initialize_centers(self):
+        pass
+
+    def initialize_edges(self):
+        pass
+
+    def initialize_corners(self):
+        pass
+
+    def initialize_cube(self):
+        self.initialize_centers()
+
+        self.initialize_edges()
+
+        self.initialize_corners()
+
