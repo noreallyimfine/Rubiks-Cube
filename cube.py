@@ -61,7 +61,7 @@ class RubiksCube:
     def initialize_edges(self):
         colors = ['w', 'y', 'o', 'r', 'b', 'g']
         color_count = {color: 0 for color in colors}
-        for i range(len(self.faces)):
+        for i in range(len(self.faces)):
             for j in range(len(self.faces[0].edges)):
                 if self.faces[i].edges[j] is None:
 
@@ -72,7 +72,7 @@ class RubiksCube:
                     color_count[first_choice] += 1
                     # choose another color 
                     second_choice = first_choice
-                    while second_choice == first_choice or (first_choice, second_choice) in self.opposing_colors or (second_choice, first_choice in self.opposing_colors):
+                    while second_choice == first_choice or ((first_choice, second_choice) in self.opposing_colors) or ((second_choice, first_choice) in self.opposing_colors):
                         second_choice = random.choice(colors)
                     
         # confirm its not opposing center from first color or the same color
