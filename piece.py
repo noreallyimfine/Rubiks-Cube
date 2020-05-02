@@ -1,39 +1,39 @@
 class Piece:
-    def __init__(self, sides):
-        self.sides = sides
+    def __init__(self, sides=None, num_sides=1):
+        self.num_sides = num_sides 
+        if sides and len(sides) != self.num_sides:
+                raise ValueError("Error: Wrong # of sides for that piece!")
+        self.sides = {} if not sides else sides
 
 
 class Center(Piece):
-    def __init__(self, side1=None):
-        self.side1 = side1
+    def __init__(self, sides=None, num_sides=1):
+        super().__init__(sides, num_sides)
 
     def __repr__(self):
-        return f"Center({self.side1})"
+        return f"Center({self.sides}, {self.num_sides})"
 
     def __str__(self):
-        return f"Center Piece - ({self.side1})"
+        return f"Center Piece - ({self.num_sides}): {self.sides}"
 
 
 class Edge(Piece):
-    def __init__(self, side1=None, side2=None):
-        self.side1 = side1
-        self.side2 = side2
+    def __init__(self, sides=None, num_sides=2):
+        super().__init__(sides, num_sides)
 
     def __repr__(self):
-        return f"Edge({self.side1, self.side2})"
+        return f"Edge({self.sides}, {self.num_sides})"
 
     def __str__(self):
-        return f"Edge Piece - ({self.side1}, {self.side2})"
+        return f"Edge Piece - ({self.num_sides}): {self.sides}"
 
 
 class Corner(Piece):
-    def __init__(self, side1=None, side2=None, side3=None):
-        self.side1 = side1
-        self.side2 = side2
-        self.side3 = side3
+    def __init__(self, sides=None, num_sides=3):
+        super().__init__(sides, num_sides)
 
     def __repr__(self):
-        return f"Corner({self.side1}, {self.side2}, {self.side3})"
+        return f"Corner({self.sides}, {self.num_sides})"
 
     def __str__(self):
-        return f"Corner Piece - ({self.side1}, {self.side2}, {self.side3})"
+        return f"Corner Piece - ({self.num_sides}): {self.sides}"
