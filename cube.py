@@ -33,6 +33,35 @@ class RubiksCube:
                           'left_middle': Edge(sides=['left', 'top']),
                           'right_middle': Edge(sides=['right', 'top'])}
         
+        self.centers = [self.bot_layer['bottom_center'],
+                        self.mid_layer['right_center'],
+                        self.mid_layer['left_center'],
+                        self.mid_layer['front_center'],
+                        self.mid_layer['back_center'],
+                        self.top_layer['top_center']]
+
+        self.edges = [self.bot_layer['front_middle'],
+                      self.bot_layer['back_middle'],
+                      self.bot_layer['left_middle'],
+                      self.bot_layer['right_middle'],
+                      self.mid_layer['front_left'],
+                      self.mid_layer['front_right'],
+                      self.mid_layer['back_left'],
+                      self.mid_layer['back_right'],
+                      self.top_layer['front_middle'],
+                      self.top_layer['back_middle'],
+                      self.top_layer['left_middle'],
+                      self.top_layer['right_middle']]
+
+        self.corners = [self.bot_layer['front_left'],
+                        self.bot_layer['back_left'],
+                        self.bot_layer['back_left'],
+                        self.bot_layer['back_right'],
+                        self.top_layer['front_left'],
+                        self.top_layer['front_left'], 
+                        self.top_layer['front_left'],
+                        self.top_layer['front_left']]
+        
         self.opposing_colors = []
     
     def __repr__(self):
@@ -48,16 +77,9 @@ class RubiksCube:
     def initialize_centers(self):
         # List of colors
         colors = RubiksCube.colors.copy()
-        # list all the center pieces
-        centers = [self.bot_layer['bottom_center'],
-                   self.mid_layer['right_center'],
-                   self.mid_layer['left_center'],
-                   self.mid_layer['front_center'],
-                   self.mid_layer['back_center'],
-                   self.top_layer['top_center']]
 
         # looping through center pieces
-        for piece in centers:
+        for piece in self.centers:
             color = random.choice(colors)
             # assign it a random choice from the colors
             side = list(piece.sides.keys())[0]
@@ -81,25 +103,10 @@ class RubiksCube:
         # dict to keep track of how many times each color has been used
         colors_count = {color: 0 for color in colors}
         # list of edges
-        edges = [self.bot_layer['front_middle'],
-                 self.bot_layer['back_middle'],
-                 self.bot_layer['left_middle'],
-                 self.bot_layer['right_middle'],
-                 self.mid_layer['front_left'],
-                 self.mid_layer['front_right'],
-                 self.mid_layer['back_left'],
-                 self.mid_layer['back_right'],
-                 self.top_layer['front_middle'],
-                 self.top_layer['back_middle'],
-                 self.top_layer['left_middle'],
-                 self.top_layer['right_middle']]
 
         complete_edges = []
         # looping through edges
         for edge in edges:
-            print('Colors:', colors)
-            print('Colors Count:', colors_count)
-            print("Complete Edges:", complete_edges)
             # get faces from dict to access
             side1, side2 = tuple(edge.sides.keys())
 
@@ -140,10 +147,6 @@ class RubiksCube:
             and ({color1, color2} not in self.opposing_colors))
             }
 
-        corners = [self.bot_layer['front_left'], self.bot_layer['back_left'],
-                   self.bot_layer['back_left'], self.bot_layer['back_right'],
-                   self.top_layer['front_left'], self.top_layer['front_left'], 
-                   self.top_layer['front_left'], self.top_layer['front_left']]
         
         complete_corners = []
 
@@ -167,6 +170,10 @@ class RubiksCube:
             corner.sides[side2] = second_choice
 
             # choose third color from 2 colors adjacent to second color
+            # Logic: once we've chosen 2 colors, the third color can onlybe one of two
+            # Pick one of those - make sure not to repick by A adding piece to complete
+            # B increment count of colors, C check second_choice that we're not picking
+            # a two-color combo that's been picked twice already
             
             # as long as those three havent been done already
             # assign it
