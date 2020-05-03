@@ -132,6 +132,13 @@ class RubiksCube:
     def initialize_corners(self):
         colors = RubiksCube.colors.copy()
         colors_count = {color: 0 for color in colors}
+        color_pairs_count = {
+            set(color1, color2): 0 for color1, color2 in (
+                zip(colors, colors)
+                ) if (
+            (color1 != color2) 
+            and ({color1, color2} not in self.opposing_colors))
+            }
 
         corners = [self.bot_layer['front_left'], self.bot_layer['back_left'],
                    self.bot_layer['back_left'], self.bot_layer['back_right'],
@@ -142,13 +149,25 @@ class RubiksCube:
 
         for corner in corners:
             # Tuple unpack the faces/sides
+            side1, side2, side3 = tuple(corner.sides.keys())
+
             # choose random color
+            first_choice = random.choice(colors)
             # assign to first side
+            corner.sides[side1] = first_choice
+
             # choose second color
+            second_choice = random.choice(colors)
             # if its the same as first or opposite side
-                # keep choosing til its not
+            # keep choosing til its not
+            while ((second_choice == first_choice)
+            or ({first_choice, second_choice} in self.opposing_colors)):
+                second_choice = random.choice(colors)
             # assign to second side
+            corner.sides[side2] = second_choice
+
             # choose third color from 2 colors adjacent to second color
+            
             # as long as those three havent been done already
             # assign it
             # increment each colors count
