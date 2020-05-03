@@ -3,7 +3,7 @@ from piece import Piece, Center, Edge, Corner
 
 class RubiksCube:
     def __init__(self):
-        self.bot_layer = {'bottom_center': center(sides=['bottom']),
+        self.bot_layer = {'bottom_center': Center(sides=['bottom']), 
                           'front_middle': Edge(sides=['front', 'bottom']),
                           'front_left': Corner(sides=['front', 'bottom', 'left']),
                           'front_right': Corner(sides=['front', 'bottom', 'right']),
@@ -53,18 +53,19 @@ class RubiksCube:
         for piece in centers:
             color = random.choice(colors)
             # assign it a random choice from the colors
-            piece.side1 = color
+            side = list(piece.sides.keys())[0]
+            piece.sides[side] = color
             # remove that color from list
             colors.remove(color)
 
         self.opposing_colors.append(
-            {self.bot_layer['bottom_center'].side1, self.top_layer['top_center'].side1}
+            {self.bot_layer['bottom_center'].sides['bottom'], self.top_layer['top_center'].sides['top']}
             )
         self.opposing_colors.append(
-            {self.mid_layer['right_center'].side1, self.mid_layer['left_center'].side1}
+            {self.mid_layer['right_center'].sides['right'], self.mid_layer['left_center'].sides['left']}
             )
         self.opposing_colors.append(
-            {self.mid_layer['front_center'].side1, self.mid_layer['back_center'].side1}
+            {self.mid_layer['front_center'].sides['front'], self.mid_layer['back_center'].sides['back']}
             )
 
     def initialize_edges(self):
