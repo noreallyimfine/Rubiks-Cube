@@ -36,7 +36,11 @@ class RubiksCube:
         return f"""RubiksCube({self.top_layer}, {self.mid_layer}, {self.bot_layer})"""
 
     def __str__(self):
-        return f"""{self.top_layer}\n\n{self.mid_layer}\n\n{self.bot_layer}"""
+        output = f"""
+        Top layer: {self.top_layer}\n\n\n
+        Middle layer: {self.mid_layer}\n\n\n
+        Bottom layer: {self.bot_layer}\n\n\n"""
+        return output
 
     def initialize_centers(self):
         # List of colors
