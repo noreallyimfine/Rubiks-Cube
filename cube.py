@@ -97,12 +97,13 @@ class RubiksCube:
             print('Colors:', colors)
             print('Colors Count:', colors_count)
             print("Complete Edges:", complete_edges)
+            # get faces from dict to access
+            side1, side2 = tuple(edge.sides.keys())
+
             # random choice from colors list
-            # make sure it's not been picked out already
-            # maybe remove from colors list once picked out
             first_choice = random.choice(colors) 
             # assign to side1
-            edge.side1 = first_choice
+            edge.sides[side1] = first_choice
 
             # select another choice
             second_choice = random.choice(colors)
@@ -111,10 +112,12 @@ class RubiksCube:
             or ({first_choice, second_choice} in self.opposing_colors)
             or ({first_choice, second_choice} in complete_edges)):
                 second_choice = random.choice(colors)
+
             # assign to second
-            edge.side2 = second_choice
+            edge.sides[side2] = second_choice
             # append pair to list
             complete_edges.append({first_choice, second_choice})
+
             # increment both colors dict value
             colors_count[first_choice] += 1
             colors_count[second_choice] += 1
@@ -122,7 +125,6 @@ class RubiksCube:
                 colors.remove(first_choice)
             if colors_count[second_choice] == 4:
                 colors.remove(second_choice)
-
 
     def initialize_corners(self):
         pass
