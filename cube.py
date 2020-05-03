@@ -2,6 +2,9 @@ import random
 from piece import Piece, Center, Edge, Corner
 
 class RubiksCube:
+
+    colors = ['w', 'y', 'o', 'b', 'r', 'g']
+    
     def __init__(self):
         self.bot_layer = {'bottom_center': Center(sides=['bottom']), 
                           'front_middle': Edge(sides=['front', 'bottom']),
@@ -44,7 +47,7 @@ class RubiksCube:
 
     def initialize_centers(self):
         # List of colors
-        colors = ['w', 'y', 'o', 'b', 'r', 'g']
+        colors = RubiksCube.colors.copy()
         # list all the center pieces
         centers = [self.bot_layer['bottom_center'],
                    self.mid_layer['right_center'],
@@ -74,7 +77,7 @@ class RubiksCube:
 
     def initialize_edges(self):
         # list of colors again
-        colors = ['w', 'y', 'o', 'b', 'r', 'g']
+        colors = RubiksCube.colors.copy()
         # dict to keep track of how many times each color has been used
         colors_count = {color: 0 for color in colors}
         # list of edges
@@ -127,7 +130,30 @@ class RubiksCube:
                 colors.remove(second_choice)
 
     def initialize_corners(self):
-        pass
+        colors = RubiksCube.colors.copy()
+        colors_count = {color: 0 for color in colors}
+
+        corners = [self.bot_layer['front_left'], self.bot_layer['back_left'],
+                   self.bot_layer['back_left'], self.bot_layer['back_right'],
+                   self.top_layer['front_left'], self.top_layer['front_left'], 
+                   self.top_layer['front_left'], self.top_layer['front_left']]
+        
+        complete_corners = []
+
+        for corner in corners:
+            # Tuple unpack the faces/sides
+            # choose random color
+            # assign to first side
+            # choose second color
+            # if its the same as first or opposite side
+                # keep choosing til its not
+            # assign to second side
+            # choose third color from 2 colors adjacent to second color
+            # as long as those three havent been done already
+            # assign it
+            # increment each colors count
+            # if any are at 4 remove from list
+
 
     def initialize_cube(self):
         self.initialize_centers()
