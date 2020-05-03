@@ -1,9 +1,9 @@
 class Piece:
-    def __init__(self, sides=None, num_sides=1):
+    def __init__(self, sides, num_sides=1):
         self.num_sides = num_sides 
         if sides and len(sides) != self.num_sides:
                 raise ValueError("Error: Wrong # of sides for that piece!")
-        self.sides = {} if not sides else sides
+        self.sides = {face: None for face in sides} 
 
 
 class Center(Piece):
