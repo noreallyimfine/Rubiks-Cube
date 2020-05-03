@@ -139,13 +139,12 @@ class RubiksCube:
     def initialize_corners(self):
         colors = RubiksCube.colors.copy()
         colors_count = {color: 0 for color in colors}
-        color_pairs_count = {
-            set(color1, color2): 0 for color1, color2 in (
-                zip(colors, colors)
-                ) if (
-            (color1 != color2) 
-            and ({color1, color2} not in self.opposing_colors))
-            }
+
+        color_pairs = [set(color1, color2) for color1, color2 in (
+            zip(colors, colors) if (
+                (color1 != color2) 
+                and {color1, color2} not in self.opposing_colors)]
+        color_pairs_count = {color_pair: 0 for color_pair in color_pairs}
 
         
         complete_corners = []
