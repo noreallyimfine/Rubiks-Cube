@@ -106,7 +106,7 @@ class RubiksCube:
 
         complete_edges = []
         # looping through edges
-        for edge in edges:
+        for edge in self.edges:
             # get faces from dict to access
             side1, side2 = tuple(edge.sides.keys())
 
@@ -140,16 +140,17 @@ class RubiksCube:
         colors = RubiksCube.colors.copy()
         colors_count = {color: 0 for color in colors}
 
-        color_pairs = [set(color1, color2) for color1, color2 in (
+        color_pairs = [set(color1, color2) for color1, color2 in 
             zip(colors, colors) if (
                 (color1 != color2) 
-                and {color1, color2} not in self.opposing_colors)]
+                and ({color1, color2} not in self.opposing_colors))
+            ]
         color_pairs_count = {color_pair: 0 for color_pair in color_pairs}
 
         
         complete_corners = []
 
-        for corner in corners:
+        for corner in self.corners:
             # Tuple unpack the faces/sides
             side1, side2, side3 = tuple(corner.sides.keys())
 
