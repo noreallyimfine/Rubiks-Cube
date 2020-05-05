@@ -72,7 +72,20 @@ class RubiksCube:
         Top layer: {self.top_layer}\n\n\n
         Middle layer: {self.mid_layer}\n\n\n
         Bottom layer: {self.bot_layer}\n\n\n"""
-        return output
+    
+    def count_colors(self):
+        colors = {color: 0 for colors in RubiksCube.colors}
+        layers = [self.bot_layer, self.mid_layer, self.top_layer]
+        for layer in layers:
+            # Now we have a dict of pieces
+            # For each key in the dict...
+            for key in layer:
+                # unpack the sides
+                for side in key.sides:
+                # increment the value in the dict
+                    colors[key.sides[side]] += 1
+
+            
 
     def initialize_centers(self):
         # List of colors
@@ -155,7 +168,6 @@ class RubiksCube:
                 if color1 != color2 and (color1, color2) not in self.opposing_colors:
                     color_pairs.append((color1, color2))
         color_pairs_count = {color_pair: 0 for color_pair in color_pairs}
-        print("Color pairs: ", color_pairs)
         
         complete_corners = []
 
@@ -172,6 +184,7 @@ class RubiksCube:
             second_choice = random.choice(colors)
             # if its the same as first or opposite side
             # keep choosing til its not
+            print("Colors to choose from:", colors)
             while ((second_choice == first_choice)
             or ((first_choice, second_choice) in self.opposing_colors)
             or (color_pairs_count[(first_choice, second_choice)]
@@ -181,7 +194,6 @@ class RubiksCube:
             corner.sides[side2] = second_choice
             
             print("Made it through second choice")
-            print("Colors left", colors)
 
             # choose third color from 2 colors adjacent to second color
             # Logic: once we've chosen 2 colors, the third color can onlybe one of two
@@ -192,6 +204,8 @@ class RubiksCube:
             while (third_choice == first_choice or third_choice == second_choice
             or (first_choice, third_choice) in self.opposing_colors
             or (second_choice, third_choice) in self.opposing_colors
+            or (color_pairs_count[(first_choice, third_choice)] +
+            color_pairs_count[(third_choice, first_choice)] == 2)
             or {first_choice, second_choice, third_choice} in complete_corners):
                 third_choice = random.choice(colors)
             
@@ -208,6 +222,13 @@ class RubiksCube:
             color_pairs_count[(first_choice, second_choice)] += 1 
             color_pairs_count[(first_choice, third_choice)] += 1 
             color_pairs_count[(third_choice, second_choice)] += 1 
+
+            print("First:", first_choice)
+            print("Second:", second_choice)
+            print("Third:", third_choice)
+            print("Colors count:", colors_count)
+            print("Color pairs count:", color_pairs_count)
+
             # if any are at 4 remove from list
             if colors_count[first_choice] == 4:
                 colors.remove(first_choice)
