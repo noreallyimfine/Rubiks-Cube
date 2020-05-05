@@ -75,16 +75,18 @@ class RubiksCube:
         return output
     
     def count_colors(self):
-        colors = {color: 0 for colors in RubiksCube.colors}
+        colors = {color: 0 for color in RubiksCube.colors}
         layers = [self.bot_layer, self.mid_layer, self.top_layer]
         for layer in layers:
             # Now we have a dict of pieces
             # For each key in the dict...
             for key in layer:
                 # unpack the sides
-                for side in key.sides:
+                for side in layer[key].sides:
                 # increment the value in the dict
-                    colors[key.sides[side]] += 1
+                    colors[layer[key].sides[side]] += 1
+        
+        print(colors)
 
             
 
@@ -185,7 +187,6 @@ class RubiksCube:
             second_choice = random.choice(colors)
             # if its the same as first or opposite side
             # keep choosing til its not
-            print("Colors to choose from:", colors)
             while ((second_choice == first_choice)
             or ((first_choice, second_choice) in self.opposing_colors)
             or (color_pairs_count[(first_choice, second_choice)]
@@ -193,8 +194,6 @@ class RubiksCube:
                 second_choice = random.choice(colors)
             # assign to second side
             corner.sides[side2] = second_choice
-            
-            print("Made it through second choice")
 
             # choose third color from 2 colors adjacent to second color
             # Logic: once we've chosen 2 colors, the third color can onlybe one of two
@@ -211,12 +210,9 @@ class RubiksCube:
                 #print("Third choice in loop - ", third_choice)
                 third_choice = random.choice(colors)
                 
-            
             # assign it
             corner.sides[side3] = third_choice
 
-            print("Made it through 3rd choice.")
-            
             # increment each colors count
             colors_count[first_choice] += 1
             colors_count[second_choice] += 1
@@ -226,21 +222,12 @@ class RubiksCube:
             color_pairs_count[(first_choice, third_choice)] += 1 
             color_pairs_count[(third_choice, second_choice)] += 1 
 
-            print("First:", first_choice)
-            print("Second:", second_choice)
-            print("Third:", third_choice)
-            print("Colors count:", colors_count)
-            print("Color pairs count:", color_pairs_count)
-
             # if any are at 4 remove from list
             if colors_count[first_choice] == 4:
-                print(f"removing color {first_choice}")
                 colors.remove(first_choice)
             if colors_count[second_choice] == 4:
-                print(f"removing color {second_choice}")
                 colors.remove(second_choice)
             if colors_count[third_choice] == 4:
-                print(f"removing color {third_choice}")
                 colors.remove(third_choice)
 
 
