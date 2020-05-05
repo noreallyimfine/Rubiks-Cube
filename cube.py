@@ -179,6 +179,9 @@ class RubiksCube:
                 second_choice = random.choice(colors)
             # assign to second side
             corner.sides[side2] = second_choice
+            
+            print("Made it through second choice")
+            print("Colors left", colors)
 
             # choose third color from 2 colors adjacent to second color
             # Logic: once we've chosen 2 colors, the third color can onlybe one of two
@@ -186,7 +189,7 @@ class RubiksCube:
             # B increment count of colors, C check second_choice that we're not picking
             # a two-color combo that's been picked twice already
             third_choice = random.choice(colors)
-            while (third_choice == first_choice or third_choice == first_choice
+            while (third_choice == first_choice or third_choice == second_choice
             or (first_choice, third_choice) in self.opposing_colors
             or (second_choice, third_choice) in self.opposing_colors
             or {first_choice, second_choice, third_choice} in complete_corners):
@@ -194,6 +197,9 @@ class RubiksCube:
             
             # assign it
             corner.sides[side3] = third_choice
+
+            print("Made it through 3rd choice.")
+            
             # increment each colors count
             colors_count[first_choice] += 1
             colors_count[second_choice] += 1
