@@ -1,3 +1,7 @@
+'''
+Class instantiation of a Rubik's Cube, with the logic to solve it.
+'''
+
 import random
 from piece import Piece, Center, Edge, Corner
 
