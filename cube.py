@@ -342,6 +342,12 @@ class RubiksCube:
         '''
         # Mid back left <- Top left middle 
             # back <- top, left <- left
+        # Bot left middle <- Mid back left
+            # bottom <- back, left <- left
+        # Mid front left <- Bot left middle
+            # front <- bottom, left <- left
+        # Top left middle <- Mid front left
+            # top <- front, left <- left
         pass
     
     def _R(self):
