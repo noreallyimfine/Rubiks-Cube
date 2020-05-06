@@ -407,6 +407,10 @@ class RubiksCube:
         pass
     
     def solve_bot_layer(self):
+        '''
+        Solve the rest of the bottom layer, and in the process, the bottom
+        face.
+        '''
         pass
     
     def solve_mid_layer(self):
