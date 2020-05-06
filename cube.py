@@ -400,6 +400,10 @@ class RubiksCube:
         pass
     
     def white_cross(self):
+        '''
+        Move edge pieces from top to bottom, creating a cross shape in the 
+        correct position on the bottom face.
+        '''
         pass
     
     def solve_bot_layer(self):
