@@ -263,6 +263,7 @@ class RubiksCube:
         Function to call to initialize cube. Calls on helper functions for 
         centers, edges, and corners; in that order.
         '''
+
         self._initialize_centers()
 
         self._initialize_edges()
@@ -273,7 +274,8 @@ class RubiksCube:
         '''
         Turn left face clockwise
         '''
-        # CORNERS
+
+        # CORNERS # 
 
         # Temp variables so we dont overwrite as we go
         corner_a = self.top_layer['back_left'].sides['top']
@@ -304,7 +306,9 @@ class RubiksCube:
         self.top_layer['front_left'].sides['top'] = corner_b 
         self.top_layer['front_left'].sides['left'] = corner_c 
 
-        # EDGES 
+        # EDGES #
+
+        # Temp variables so one edge doesn't get overwritten as we go
         edge_a = self.bot_layer['left_middle'].sides['bottom']
         edge_b = self.bot_layer['left_middle'].sides['left']
 
@@ -389,6 +393,10 @@ class RubiksCube:
         '''
 
     def make_daisy(self):
+        '''
+        Bring 4 bottom color edge pieces to top layer, creating a daisy-like
+        shape around that opposing center.
+        '''
         pass
     
     def white_cross(self):
