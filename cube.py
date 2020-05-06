@@ -356,11 +356,21 @@ class RubiksCube:
 
         # Top front left <- Bot front left
             # top <- front, front <- bottom, left <- left
+        self.top_layer['front_left'].sides['top'] = self.bot_layer['front_left'].sides['front']
+        self.top_layer['front_left'].sides['front'] = self.bot_layer['front_left'].sides['bottom']
+        self.top_layer['front_left'].sides['left'] = self.bot_layer['front_left'].sides['left']
         
         # Bot front left <- Bot back left
             # front <- bottom, bottom <- back, left <- left
+        self.bot_layer['front_left'].sides['front'] = self.bot_layer['back_left'].sides['bottom']
+        self.bot_layer['front_left'].sides['bottom'] = self.bot_layer['back_left'].sides['back']
+        self.bot_layer['front_left'].sides['left'] = self.bot_layer['back_left'].sides['left']
+        
         # Bot back left <- Top back left
             # bottom <- back, back <- top, left <- left
+        self.bot_layer['back_left'].sides['bottom'] = corner_a
+        self.bot_layer['back_left'].sides['back'] = corner_b
+        self.bot_layer['back_left'].sides['left'] = corner_c
         
         # EDGES #
         # Temp variables so as not to overwrite as we go
