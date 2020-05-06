@@ -75,6 +75,11 @@ class RubiksCube:
         return output
     
     def count_colors(self):
+        '''
+        After initializing the cube, use this to confirm each of the
+        colors was placed 9 times.
+        '''
+
         colors = {color: 0 for color in RubiksCube.colors}
         layers = [self.bot_layer, self.mid_layer, self.top_layer]
         for layer in layers:
