@@ -1,3 +1,7 @@
+'''
+Class instatiation of pieces to use on a Rubik's Cube or similar object.
+'''
+
 class Piece:
     def __init__(self, sides, num_sides=1):
         self.num_sides = num_sides 
