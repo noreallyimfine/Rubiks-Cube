@@ -420,12 +420,22 @@ class RubiksCube:
         pass
     
     def get_top_cross(self):
+        '''
+        Solve the cross on the top layer without messing up solved layers.
+        '''
         pass
     
     def solve_top_face(self):
+        '''
+        Complete the rest of the top face.
+        '''
         pass
     
     def final_step(self):
+        '''
+        Final solve step (this might actually need to be broken up into more
+        steps).
+        '''
         pass
     
     def solve_cube(self):
