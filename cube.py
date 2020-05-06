@@ -90,7 +90,7 @@ class RubiksCube:
 
             
 
-    def initialize_centers(self):
+    def _initialize_centers(self):
         # List of colors
         colors = RubiksCube.colors.copy()
 
@@ -122,7 +122,7 @@ class RubiksCube:
             (self.mid_layer['back_center'].sides['back'], self.mid_layer['front_center'].sides['front'])
             )
 
-    def initialize_edges(self):
+    def _initialize_edges(self):
         # list of colors again
         colors = RubiksCube.colors.copy()
         # dict to keep track of how many times each color has been used
@@ -161,7 +161,7 @@ class RubiksCube:
             if colors_count[second_choice] == 4:
                 colors.remove(second_choice)
 
-    def initialize_corners(self):
+    def _initialize_corners(self):
         colors = RubiksCube.colors.copy()
         colors_count = {color: 0 for color in colors}
 
@@ -232,9 +232,45 @@ class RubiksCube:
 
 
     def initialize_cube(self):
-        self.initialize_centers()
+        self._initialize_centers()
 
-        self.initialize_edges()
+        self._initialize_edges()
 
-        self.initialize_corners()
+        self._initialize_corners()
+    
+    def make_daisy(self):
+        pass
+    
+    def white_cross(self):
+        pass
+    
+    def solve_bot_layer(self):
+        pass
+    
+    def solve_mid_layer(self):
+        pass
+    
+    def get_top_cross(self):
+        pass
+    
+    def solve_top_face(self):
+        pass
+    
+    def final_step(self):
+        pass
+    
+    def solve_cube(self):
+        self.make_daisy()
+
+        self.white_cross()
+
+        self.solve_bot_layer()
+
+        self.solve_mid_layer()
+
+        self.get_top_cross()
+
+        self.solve_top_face()
+
+        self.final_step()
 
