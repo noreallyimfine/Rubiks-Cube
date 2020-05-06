@@ -242,10 +242,12 @@ class RubiksCube:
         '''
         Turn left face clockwise
         '''
+        # CORNERS
+
         # Temp variables so we dont overwrite as we go
-        temp_a = self.top_layer['back_left'].sides['top']
-        temp_b = self.top_layer['back_left'].sides['back']
-        temp_c = self.top_layer['back_left'].sides['left']
+        corner_a = self.top_layer['back_left'].sides['top']
+        corner_b = self.top_layer['back_left'].sides['back']
+        corner_c = self.top_layer['back_left'].sides['left']
 
         # Bottom back left becomes Top back left
             # bottom -> back, back -> top, left -> left
@@ -267,20 +269,33 @@ class RubiksCube:
 
         # Top back left becomes top front left
             # back -> top, top -> front, left -> left
-        self.top_layer['front_left'].sides['front'] = temp_a 
-        self.top_layer['front_left'].sides['top'] = temp_b 
-        self.top_layer['front_left'].sides['left'] = temp_c 
+        self.top_layer['front_left'].sides['front'] = corner_a 
+        self.top_layer['front_left'].sides['top'] = corner_b 
+        self.top_layer['front_left'].sides['left'] = corner_c 
+
+        # EDGES 
+        edge_a = self.bot_layer['left_middle'].sides['bottom']
+        edge_b = self.bot_layer['left_middle'].sides['left']
 
         # Mid front left becomes bottom left mid
             # front -> bottom, left -> left
-        # Bottom left middle becomes Middle back left
-            # bottom -> back, left -> left
-        # Mid back left becomes top left middle
-            # back -> top, left -> left
+        self.bot_layer['left_middle'].sides['bottom'] = self.mid_layer['front_left'].sides['front']
+        self.bot_layer['left_middle'].sides['left'] = self.mid_layer['front_left'].sides['left']
+
         # Top left middle becomes Mid front left
             # top -> front, left -> left
-        
-        pass
+        self.mid_layer['front_left'].sides['front'] = self.top_layer['left_middle'].sides['top']
+        self.mid_layer['front_left'].sides['left'] = self.top_layer['left_middle'].sides['left']
+
+        # Mid back left becomes top left middle
+            # back -> top, left -> left
+        self.top_layer['left_middle'].sides['top'] = self.mid_layer['back_left'].sides['back']
+        self.top_layer['left_middle'].sides['left'] = self.mid_layer['back_left'].sides['left']
+
+        # Bottom left middle becomes Middle back left
+            # bottom -> back, left -> left
+        self.mid_layer['back_left'].sides['back'] = edge_a
+        self.mid_layer['back_left'].sides['left'] = edge_b
     
     def L_prime(self):
         '''
