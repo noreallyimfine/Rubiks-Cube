@@ -270,6 +270,7 @@ class RubiksCube:
         self.top_layer['front_left'].sides['front'] = temp_a 
         self.top_layer['front_left'].sides['top'] = temp_b 
         self.top_layer['front_left'].sides['left'] = temp_c 
+
         # Mid front left becomes bottom left mid
             # front -> bottom, left -> left
         # Bottom left middle becomes Middle back left
