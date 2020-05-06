@@ -139,7 +139,8 @@ class RubiksCube:
         Initializes edge pieces of cube by assigning a random color to one side
         of the edge and picking another random color for the other side within
         constraints of cube layout - no opposing colors on the same piece, no 2
-        pieces with the same 2 colors.
+        pieces with the same 2 colors, and each color appearing on 4 total edge
+        pieces.
         '''
 
         # list of colors again
@@ -181,6 +182,13 @@ class RubiksCube:
                 colors.remove(second_choice)
 
     def _initialize_corners(self):
+        '''
+        Initializes corner pieces of cube by assigning a random color to one side
+        of the edge and picking 2 more random colors for the other 2 sides within
+        constraints of cube layout - no opposing colors on the same piece, no 2
+        pieces with the same 3 colors, and each color appears 4 times on corner
+        pieces, with each color pair appearing twice.
+        '''
         colors = RubiksCube.colors.copy()
         colors_count = {color: 0 for color in colors}
 
