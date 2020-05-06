@@ -242,6 +242,23 @@ class RubiksCube:
         '''
         Turn left face clockwise
         '''
+        # Top front left becomes bottom front left
+            # top -> front, front -> bottom, left -> left
+        # Mid front left becomes bottom left mid
+            # front -> bottom, left -> left
+        # Bottom front left becomes bottom back left
+            # front -> bottom, bottom -> back, left -> left
+        # Bottom left middle becomes Middle back left
+            # bottom -> back, left -> left
+        # Bottom back left becomes Top back left
+            # bottom -> back, back -> top, left -> left
+        # Mid back left becomes top left middle
+            # back -> top, left -> left
+        # Top back left becomes top front left
+            # back -> top, top -> front, left -> left
+        # Top left middle becomes Mid front left
+            # top -> front, left -> left
+        
         pass
     
     def L_prime(self):
