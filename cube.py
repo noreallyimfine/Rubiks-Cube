@@ -242,16 +242,29 @@ class RubiksCube:
         '''
         Turn left face clockwise
         '''
+        # Temp variables so we dont overwrite as we go
+        temp_a = self.top_layer['back_left'].sides['top']
+        temp_b = self.top_layer['back_left'].sides['back']
+        temp_c = self.top_layer['back_left'].sides['left']
+
+        # Bottom back left becomes Top back left
+            # bottom -> back, back -> top, left -> left
+        self.top_layer['back_left'].sides['top'] = self.bot_layer['back_left'].sides['back']
+        self.top_layer['back_left'].sides['back'] = self.bot_layer['back_left'].sides['bottom']
+        self.top_layer['back_left'].sides['left'] = self.bot_layer['back_left'].sides['left']
+
+        # Bottom front left becomes bottom back left
+            # front -> bottom, bottom -> back, left -> left
+        self.bot_layer['back_left'].sides['bottom'] = self.bot_layer['front_left'].sides['front']
+        self.bot_layer['back_left'].sides['back'] = self.bot_layer['front_left'].sides['bottom']
+        self.bot_layer['back_left'].sides['left'] = self.bot_layer['front_left'].sides['left']
+
         # Top front left becomes bottom front left
             # top -> front, front -> bottom, left -> left
         # Mid front left becomes bottom left mid
             # front -> bottom, left -> left
-        # Bottom front left becomes bottom back left
-            # front -> bottom, bottom -> back, left -> left
         # Bottom left middle becomes Middle back left
             # bottom -> back, left -> left
-        # Bottom back left becomes Top back left
-            # bottom -> back, back -> top, left -> left
         # Mid back left becomes top left middle
             # back -> top, left -> left
         # Top back left becomes top front left
