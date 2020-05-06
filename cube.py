@@ -270,7 +270,7 @@ class RubiksCube:
 
         self._initialize_corners()
     
-    def L(self):
+    def _L(self):
         '''
         Turn left face clockwise
         '''
@@ -332,106 +332,106 @@ class RubiksCube:
         self.mid_layer['back_left'].sides['back'] = edge_a
         self.mid_layer['back_left'].sides['left'] = edge_b
     
-    def L_prime(self):
+    def _L_prime(self):
         '''
         Turn left face counter-clockwise
         '''
     
-    def R(self):
+    def _R(self):
         '''
         Turn right face clockwise
         '''
         pass
     
-    def R_prime(self):
+    def _R_prime(self):
         '''
         Turn right face counter-clockwise
         '''
 
-    def F(self):
+    def _F(self):
         '''
         Turn front face clockwise
         '''
         pass
     
-    def F_prime(self):
+    def _F_prime(self):
         '''
         Turn front face counter-clockwise
         '''
     
-    def B(self):
+    def _B(self):
         '''
         Turn back face clockwise
         '''
         pass
     
-    def B_prime(self):
+    def _B_prime(self):
         '''
         Turn back face counter-clockwise
         '''
         
-    def U(self):
+    def _U(self):
         '''
         Turn upward face clockwise
         '''
         pass
     
-    def U_prime(self):
+    def _U_prime(self):
         '''
         Turn upward face counter-clockwise
         '''
 
-    def D(self):
+    def _D(self):
         '''
         Turn downward face clockwise
         '''
         pass
     
-    def D_prime(self):
+    def _D_prime(self):
         '''
         Turn downward face counter-clockwise
         '''
 
-    def make_daisy(self):
+    def _make_daisy(self):
         '''
         Bring 4 bottom color edge pieces to top layer, creating a daisy-like
         shape around that opposing center.
         '''
         pass
     
-    def white_cross(self):
+    def _white_cross(self):
         '''
         Move edge pieces from top to bottom, creating a cross shape in the 
         correct position on the bottom face.
         '''
         pass
     
-    def solve_bot_layer(self):
+    def _solve_bot_layer(self):
         '''
         Solve the rest of the bottom layer, and in the process, the bottom
         face.
         '''
         pass
     
-    def solve_mid_layer(self):
+    def _solve_mid_layer(self):
         '''
         Solve the middle layer of the cube
         '''
         pass
     
-    def get_top_cross(self):
+    def _get_top_cross(self):
         '''
         Solve the cross on the top layer without messing up solved layers.
         '''
         pass
     
-    def solve_top_face(self):
+    def _solve_top_face(self):
         '''
         Complete the rest of the top face.
         '''
         pass
     
-    def final_step(self):
+    def _final_step(self):
         '''
         Final solve step (this might actually need to be broken up into more
         steps).
