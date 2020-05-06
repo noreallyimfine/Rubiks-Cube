@@ -259,6 +259,10 @@ class RubiksCube:
 
 
     def initialize_cube(self):
+        '''
+        Function to call to initialize cube. Calls on helper functions for 
+        centers, edges, and corners; in that order.
+        '''
         self._initialize_centers()
 
         self._initialize_edges()
