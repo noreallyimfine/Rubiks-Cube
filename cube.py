@@ -261,14 +261,21 @@ class RubiksCube:
 
         # Top front left becomes bottom front left
             # top -> front, front -> bottom, left -> left
+        self.bot_layer['front_left'].sides['front'] = self.top_layer['front_left'].sides['top']
+        self.bot_layer['front_left'].sides['bottom'] = self.top_layer['front_left'].sides['front']
+        self.bot_layer['front_left'].sides['left'] = self.top_layer['front_left'].sides['left']
+
+        # Top back left becomes top front left
+            # back -> top, top -> front, left -> left
+        self.top_layer['front_left'].sides['front'] = temp_a 
+        self.top_layer['front_left'].sides['top'] = temp_b 
+        self.top_layer['front_left'].sides['left'] = temp_c 
         # Mid front left becomes bottom left mid
             # front -> bottom, left -> left
         # Bottom left middle becomes Middle back left
             # bottom -> back, left -> left
         # Mid back left becomes top left middle
             # back -> top, left -> left
-        # Top back left becomes top front left
-            # back -> top, top -> front, left -> left
         # Top left middle becomes Mid front left
             # top -> front, left -> left
         
