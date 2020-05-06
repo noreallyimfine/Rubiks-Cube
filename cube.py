@@ -402,6 +402,24 @@ class RubiksCube:
         '''
         Turn right face clockwise
         '''
+
+        # CORNERS # 
+
+        # Temp variables to protect against overwriting
+
+        # Top back right <- Top front right
+            # top <- front, back <- top, right <- right
+        
+        # Top front right <- Bot front right
+            # top <- front, front <- bottom, right <- right
+        
+        # Bot front right <- Bot back right
+            # front <- bottom, bottom <- back, right <- right
+        
+        # Bot back right <- Top back right (temp)
+            # back <- top, bottom <- back, right <- right
+        
+        # EDGES #
         pass
     
     def _R_prime(self):
