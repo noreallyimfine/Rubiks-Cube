@@ -420,7 +420,20 @@ class RubiksCube:
             # back <- top, bottom <- back, right <- right
         
         # EDGES #
-        pass
+
+        # Temp variables to protect against overwrite
+
+        # Top right middle <- Mid front right
+            # top <- front, right <- right
+
+        # Mid front right <- Bot right middle
+            # front <- bottom, right <- right
+
+        # Bot right middle <- Mid back right
+            # bottom <- back, right <- right
+
+        # Mid back right <- Top right middle (temp)
+            # back <- top, right <- right            
     
     def _R_prime(self):
         '''
