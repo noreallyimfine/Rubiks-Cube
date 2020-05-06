@@ -414,6 +414,9 @@ class RubiksCube:
         pass
     
     def solve_mid_layer(self):
+        '''
+        Solve the middle layer of the cube
+        '''
         pass
     
     def get_top_cross(self):
