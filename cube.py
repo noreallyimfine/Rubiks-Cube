@@ -96,6 +96,12 @@ class RubiksCube:
             
 
     def _initialize_centers(self):
+        '''
+        Initializes centers of cube by assigning each center a random color
+        and removing that color from the choices after assignment.
+        
+        Also fills in the opposing_colors attribute list with tuples of each opposing pair.
+        '''
         # List of colors
         colors = RubiksCube.colors.copy()
 
