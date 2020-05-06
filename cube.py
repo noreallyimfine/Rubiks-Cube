@@ -286,13 +286,13 @@ class RubiksCube:
         corner_b = self.top_layer['back_left'].sides['back']
         corner_c = self.top_layer['back_left'].sides['left']
 
-        # Bottom back left becomes Top back left
-            # bottom -> back, back -> top, left -> left
+        # Top back left <- Bottom back left 
+            # back <- bottom, top <- back, left <- left
         self.top_layer['back_left'].sides['top'] = self.bot_layer['back_left'].sides['back']
         self.top_layer['back_left'].sides['back'] = self.bot_layer['back_left'].sides['bottom']
         self.top_layer['back_left'].sides['left'] = self.bot_layer['back_left'].sides['left']
 
-        # Bottom front left becomes bottom back left
+        # bottom back left <- Bottom front left 
             # front -> bottom, bottom -> back, left -> left
         self.bot_layer['back_left'].sides['bottom'] = self.bot_layer['front_left'].sides['front']
         self.bot_layer['back_left'].sides['back'] = self.bot_layer['front_left'].sides['bottom']
@@ -340,6 +340,9 @@ class RubiksCube:
         '''
         Turn left face counter-clockwise
         '''
+        # Mid back left <- Top left middle 
+            # back <- top, left <- left
+        pass
     
     def _R(self):
         '''
