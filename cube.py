@@ -298,14 +298,14 @@ class RubiksCube:
         self.bot_layer['back_left'].sides['back'] = self.bot_layer['front_left'].sides['bottom']
         self.bot_layer['back_left'].sides['left'] = self.bot_layer['front_left'].sides['left']
 
-        # Top front left becomes bottom front left
-            # top -> front, front -> bottom, left -> left
+        # bottom front left <- Top front left 
+            # front <- top, bottom <- front, left <- left
         self.bot_layer['front_left'].sides['front'] = self.top_layer['front_left'].sides['top']
         self.bot_layer['front_left'].sides['bottom'] = self.top_layer['front_left'].sides['front']
         self.bot_layer['front_left'].sides['left'] = self.top_layer['front_left'].sides['left']
 
-        # Top back left becomes top front left
-            # back -> top, top -> front, left -> left
+        # top front left <- Top back left 
+            # top <- back, front <- top, left <- left
         self.top_layer['front_left'].sides['front'] = corner_a 
         self.top_layer['front_left'].sides['top'] = corner_b 
         self.top_layer['front_left'].sides['left'] = corner_c 
@@ -316,23 +316,23 @@ class RubiksCube:
         edge_a = self.bot_layer['left_middle'].sides['bottom']
         edge_b = self.bot_layer['left_middle'].sides['left']
 
-        # Mid front left becomes bottom left mid
-            # front -> bottom, left -> left
+        # bottom left mid <- Mid front left 
+            # bottom <- front, left <- left
         self.bot_layer['left_middle'].sides['bottom'] = self.mid_layer['front_left'].sides['front']
         self.bot_layer['left_middle'].sides['left'] = self.mid_layer['front_left'].sides['left']
 
-        # Top left middle becomes Mid front left
-            # top -> front, left -> left
+        #Mid front left <- Top left middle 
+            # front <- top, left <- left
         self.mid_layer['front_left'].sides['front'] = self.top_layer['left_middle'].sides['top']
         self.mid_layer['front_left'].sides['left'] = self.top_layer['left_middle'].sides['left']
 
-        # Mid back left becomes top left middle
-            # back -> top, left -> left
+        # top left middle <- Mid back left 
+            # top <- back, left <- left
         self.top_layer['left_middle'].sides['top'] = self.mid_layer['back_left'].sides['back']
         self.top_layer['left_middle'].sides['left'] = self.mid_layer['back_left'].sides['left']
 
-        # Bottom left middle becomes Middle back left
-            # bottom -> back, left -> left
+        # Middle back left <- Bottom left middle 
+            # back <- bottom, left <- left
         self.mid_layer['back_left'].sides['back'] = edge_a
         self.mid_layer['back_left'].sides['left'] = edge_b
     
