@@ -340,8 +340,26 @@ class RubiksCube:
         '''
         Turn left face counter-clockwise
         '''
+
+        # CORNERS #
+
+        # Temp variables so as not to overwrite as we go
+
+        # Top back left <- Top front left
+            # back <- top, top <- front, left <- left
+        # Top front left <- Bot front left
+            # top <- front, front <- bottom, left <- left
+        # Bot front left <- Bot back left
+            # front <- bottom, bottom <- back, left <- left
+        # Bot back left <- Top back left
+            # bottom <- back, back <- top, left <- left
+        
+        # EDGES #
+        # Temp variables so as not to overwrite as we go
+
         # Mid back left <- Top left middle 
             # back <- top, left <- left
+        
         # Bot left middle <- Mid back left
             # bottom <- back, left <- left
         # Mid front left <- Bot left middle
