@@ -271,6 +271,39 @@ class RubiksCube:
         Turn front face counter-clockwise
         '''
     
+    def B(self):
+        '''
+        Turn back face clockwise
+        '''
+        pass
+    
+    def B_prime(self):
+        '''
+        Turn back face counter-clockwise
+        '''
+        
+    def U(self):
+        '''
+        Turn upward face clockwise
+        '''
+        pass
+    
+    def U_prime(self):
+        '''
+        Turn upward face counter-clockwise
+        '''
+
+    def D(self):
+        '''
+        Turn downward face clockwise
+        '''
+        pass
+    
+    def D_prime(self):
+        '''
+        Turn downward face counter-clockwise
+        '''
+
     def make_daisy(self):
         pass
     
