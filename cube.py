@@ -439,17 +439,21 @@ class RubiksCube:
         pass
     
     def solve_cube(self):
-        self.make_daisy()
+        '''
+        User facing function to solve cube.
+        '''
 
-        self.white_cross()
+        self._make_daisy()
 
-        self.solve_bot_layer()
+        self._white_cross()
 
-        self.solve_mid_layer()
+        self._solve_bot_layer()
 
-        self.get_top_cross()
+        self._solve_mid_layer()
 
-        self.solve_top_face()
+        self._get_top_cross()
 
-        self.final_step()
+        self._solve_top_face()
+
+        self._final_step()
 
