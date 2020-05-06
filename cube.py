@@ -102,6 +102,7 @@ class RubiksCube:
         
         Also fills in the opposing_colors attribute list with tuples of each opposing pair.
         '''
+
         # List of colors
         colors = RubiksCube.colors.copy()
 
@@ -134,6 +135,13 @@ class RubiksCube:
             )
 
     def _initialize_edges(self):
+        '''
+        Initializes edge pieces of cube by assigning a random color to one side
+        of the edge and picking another random color for the other side within
+        constraints of cube layout - no opposing colors on the same piece, no 2
+        pieces with the same 2 colors.
+        '''
+
         # list of colors again
         colors = RubiksCube.colors.copy()
         # dict to keep track of how many times each color has been used
