@@ -238,6 +238,39 @@ class RubiksCube:
 
         self._initialize_corners()
     
+    def L(self):
+        '''
+        Turn left face clockwise
+        '''
+        pass
+    
+    def L_prime(self):
+        '''
+        Turn left face counter-clockwise
+        '''
+    
+    def R(self):
+        '''
+        Turn right face clockwise
+        '''
+        pass
+    
+    def R_prime(self):
+        '''
+        Turn right face counter-clockwise
+        '''
+
+    def F(self):
+        '''
+        Turn front face clockwise
+        '''
+        pass
+    
+    def F_prime(self):
+        '''
+        Turn front face counter-clockwise
+        '''
+    
     def make_daisy(self):
         pass
     
