@@ -279,6 +279,67 @@ class RubiksCube:
         Turn left face clockwise
         '''
 
+        # CORNERS #
+
+        # Temp variables so as not to overwrite as we go
+        corner_a = self.top_layer['back_left'].sides['back']
+        corner_b = self.top_layer['back_left'].sides['top']
+        corner_c = self.top_layer['back_left'].sides['left']
+
+        # Top back left <- Top front left
+            # back <- top, top <- front, left <- left
+        self.top_layer['back_left'].sides['back'] = self.top_layer['front_left'].sides['top']
+        self.top_layer['back_left'].sides['top'] = self.top_layer['front_left'].sides['front']
+        self.top_layer['back_left'].sides['left'] = self.top_layer['front_left'].sides['left']
+
+        # Top front left <- Bot front left
+            # top <- front, front <- bottom, left <- left
+        self.top_layer['front_left'].sides['top'] = self.bot_layer['front_left'].sides['front']
+        self.top_layer['front_left'].sides['front'] = self.bot_layer['front_left'].sides['bottom']
+        self.top_layer['front_left'].sides['left'] = self.bot_layer['front_left'].sides['left']
+        
+        # Bot front left <- Bot back left
+            # front <- bottom, bottom <- back, left <- left
+        self.bot_layer['front_left'].sides['front'] = self.bot_layer['back_left'].sides['bottom']
+        self.bot_layer['front_left'].sides['bottom'] = self.bot_layer['back_left'].sides['back']
+        self.bot_layer['front_left'].sides['left'] = self.bot_layer['back_left'].sides['left']
+        
+        # Bot back left <- Top back left
+            # bottom <- back, back <- top, left <- left
+        self.bot_layer['back_left'].sides['bottom'] = corner_a
+        self.bot_layer['back_left'].sides['back'] = corner_b
+        self.bot_layer['back_left'].sides['left'] = corner_c
+        
+        # EDGES #
+        # Temp variables so as not to overwrite as we go
+        edge_a = self.mid_layer['back_left'].sides['back']
+        edge_b = self.mid_layer['back_left'].sides['left']
+
+        # Mid back left <- Top left middle 
+            # back <- top, left <- left
+        self.mid_layer['back_left'].sides['back'] = self.top_layer['left_middle'].sides['top']
+        self.mid_layer['back_left'].sides['left'] = self.top_layer['left_middle'].sides['left']
+        
+        # Top left middle <- Mid front left
+            # top <- front, left <- left
+        self.top_layer['left_middle'].sides['top'] = self.mid_layer['front_left'].sides['front']
+        self.top_layer['left_middle'].sides['left'] = self.mid_layer['front_left'].sides['left']
+
+        # Mid front left <- Bot left middle
+            # front <- bottom, left <- left
+        self.mid_layer['front_left'].sides['front'] = self.bot_layer['left_middle'].sides['bottom']
+        self.mid_layer['front_left'].sides['left'] = self.bot_layer['left_middle'].sides['left']
+
+        # Bot left middle <- Mid back left
+            # bottom <- back, left <- left
+        self.bot_layer['left_middle'].sides['bottom'] = edge_a
+        self.bot_layer['left_middle'].sides['left'] = edge_b
+
+    def _L_prime(self):
+        '''
+        Turn left face counter-clockwise
+        '''
+
         # CORNERS # 
 
         # Temp variables so we dont overwrite as we go
@@ -336,55 +397,6 @@ class RubiksCube:
         self.mid_layer['back_left'].sides['back'] = edge_a
         self.mid_layer['back_left'].sides['left'] = edge_b
     
-    def _L_prime(self):
-        '''
-        Turn left face counter-clockwise
-        '''
-
-        # CORNERS #
-
-        # Temp variables so as not to overwrite as we go
-        corner_a = self.top_layer['back_left'].sides['back']
-        corner_b = self.top_layer['back_left'].sides['top']
-        corner_c = self.top_layer['back_left'].sides['left']
-
-        # Top back left <- Top front left
-            # back <- top, top <- front, left <- left
-        self.top_layer['back_left'].sides['back'] = self.top_layer['front_left'].sides['top']
-        self.top_layer['back_left'].sides['top'] = self.top_layer['front_left'].sides['front']
-        self.top_layer['back_left'].sides['left'] = self.top_layer['front_left'].sides['left']
-
-        # Top front left <- Bot front left
-            # top <- front, front <- bottom, left <- left
-        self.top_layer['front_left'].sides['top'] = self.bot_layer['front_left'].sides['front']
-        self.top_layer['front_left'].sides['front'] = self.bot_layer['front_left'].sides['bottom']
-        self.top_layer['front_left'].sides['left'] = self.bot_layer['front_left'].sides['left']
-        
-        # Bot front left <- Bot back left
-            # front <- bottom, bottom <- back, left <- left
-        self.bot_layer['front_left'].sides['front'] = self.bot_layer['back_left'].sides['bottom']
-        self.bot_layer['front_left'].sides['bottom'] = self.bot_layer['back_left'].sides['back']
-        self.bot_layer['front_left'].sides['left'] = self.bot_layer['back_left'].sides['left']
-        
-        # Bot back left <- Top back left
-            # bottom <- back, back <- top, left <- left
-        self.bot_layer['back_left'].sides['bottom'] = corner_a
-        self.bot_layer['back_left'].sides['back'] = corner_b
-        self.bot_layer['back_left'].sides['left'] = corner_c
-        
-        # EDGES #
-        # Temp variables so as not to overwrite as we go
-
-        # Mid back left <- Top left middle 
-            # back <- top, left <- left
-        
-        # Bot left middle <- Mid back left
-            # bottom <- back, left <- left
-        # Mid front left <- Bot left middle
-            # front <- bottom, left <- left
-        # Top left middle <- Mid front left
-            # top <- front, left <- left
-        pass
     
     def _R(self):
         '''
