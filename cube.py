@@ -467,6 +467,24 @@ class RubiksCube:
         Turn right face counter-clockwise
         '''
 
+        # CORNERS #
+
+        # temp variables to protect against overwriting
+
+        # Top back right <- Bot back right
+            # top <- back, back <- bottom, right <- right
+
+        # Bot back right <- Bot front right
+            # back <- bottom, bottom <- front, right <- right
+        
+        # Bot front right <- Top front right
+            # bottom <- front, front <- top, right <- right
+
+        # Top front right <- Top back right
+            # front <- top, top <- back, right <- right
+        
+        # EDGES
+
     def _F(self):
         '''
         Turn front face clockwise
