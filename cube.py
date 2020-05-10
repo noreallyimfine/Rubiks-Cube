@@ -590,6 +590,39 @@ class RubiksCube:
         '''
         Turn front face counter-clockwise
         '''
+
+        # CORNERS #
+
+        # Temp variables to protect against overwriting as we go
+        corner_a = self.top_layer['front_left'].sides['']
+
+        # Top front left <- Top front right
+            # left <- top, top <- right, front <- front 
+        
+        # Top front right <- Bot front right
+            # top <- right, right <- bottom, front <- front
+
+        # Bot front right <- Bot front left
+            # right <- bottom, bottom <- left, front <- front
+
+        # Bot front left <- Top front left (temp)
+            # bottom <- left, left <- top, front <- front
+
+        # EDGES #
+
+        # Temp variables to protect against overwriting as we go
+
+        # Top front middle <- Mid front right
+            # top <- right, front <- front
+
+        # Mid front right <- Bot front middle
+            # right <- bottom, front <- front
+
+        # Bot front middle <- Mid front left
+            # bottom <- left, front <- front
+
+        # Mid front left <- Top front middle (temp)
+            # left <- top, front <- front
     
     def _B(self):
         '''
