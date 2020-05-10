@@ -528,7 +528,38 @@ class RubiksCube:
         '''
         Turn front face clockwise
         '''
-        pass
+
+        # CORNERS #
+
+        # Temp variables to protect against overwriting as we go
+
+        # Top front right <- Top front left
+            # right <- top, top <- left, front <- front
+        
+        # Top front left <- Bot front left
+            # top <- left, left <- bottom, front <- front
+
+        # Bot front left <- Bot front right
+            # left <- bottom, bottom <- right, front <- front
+
+        # Bot front right <- Top front right (temp)
+            # bottom <- right, right <- top, front <- front
+        
+        # EDGES #
+
+        # Temp variables to protect against overwriting as we go
+        
+        # Top front middle <- Mid front left
+            # top <- left, front <- front
+
+        # Mid front left <- Bot front middle
+            # left <- bottom, front <- front
+
+        # Bot front middle <- Mid front right
+            # bottom <- right, front <- front
+
+        # Mid front right <- Top front middle
+            # right <- top, front <- front
     
     def _F_prime(self):
         '''
