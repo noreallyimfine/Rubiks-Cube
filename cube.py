@@ -521,8 +521,8 @@ class RubiksCube:
 
         # Mid front right <- Top right middle
             # front <- top, right <- right
-        self.mid_layer['front_right'].sides['front'] = self.top_layer['right_middle'].sides['top']
-        self.mid_layer['front_right'].sides['right'] = self.top_layer['right_middle'].sides['right']
+        self.mid_layer['front_right'].sides['front'] = edge_a
+        self.mid_layer['front_right'].sides['right'] = edge_b
 
     def _F(self):
         '''
@@ -532,15 +532,27 @@ class RubiksCube:
         # CORNERS #
 
         # Temp variables to protect against overwriting as we go
+        corner_a = self.top_layer['front_right'].sides['right']
+        corner_b = self.top_layer['front_right'].sides['top']
+        corner_c = self.top_layer['front_right'].sides['front']
 
         # Top front right <- Top front left
             # right <- top, top <- left, front <- front
+        self.top_layer['front_right'].sides['right'] = self.top_layer['front_left'].sides['top']
+        self.top_layer['front_right'].sides['top'] = self.top_layer['front_left'].sides['left']
+        self.top_layer['front_right'].sides['front'] = self.top_layer['front_left'].sides['front']
         
         # Top front left <- Bot front left
             # top <- left, left <- bottom, front <- front
+        self.top_layer['front_left'].sides['top'] = self.bot_layer['front_left'].sides['left']
+        self.top_layer['front_left'].sides['left'] = self.bot_layer['front_left'].sides['bottom']
+        self.top_layer['front_left'].sides['front'] = self.bot_layer['front_left'].sides['front']
 
         # Bot front left <- Bot front right
             # left <- bottom, bottom <- right, front <- front
+        self.bot_layer['front_left'].sides['left'] = self.bot_layer['front_right'].sides['bottom']
+        self.bot_layer['front_left'].sides['bottom'] = self.bot_layer['front_right'].sides['right']
+        self.bot_layer['front_left'].sides['front'] = self.bot_layer['front_right'].sides['front']
 
         # Bot front right <- Top front right (temp)
             # bottom <- right, right <- top, front <- front
