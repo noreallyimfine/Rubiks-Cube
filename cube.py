@@ -578,9 +578,13 @@ class RubiksCube:
 
         # Bot front middle <- Mid front right
             # bottom <- right, front <- front
+        self.bot_layer['front_middle'].sides['bottom'] = self.mid_layer['front_right'].sides['right']
+        self.bot_layer['front_middle'].sides['front'] = self.mid_layer['front_right'].sides['front']
 
         # Mid front right <- Top front middle
             # right <- top, front <- front
+        self.mid_layer['front_right'].sides['right'] = edge_a
+        self.mid_layer['front_right'].sides['front'] = edge_b
     
     def _F_prime(self):
         '''
