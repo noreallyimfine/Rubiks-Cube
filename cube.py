@@ -511,12 +511,18 @@ class RubiksCube:
         
         # Mid back right <- Bot right middle
             # back <- bottom, right <- right
+        self.mid_layer['back_right'].sides['back'] = self.bot_layer['right_middle'].sides['bottom']
+        self.mid_layer['back_right'].sides['right'] = self.bot_layer['right_middle'].sides['right']
         
         # Bot right middle <- Mid front right
             # bottom <- front, right <- right
+        self.bot_layer['right_middle'].sides['bottom'] = self.mid_layer['front_right'].sides['front']
+        self.bot_layer['right_middle'].sides['right'] = self.mid_layer['front_right'].sides['right']
 
         # Mid front right <- Top right middle
             # front <- top, right <- right
+        self.mid_layer['front_right'].sides['front'] = self.top_layer['right_middle'].sides['top']
+        self.mid_layer['front_right'].sides['right'] = self.top_layer['right_middle'].sides['right']
 
     def _F(self):
         '''
