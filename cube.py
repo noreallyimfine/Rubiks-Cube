@@ -626,18 +626,28 @@ class RubiksCube:
         # EDGES #
 
         # Temp variables to protect against overwriting as we go
+        edge_a = self.top_layer['front_middle'].sides['top']
+        edge_b = self.top_layer['front_middle'].sides['front']
 
         # Top front middle <- Mid front right
             # top <- right, front <- front
+        self.top_layer['front_middle'].sides['top'] = self.mid_layer['front_right'].sides['right']
+        self.top_layer['front_middle'].sides['front'] = self.mid_layer['front_right'].sides['front']
 
         # Mid front right <- Bot front middle
             # right <- bottom, front <- front
+        self.mid_layer['front_right'].sides['right'] = self.bot_layer['front_middle'].sides['bottom']
+        self.mid_layer['front_right'].sides['front'] = self.bot_layer['front_middle'].sides['front']
 
         # Bot front middle <- Mid front left
             # bottom <- left, front <- front
+        self.bot_layer['front_middle'].sides['bottom'] = self.mid_layer['front_left'].sides['left']
+        self.bot_layer['front_middle'].sides['front'] = self.mid_layer['front_left'].sides['front']
 
         # Mid front left <- Top front middle (temp)
             # left <- top, front <- front
+        self.mid_layer['front_left'].sides['left'] = edge_a
+        self.mid_layer['front_left'].sides['front'] = edge_b
     
     def _B(self):
         '''
