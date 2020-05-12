@@ -659,12 +659,16 @@ class RubiksCube:
         # Temp variable to protect against overwriting as we go
 
         # Top back right <- Bot back right
+            # top <- right, right <- bottom, back <- back
 
         # Bot back right <- Bot back left
+            # right <- bottom, bottom <- left, back <- back
 
         # Bot back left <- Top back left
+            # bottom <- left, left <- top, back <- back
 
         # Top back left <- Top back right (temp)
+            # left <- top, top <- right, back <- back
 
         # EDGES #
     
