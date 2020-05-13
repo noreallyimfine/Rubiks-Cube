@@ -671,6 +671,16 @@ class RubiksCube:
             # left <- top, top <- right, back <- back
 
         # EDGES #
+        
+        # Temp variable to protect against overwriting as we go
+
+        # Top back middle <- Mid back left
+
+        # Mid back left <- Bot back middle
+
+        # Bot back middle <- Mid back right
+
+        # Mid back right <- Top back middle (temp)
     
     def _B_prime(self):
         '''
