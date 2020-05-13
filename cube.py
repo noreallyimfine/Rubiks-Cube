@@ -740,12 +740,16 @@ class RubiksCube:
         # Temp variable to store first overwritten sides
 
         # top back middle <- mid back left
+            # top <- left, back <- back 
 
         # mid back left <- bot back middle
+            # left <- bottom, back <- back
 
         # bot back middle <- mid back right
+            # bottom <- right, back <- back
 
         # mid back right <- top back middle
+            # right <- top, back <- back
         
     def _U(self):
         '''
