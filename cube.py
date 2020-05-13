@@ -657,9 +657,16 @@ class RubiksCube:
         # CORNERS #
 
         # Temp variable to protect against overwriting as we go
+        corner_a = self.top_layer['back_right'].sides['top']
+        corner_b = self.top_layer['back_right'].sides['right']
+        corner_c = self.top_layer['back_right'].sides['back']
 
         # Top back right <- Bot back right
             # top <- right, right <- bottom, back <- back
+        self.top_layer['back_right'].sides['top'] = self.bot_layer['back_right'].sides['right']
+        self.top_layer['back_right'].sides['right'] = self.bot_layer['back_right'].sides['bottom']
+        self.top_layer['back_right'].sides['back'] = self.bot_layer['back_right'].sides['back']
+
 
         # Bot back right <- Bot back left
             # right <- bottom, bottom <- left, back <- back
