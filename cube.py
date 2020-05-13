@@ -718,6 +718,21 @@ class RubiksCube:
         '''
         Turn back face counter-clockwise
         '''
+
+        # CORNERS #
+
+        # Temp variable to potect against overwriting as we go
+
+        # Top back right <- Top back left
+
+        # Top back left <- Bot back left
+
+        # Bot back left <- Bot Back right
+
+        # Bot back right <- Top back right (temp)
+
+        # EDGES #
+
         
     def _U(self):
         '''
