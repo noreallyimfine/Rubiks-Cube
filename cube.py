@@ -690,19 +690,29 @@ class RubiksCube:
         # EDGES #
         
         # Temp variable to protect against overwriting as we go
+        edge_a = self.top_layer['back_middle'].sides['top']
+        edge_b = self.top_layer['back_middle'].sides['back']
 
         # Top back middle <- Mid back right
             # top <- right, back <- back 
+        self.top_layer['back_middle'].sides['top'] = self.mid_layer['back_right'].sides['right']
+        self.top_layer['back_middle'].sides['back'] = self.mid_layer['back_right'].sides['back']
 
         # Mid back right <- Bot back middle
             # right <- bottom, back <- back
+        self.mid_layer['back_right'].sides['right'] = self.bot_layer['back_middle'].sides['bottom']
+        self.mid_layer['back_right'].sides['back'] = self.bot_layer['back_middle'].sides['back']
 
         # Bot back middle <- Mid back left
             # bottom <- left, back <- back
+        self.bot_layer['back_middle'].sides['bottom'] = self.mid_layer['back_left'].sides['left']
+        self.bot_layer['back_middle'].sides['back'] = self.mid_layer['back_left'].sides['back']
 
 
         # Mid back left <- Top back middle (temp)
             # left <- top, back <- back
+        self.mid_layer['back_left'].sides['left'] = edge_a
+        self.mid_layer['back_left'].sides['back'] = edge_b
     
     def _B_prime(self):
         '''
