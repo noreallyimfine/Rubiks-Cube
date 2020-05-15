@@ -734,9 +734,15 @@ class RubiksCube:
 
         # Top back left <- Bot back left
             # top <- left, left <- bottom, back <- back
+        self.top_layer['back_left'].sides['top'] = self.bot_layer['back_left'].sides['left']
+        self.top_layer['back_left'].sides['left'] = self.bot_layer['back_left'].sides['bottom']
+        self.top_layer['back_left'].sides['back'] = self.bot_layer['back_left'].sides['back']
 
         # Bot back left <- Bot Back right
             # left <- bottom, bottom <- right, back <- back
+        self.bot_layer['back_left'].sides['left'] = self.bot_layer['back_right'].sides['bottom']
+        self.bot_layer['back_left'].sides['bottom'] = self.bot_layer['back_right'].sides['right']
+        self.bot_layer['back_left'].sides['back'] = self.bot_layer['back_right'].sides['back']
 
         # Bot back right <- Top back right (temp)
             # bottom <- right, right <- top, back <- back
