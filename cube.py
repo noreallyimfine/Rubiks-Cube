@@ -783,6 +783,16 @@ class RubiksCube:
         
         # CORNERS #
 
+        # Temp variable to store first overwritten sides
+
+        # Top front right <- Top back right
+
+        # Top back right <- Top back left
+
+        # Top back left <- Top front left
+
+        # Top front left <- Top front right (temp)
+
         # EDGES #
     
     def _U_prime(self):
