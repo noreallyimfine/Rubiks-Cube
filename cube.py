@@ -780,7 +780,10 @@ class RubiksCube:
         '''
         Turn upward face clockwise
         '''
-        pass
+        
+        # CORNERS #
+
+        # EDGES #
     
     def _U_prime(self):
         '''
