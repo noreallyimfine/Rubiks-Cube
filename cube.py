@@ -803,12 +803,16 @@ class RubiksCube:
         # Temp variable to store first overwritten edge
 
         # Top front middle <- Top right middle
+            # front <- right, top <- top
 
         # Top right middle <- Top back middle
+            # right <- back, top <- top
 
         # Top back middle <- Top left middle
+            # back <- left, top <- top
 
         # Top left middle <- Top front middle (temp)
+            # left <- front, top <- top
     
     def _U_prime(self):
         '''
