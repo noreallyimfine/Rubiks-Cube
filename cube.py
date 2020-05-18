@@ -793,8 +793,10 @@ class RubiksCube:
             # right <- back, back <- left, top <- top
 
         # Top back left <- Top front left
+            # back <- left, left <- front, top <- top
 
         # Top front left <- Top front right (temp)
+            # left <- front, front <- right, top <- top
 
         # EDGES #
 
