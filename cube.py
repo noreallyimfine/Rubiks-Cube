@@ -784,10 +784,13 @@ class RubiksCube:
         # CORNERS #
 
         # Temp variable to store first overwritten corner
+        corner_a = self.top_layer['front_right'].sides['']
 
         # Top front right <- Top back right
+            # front <- right, right <- back, top <- top
 
         # Top back right <- Top back left
+            # right <- back, back <- left, top <- top
 
         # Top back left <- Top front left
 
