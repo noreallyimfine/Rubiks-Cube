@@ -808,6 +808,9 @@ class RubiksCube:
 
         # Top front left <- Top front right (temp)
             # left <- front, front <- right, top <- top
+        self.top_layer['front_left'].sides['left'] = corner_a
+        self.top_layer['front_left'].sides['front'] = corner_b
+        self.top_layer['front_left'].sides['top'] = corner_c
 
         # EDGES #
 
