@@ -858,6 +858,16 @@ class RubiksCube:
 
         # EDGES #
 
+        # temp variable to protect against overwrite
+
+        # Top front middle <- Top left middle
+        
+        # Top left middle <- Top back middle
+
+        # Top back middle <- Top right middle 
+
+        # Top right middle <- Top front middle (temp)
+
     def _D(self):
         '''
         Turn downward face clockwise
