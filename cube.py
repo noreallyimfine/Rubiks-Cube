@@ -846,6 +846,16 @@ class RubiksCube:
 
         # CORNERS #
 
+        # temp variable to protect against overwrite
+
+        # Top front right <- Top front left
+
+        # Top front left <- Top back left
+
+        # Top back left <- Top back right
+
+        # Top back right <- Top front right (temp)
+
         # EDGES #
 
     def _D(self):
