@@ -835,6 +835,9 @@ class RubiksCube:
 
         # Top left middle <- Top front middle (temp)
             # left <- front, top <- top
+        self.top_layer['left_middle'].sides['left'] = edge_a
+        self.top_layer['left_middle'].sides['top'] = edge_b
+        
     
     def _U_prime(self):
         '''
