@@ -844,6 +844,10 @@ class RubiksCube:
         Turn upward face counter-clockwise
         '''
 
+        # CORNERS #
+
+        # EDGES #
+
     def _D(self):
         '''
         Turn downward face clockwise
