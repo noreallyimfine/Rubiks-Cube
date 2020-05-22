@@ -878,9 +878,13 @@ class RubiksCube:
         # EDGES #
 
         # temp variable to protect against overwrite
+        edge_a = self.top_layer['front_middle'].sides['front']
+        edge_b = self.top_layer['front_middle'].sides['top']
 
         # Top front middle <- Top left middle
             # front <- left, top <- top
+        self.top_layer['front_middle'].sides['front'] = self.top_layer['left_middle'].sides['left']
+        self.top_layer['front_middle'].sides['top'] = self.top_layer['left_middle'].sides['top']
         
         # Top left middle <- Top back middle
             # left <- back, top <- top
