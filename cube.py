@@ -907,6 +907,16 @@ class RubiksCube:
         '''
         # CORNERS #
 
+        # temp variables to protect against overwrite
+
+        # bot front right <- bot front left
+
+        # bot front left <- bot back left
+
+        # bot back left <- bot back right
+
+        # bot back right <- bot front right (temp)
+
         # EDGES #
     
     def _D_prime(self):
