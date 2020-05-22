@@ -847,19 +847,33 @@ class RubiksCube:
         # CORNERS #
 
         # temp variable to protect against overwrite
-        corner_a = self.
+        corner_a = self.top_layer['front_right'].sides['right']
+        corner_b = self.top_layer['front_right'].sides['front']
+        corner_c = self.top_layer['front_right'].sides['top']
 
         # Top front right <- Top front left
             # right <- front, front <- left, top <- top
+        self.top_layer['front_right'].sides['right'] = self.top_layer['front_left'].sides['front']
+        self.top_layer['front_right'].sides['front'] = self.top_layer['front_left'].sides['left']
+        self.top_layer['front_right'].sides['top'] = self.top_layer['front_left'].sides['top']
 
         # Top front left <- Top back left
             # front <- left, left <- back, top <- top
+        self.top_layer['front_left'].sides['front'] = self.top_layer['back_left'].sides['left']
+        self.top_layer['front_left'].sides['left'] = self.top_layer['back_left'].sides['back']
+        self.top_layer['front_left'].sides['top'] = self.top_layer['back_left'].sides['top']
 
         # Top back left <- Top back right
             # left <- back, back <- right, top <- top
+        self.top_layer['back_left'].sides['left'] = self.top_layer['back_right'].sides['back']
+        self.top_layer['back_left'].sides['back'] = self.top_layer['back_right'].sides['right']
+        self.top_layer['back_left'].sides['top'] = self.top_layer['back_right'].sides['top']
 
         # Top back right <- Top front right (temp)
             # back <- right, right <- front, top <- top
+        self.top_layer['back_right'].sides['back'] = corner_a
+        self.top_layer['back_right'].sides['right'] = corner_b
+        self.top_layer['back_right'].sides['top'] = corner_c
 
         # EDGES #
 
