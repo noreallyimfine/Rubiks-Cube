@@ -898,6 +898,8 @@ class RubiksCube:
 
         # Top right middle <- Top front middle (temp)
             # right <- front, top <- top
+        self.top_layer['right_middle'].sides['right'] = edge_a
+        self.top_layer['right_middle'].sides['top'] = edge_b
 
     def _D(self):
         '''
