@@ -910,6 +910,7 @@ class RubiksCube:
         # temp variables to protect against overwrite
 
         # bot front right <- bot front left
+            # right <- front, front <- left, bot <- bot
 
         # bot front left <- bot back left
 
