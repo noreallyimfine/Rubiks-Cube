@@ -866,12 +866,16 @@ class RubiksCube:
         # temp variable to protect against overwrite
 
         # Top front middle <- Top left middle
+            # front <- left, top <- top
         
         # Top left middle <- Top back middle
+            # left <- back, top <- top
 
         # Top back middle <- Top right middle 
+            # back <- right, top <- top
 
         # Top right middle <- Top front middle (temp)
+            # right <- front, top <- top
 
     def _D(self):
         '''
