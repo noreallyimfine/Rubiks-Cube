@@ -847,14 +847,19 @@ class RubiksCube:
         # CORNERS #
 
         # temp variable to protect against overwrite
+        corner_a = self.
 
         # Top front right <- Top front left
+            # right <- front, front <- left, top <- top
 
         # Top front left <- Top back left
+            # front <- left, left <- back, top <- top
 
         # Top back left <- Top back right
+            # left <- back, back <- right, top <- top
 
         # Top back right <- Top front right (temp)
+            # back <- right, right <- front, top <- top
 
         # EDGES #
 
