@@ -905,7 +905,9 @@ class RubiksCube:
         '''
         Turn downward face clockwise
         '''
-        pass
+        # CORNERS #
+
+        # EDGES #
     
     def _D_prime(self):
         '''
