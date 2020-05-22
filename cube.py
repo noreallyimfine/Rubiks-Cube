@@ -913,10 +913,13 @@ class RubiksCube:
             # right <- front, front <- left, bot <- bot
 
         # bot front left <- bot back left
+            # front <- left, left <- back, bot <- bot
 
         # bot back left <- bot back right
+            # left <- back, back <- right, bot <- bot
 
         # bot back right <- bot front right (temp)
+            # back <- right, right <- front, bot <- bot
 
         # EDGES #
 
