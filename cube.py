@@ -939,6 +939,16 @@ class RubiksCube:
         '''
         # CORNERS #
 
+        # temp variable to protect against overwrite
+
+        # bot front right <- bot back right
+
+        # bot back right <- bot back left
+
+        # bot back left <- bot front left
+
+        # bot front left <- bot front right (temp)
+
         # EDGES #
 
     def _make_daisy(self):
