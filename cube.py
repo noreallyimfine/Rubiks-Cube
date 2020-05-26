@@ -954,6 +954,8 @@ class RubiksCube:
 
         # bot back middle <- bot right middle
             # back <- right, bot <- bot
+        self.bot_layer['back_middle'].sides['back'] = self.bot_layer['right_middle'].sides['right']
+        self.bot_layer['back_middle'].sides['bottom'] = self.bot_layer['right_middle'].sides['bottom']
 
         # bot right middle <- bot front middle (temp)
             # right <- front, bot <- bot
