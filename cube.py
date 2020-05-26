@@ -908,6 +908,9 @@ class RubiksCube:
         # CORNERS #
 
         # temp variables to protect against overwrite
+        corner_a = self.bot_layer['front_right'].sides['right']
+        corner_b = self.bot_layer['front_right'].sides['front']
+        corner_a = self.bot_layer['front_right'].sides['bottom']
 
         # bot front right <- bot front left
             # right <- front, front <- left, bot <- bot
