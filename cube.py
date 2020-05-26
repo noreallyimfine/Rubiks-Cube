@@ -939,6 +939,8 @@ class RubiksCube:
         # EDGES #
 
         # temp variable to protect against overwrite
+        edge_a = self.bot_layer['front_middle'].sides['front']
+        edge_b = self.bot_layer['front_middle'].sides['bottom']
 
         # bot front middle <- bot left middle
             # front <- left, bot <- bot
