@@ -959,6 +959,8 @@ class RubiksCube:
 
         # bot right middle <- bot front middle (temp)
             # right <- front, bot <- bot
+        self.bot_layer['right_middle'].sides['right'] = edge_a
+        self.bot_layer['right_middle'].sides['bottom'] = edge_b
     
     def _D_prime(self):
         '''
@@ -967,14 +969,19 @@ class RubiksCube:
         # CORNERS #
 
         # temp variable to protect against overwrite
+        corner_a = self.bot_layer['front_right'].sides
 
         # bot front right <- bot back right
+            # front <- right, right <- back, bottom <- bottom
 
         # bot back right <- bot back left
+            # right <- back, back <- left, bottom <- bottom 
 
         # bot back left <- bot front left
+            # back <- left, left <- front, bottom <- bottom
 
         # bot front left <- bot front right (temp)
+            # left <- front, front <- right, bottom <- bottom
 
         # EDGES #
 
