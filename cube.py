@@ -988,6 +988,12 @@ class RubiksCube:
         # temp variable to protect against overwrite
 
         # bot front middle <- bot right middle
+        
+        # bot right middle <- bot back middle
+        
+        # bot back middle <- bot left middle
+
+        # bot left middle <- bot front middle (temp)
 
     def _make_daisy(self):
         '''
