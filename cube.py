@@ -985,6 +985,10 @@ class RubiksCube:
 
         # EDGES #
 
+        # temp variable to protect against overwrite
+
+        # bot front middle <- bot right middle
+
     def _make_daisy(self):
         '''
         Bring 4 bottom color edge pieces to top layer, creating a daisy-like
