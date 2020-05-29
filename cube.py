@@ -1000,14 +1000,19 @@ class RubiksCube:
         # EDGES #
 
         # temp variable to protect against overwrite
+        edge_a = self.bot_layer['']
 
         # bot front middle <- bot right middle
+            # front <- right, bottom <- bottom
         
         # bot right middle <- bot back middle
+            # right <- back, bottom <- bottom
         
         # bot back middle <- bot left middle
+            # back <- left, bottom <- bottom
 
         # bot left middle <- bot front middle (temp)
+            # left <- front, bottom <- bottom
 
     def _make_daisy(self):
         '''
