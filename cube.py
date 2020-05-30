@@ -310,6 +310,7 @@ class RubiksCube:
         self.bot_layer['back_left'].sides['back'] = corner_b
         self.bot_layer['back_left'].sides['left'] = corner_c
         
+# << Tested until here >>
         # EDGES #
         # Temp variables so as not to overwrite as we go
         edge_a = self.mid_layer['back_left'].sides['back']
