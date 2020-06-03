@@ -310,7 +310,6 @@ class RubiksCube:
         self.bot_layer['back_left'].sides['back'] = corner_b
         self.bot_layer['back_left'].sides['left'] = corner_c
         
-# << Tested until here >>
         # EDGES #
         # Temp variables so as not to overwrite as we go
         edge_a = self.mid_layer['back_left'].sides['back']
@@ -331,11 +330,12 @@ class RubiksCube:
         self.mid_layer['front_left'].sides['front'] = self.bot_layer['left_middle'].sides['bottom']
         self.mid_layer['front_left'].sides['left'] = self.bot_layer['left_middle'].sides['left']
 
-        # Bot left middle <- Mid back left
+        # Bot left middle <- Mid back left (temp)
             # bottom <- back, left <- left
         self.bot_layer['left_middle'].sides['bottom'] = edge_a
         self.bot_layer['left_middle'].sides['left'] = edge_b
 
+# << Tested until here >>
     def _L_prime(self):
         '''
         Turn left face counter-clockwise
