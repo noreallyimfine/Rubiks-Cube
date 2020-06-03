@@ -409,7 +409,7 @@ class RubiksCube:
         # Temp variables to protect against overwriting
         corner_a = self.top_layer['back_right'].sides['top']
         corner_b = self.top_layer['back_right'].sides['back']
-        corner_a = self.top_layer['back_right'].sides['right']
+        corner_c = self.top_layer['back_right'].sides['right']
 
         # Top back right <- Top front right
             # top <- front, back <- top, right <- right
@@ -597,7 +597,7 @@ class RubiksCube:
         # Temp variables to protect against overwriting as we go
         corner_a = self.top_layer['front_left'].sides['left']
         corner_b = self.top_layer['front_left'].sides['top']
-        eorner_c = self.top_layer['front_left'].sides['front']
+        corner_c = self.top_layer['front_left'].sides['front']
 
         # Top front left <- Top front right
             # left <- top, top <- right, front <- front 
@@ -787,7 +787,7 @@ class RubiksCube:
         # Temp variable to store first overwritten corner
         corner_a = self.top_layer['front_right'].sides['front']
         corner_b = self.top_layer['front_right'].sides['right']
-        corner_a = self.top_layer['front_right'].sides['top']
+        corner_c = self.top_layer['front_right'].sides['top']
 
         # Top front right <- Top back right
             # front <- right, right <- back, top <- top
