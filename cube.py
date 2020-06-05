@@ -365,7 +365,6 @@ class RubiksCube:
         self.bot_layer['front_left'].sides['bottom'] = self.top_layer['front_left'].sides['front']
         self.bot_layer['front_left'].sides['left'] = self.top_layer['front_left'].sides['left']
 
-# << Tested until here >>
         # top front left <- Top back left 
             # top <- back, front <- top, left <- left
         self.top_layer['front_left'].sides['front'] = corner_a 
@@ -374,6 +373,7 @@ class RubiksCube:
 
         # EDGES #
 
+# << Tested until here >>
         # Temp variables so one edge doesn't get overwritten as we go
         edge_a = self.bot_layer['left_middle'].sides['bottom']
         edge_b = self.bot_layer['left_middle'].sides['left']
