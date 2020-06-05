@@ -15,7 +15,7 @@ class Center(Piece):
         super().__init__(sides, num_sides)
 
     def __repr__(self):
-        return f"Center({self.sides}, {self.num_sides})"
+        return f"Center({self.sides})"
 
     def __str__(self):
         return f"Center Piece - ({self.num_sides}): {self.sides}"
@@ -26,7 +26,7 @@ class Edge(Piece):
         super().__init__(sides, num_sides)
 
     def __repr__(self):
-        return f"Edge({self.sides}, {self.num_sides})"
+        return f"Edge({self.sides})"
 
     def __str__(self):
         return f"Edge Piece - ({self.num_sides}): {self.sides}"
@@ -37,7 +37,7 @@ class Corner(Piece):
         super().__init__(sides, num_sides)
 
     def __repr__(self):
-        return f"Corner({self.sides}, {self.num_sides})"
+        return f"Corner({self.sides})"
 
     def __str__(self):
         return f"Corner Piece - ({self.num_sides}): {self.sides}"
