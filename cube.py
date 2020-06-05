@@ -67,6 +67,9 @@ class RubiksCube:
                         self.top_layer['back_right']]
         
         self.opposing_colors = []
+
+        # Automatically initialize cube upon instantiation
+        self.initialize_cube()
     
     def __repr__(self):
         return f"""RubiksCube({self.top_layer}, {self.mid_layer}, {self.bot_layer})"""
