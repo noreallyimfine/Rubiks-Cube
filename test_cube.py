@@ -14,3 +14,7 @@ class CubeTurnTests(unittest.TestCase):
         bot_back_left = self.cube.top_layer['back_left']
 
         # Edges
+        mid_back_left = self.cube.mid_layer['back_left']
+        top_left_middle = self.cube.top_layer['left_middle']
+        mid_front_left = self.cube.mid_layer['front_left']
+        bot_left_middle = self.cube.bot_layer['left_middle']
