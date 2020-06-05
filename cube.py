@@ -359,13 +359,13 @@ class RubiksCube:
         self.bot_layer['back_left'].sides['back'] = self.bot_layer['front_left'].sides['bottom']
         self.bot_layer['back_left'].sides['left'] = self.bot_layer['front_left'].sides['left']
 
-# << Tested until here >>
         # bottom front left <- Top front left 
             # front <- top, bottom <- front, left <- left
         self.bot_layer['front_left'].sides['front'] = self.top_layer['front_left'].sides['top']
         self.bot_layer['front_left'].sides['bottom'] = self.top_layer['front_left'].sides['front']
         self.bot_layer['front_left'].sides['left'] = self.top_layer['front_left'].sides['left']
 
+# << Tested until here >>
         # top front left <- Top back left 
             # top <- back, front <- top, left <- left
         self.top_layer['front_left'].sides['front'] = corner_a 
