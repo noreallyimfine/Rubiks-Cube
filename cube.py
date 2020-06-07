@@ -123,23 +123,23 @@ class RubiksCube:
             colors.remove(color)
 
         self.opposing_colors.append(
-            (self.bot_layer['bottom_center'].sides['bottom'], self.top_layer['top_center'].sides['top'])
-            )
+            {self.bot_layer['bottom_center'].sides['bottom'], self.top_layer['top_center'].sides['top'])
+            }
         self.opposing_colors.append(
-            (self.top_layer['top_center'].sides['top'], self.bot_layer['bottom_center'].sides['bottom'])
-            )
+            {self.top_layer['top_center'].sides['top'], self.bot_layer['bottom_center'].sides['bottom'])
+            }
         self.opposing_colors.append(
-            (self.mid_layer['right_center'].sides['right'], self.mid_layer['left_center'].sides['left'])
-            )
+            {self.mid_layer['right_center'].sides['right'], self.mid_layer['left_center'].sides['left'])
+            }
         self.opposing_colors.append(
-            (self.mid_layer['left_center'].sides['left'], self.mid_layer['right_center'].sides['right'])
-            )
+            {self.mid_layer['left_center'].sides['left'], self.mid_layer['right_center'].sides['right'])
+            {
         self.opposing_colors.append(
-            (self.mid_layer['front_center'].sides['front'], self.mid_layer['back_center'].sides['back'])
-            )
+            {self.mid_layer['front_center'].sides['front'], self.mid_layer['back_center'].sides['back'])
+            }
         self.opposing_colors.append(
-            (self.mid_layer['back_center'].sides['back'], self.mid_layer['front_center'].sides['front'])
-            )
+            {self.mid_layer['back_center'].sides['back'], self.mid_layer['front_center'].sides['front'])
+            }
 
     def _initialize_edges(self):
         '''
