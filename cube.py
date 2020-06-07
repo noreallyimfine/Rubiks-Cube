@@ -236,10 +236,10 @@ class RubiksCube:
             # a two-color combo that's been picked twice already
             third_choice = random.choice(colors)
             while ((third_choice == first_choice) or (third_choice == second_choice)
-            or ((first_choice, third_choice) in self.opposing_colors)
-            or ((second_choice, third_choice) in self.opposing_colors)
+            or ({first_choice, third_choice} in self.opposing_colors)
+            or ({second_choice, third_choice} in self.opposing_colors)
             or (color_pairs_count[(first_choice, third_choice)] +
-            color_pairs_count[(third_choice, first_choice)] == 2)
+            color_pairs_count[{third_choice, first_choice}] == 2)
             or ({first_choice, second_choice, third_choice}) in complete_corners):
                 print("Third choice in loop - ", third_choice)
                 print("Color count", colors_count)
@@ -248,6 +248,8 @@ class RubiksCube:
                 
             # assign it
             corner.sides[side3] = third_choice
+
+
 
             # increment each colors count
             colors_count[first_choice] += 1
