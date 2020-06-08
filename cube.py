@@ -69,7 +69,7 @@ class RubiksCube:
         self.opposing_colors = []
 
         # Automatically initialize cube upon instantiation
-        # self.initialize_cube()
+        self.initialize_cube()
     
     def __repr__(self):
         return f"""RubiksCube({self.top_layer}, {self.mid_layer}, {self.bot_layer})"""
@@ -248,8 +248,8 @@ class RubiksCube:
             # add corner to completed corners
             complete_corners.append({first_choice, second_choice, third_choice})
           
-        print("Third choice in loop - ", third_choice)
-        print("Color count", colors_count)
+            print("Third choice in loop - ", third_choice)
+            print("Color count", colors_count)
             print("color_pairs_count", color_pairs_count)
 
 
