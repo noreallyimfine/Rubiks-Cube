@@ -202,8 +202,7 @@ class RubiksCube:
         color_pairs = []
         for color1 in colors:
             for color2 in colors:
-                if color1 != color2 and {color1, color2} not in self.opposing_colors
-                and {color1, color2} not in color_pairs]:
+                if color1 != color2 and {color1, color2} not in self.opposing_colors:
                     color_pairs.append((color1, color2))
         color_pairs_count = {color_pair: 0 for color_pair in color_pairs}
         
@@ -241,17 +240,17 @@ class RubiksCube:
             or (color_pairs_count[(first_choice, third_choice)] +
             color_pairs_count[(third_choice, first_choice)] == 2)
             or ({first_choice, second_choice, third_choice}) in complete_corners):
-                print("Third choice in loop - ", third_choice)
-                print("Color count", colors_count)
-                print("color_pairs_count", color_pairs_count)
                 third_choice = random.choice(colors)
                 
             # assign it
             corner.sides[side3] = third_choice
 
             # add corner to completed corners
-            complete_corners.append({side1, side2, side3})
+            complete_corners.append({first_choice, second_choice, third_choice})
           
+        print("Third choice in loop - ", third_choice)
+        print("Color count", colors_count)
+            print("color_pairs_count", color_pairs_count)
 
 
             # increment each colors count
