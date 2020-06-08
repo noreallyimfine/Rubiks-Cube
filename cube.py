@@ -249,6 +249,11 @@ class RubiksCube:
             # assign it
             corner.sides[side3] = third_choice
 
+            # append the 3 corner set to complete corners
+            complete_corners.append({side1, side2, side3})
+
+            print("Complete corners:", complete_corners)
+
             # increment each colors count
             colors_count[first_choice] += 1
             colors_count[second_choice] += 1
