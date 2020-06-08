@@ -123,23 +123,23 @@ class RubiksCube:
             colors.remove(color)
 
         self.opposing_colors.append(
-            (self.bot_layer['bottom_center'].sides['bottom'], self.top_layer['top_center'].sides['top'])
-            )
+            {self.bot_layer['bottom_center'].sides['bottom'], self.top_layer['top_center'].sides['top'])
+            }
         self.opposing_colors.append(
-            (self.top_layer['top_center'].sides['top'], self.bot_layer['bottom_center'].sides['bottom'])
-            )
+            {self.top_layer['top_center'].sides['top'], self.bot_layer['bottom_center'].sides['bottom'])
+            }
         self.opposing_colors.append(
-            (self.mid_layer['right_center'].sides['right'], self.mid_layer['left_center'].sides['left'])
-            )
+            {self.mid_layer['right_center'].sides['right'], self.mid_layer['left_center'].sides['left'])
+            }
         self.opposing_colors.append(
-            (self.mid_layer['left_center'].sides['left'], self.mid_layer['right_center'].sides['right'])
-            )
+            {self.mid_layer['left_center'].sides['left'], self.mid_layer['right_center'].sides['right'])
+            {
         self.opposing_colors.append(
-            (self.mid_layer['front_center'].sides['front'], self.mid_layer['back_center'].sides['back'])
-            )
+            {self.mid_layer['front_center'].sides['front'], self.mid_layer['back_center'].sides['back'])
+            }
         self.opposing_colors.append(
-            (self.mid_layer['back_center'].sides['back'], self.mid_layer['front_center'].sides['front'])
-            )
+            {self.mid_layer['back_center'].sides['back'], self.mid_layer['front_center'].sides['front'])
+            }
 
     def _initialize_edges(self):
         '''
@@ -202,8 +202,9 @@ class RubiksCube:
         color_pairs = []
         for color1 in colors:
             for color2 in colors:
-                if color1 != color2 and (color1, color2) not in self.opposing_colors:
-                    color_pairs.append((color1, color2))
+                if color1 != color2 and {color1, color2} not in self.opposing_colors
+                and {color1, color2} not in color_pairs]:
+                    color_pairs.append({color1, color2})
         color_pairs_count = {color_pair: 0 for color_pair in color_pairs}
         
         complete_corners = []
@@ -222,9 +223,8 @@ class RubiksCube:
             # if its the same as first or opposite side
             # keep choosing til its not
             while ((second_choice == first_choice)
-            or ((first_choice, second_choice) in self.opposing_colors)
-            or (color_pairs_count[(first_choice, second_choice)]
-            + color_pairs_count[(second_choice, first_choice)] == 2)):
+            or ({first_choice, second_choice) in self.opposing_colors)
+            or (color_pairs_count[{first_choice, second_choice}] == 2)):
                 second_choice = random.choice(colors)
             # assign to second side
             corner.sides[side2] = second_choice
@@ -236,10 +236,10 @@ class RubiksCube:
             # a two-color combo that's been picked twice already
             third_choice = random.choice(colors)
             while ((third_choice == first_choice) or (third_choice == second_choice)
-            or ((first_choice, third_choice) in self.opposing_colors)
-            or ((second_choice, third_choice) in self.opposing_colors)
+            or ({first_choice, third_choice} in self.opposing_colors)
+            or ({second_choice, third_choice} in self.opposing_colors)
             or (color_pairs_count[(first_choice, third_choice)] +
-            color_pairs_count[(third_choice, first_choice)] == 2)
+            color_pairs_count[{third_choice, first_choice}] == 2)
             or ({first_choice, second_choice, third_choice}) in complete_corners):
                 print("Third choice in loop - ", third_choice)
                 print("Color count", colors_count)
@@ -249,10 +249,11 @@ class RubiksCube:
             # assign it
             corner.sides[side3] = third_choice
 
-            # append the 3 corner set to complete corners
-            complete_corners.append({side1, side2, side3})
+<<<<<<< HEAD
+          
+=======
 
-            print("Complete corners:", complete_corners)
+>>>>>>> b2bfa42d735f6bdf057a4a7104f819dcce004dca
 
             # increment each colors count
             colors_count[first_choice] += 1
