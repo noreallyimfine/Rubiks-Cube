@@ -202,7 +202,7 @@ class RubiksCube:
         color_pairs = []
         for color1 in colors:
             for color2 in colors:
-                if color1 != color2 and {color1, color2} not in self.opposing_colors:
+                if color1 != color2 and (color1, color2) not in self.opposing_colors:
                     color_pairs.append((color1, color2))
         color_pairs_count = {color_pair: 0 for color_pair in color_pairs}
         
