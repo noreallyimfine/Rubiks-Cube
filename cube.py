@@ -251,11 +251,6 @@ class RubiksCube:
             # add corner to completed corners
             complete_corners.append({first_choice, second_choice, third_choice})
           
-            print("Third choice in loop - ", third_choice)
-            print("Color count", colors_count)
-            print("color_pairs_count", color_pairs_count)
-
-
             # increment each colors count
             colors_count[first_choice] += 1
             colors_count[second_choice] += 1
