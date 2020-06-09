@@ -223,7 +223,8 @@ class RubiksCube:
             # keep choosing til its not
             while ((second_choice == first_choice)
             or ((first_choice, second_choice) in self.opposing_colors)
-            or (color_pairs_count[(first_choice, second_choice)] == 2)):
+            or (color_pairs_count[(first_choice, second_choice)] + 
+                color_pairs_count[(second_choice)] == 2)):
                 second_choice = random.choice(colors)
             # assign to second side
             corner.sides[side2] = second_choice
@@ -239,6 +240,8 @@ class RubiksCube:
             or ((second_choice, third_choice) in self.opposing_colors)
             or (color_pairs_count[(first_choice, third_choice)] +
             color_pairs_count[(third_choice, first_choice)] == 2)
+            or (color_pairs_count[(second_choice, third_choice)] +
+            color_pairs_count[(third_choice, second_choice)] == 2)
             or ({first_choice, second_choice, third_choice}) in complete_corners):
                 third_choice = random.choice(colors)
                 
