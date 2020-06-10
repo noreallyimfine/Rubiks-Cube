@@ -95,6 +95,26 @@ class CubeTurnTests(unittest.TestCase):
         self.assertEqual(self.cube.mid_layer['back_left'].sides['left'], bot_left_middle['left'])
         self.assertEqual(self.cube.mid_layer['back_left'].sides['back'], bot_left_middle['bottom'])
 
+    def test_R(self):
+
+        # Corners
+        top_back_right = self.cube.top_layer['back_right'].sides.copy()
+        top_front_right = self.cube.top_layer['front_right'].sides.copy()
+        bot_front_right = self.cube.bot_layer['front_right'].sides.copy()
+        bot_back_right = self.cube.bot_layer['back_right'].sides.copy()
+
+        # Edges
+        mid_back_right = self.cube.mid_layer['back_right'].sides.copy()
+        top_right_middle = self.cube.top_layer['right_middle'].sides.copy()
+        mid_front_right = self.cube.mid_layer['front_right'].sides.copy()
+        bot_right_middle = self.cube.bot_layer['right_middle'].sides.copy()
+
+
+        self.cube._R()
+
+        self.assertEqual(self.cube.top_layer['back_right'].sides['top'], top_front_right['front'])
+        self.assertEqual(self.cube.top_layer['back_right'].sides['back'], top_front_right['top'])
+        self.assertEqual(self.cube.top_layer['back_right'].sides['right'], top_front_right['right'])
 
 if __name__ == "__main__":
     unittest.main()
