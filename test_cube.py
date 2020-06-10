@@ -140,6 +140,23 @@ class CubeTurnTests(unittest.TestCase):
         self.assertEqual(self.cube.mid_layer['back_right'].sides['back'], top_right_middle['top'])
         self.assertEqual(self.cube.mid_layer['back_right'].sides['right'], top_right_middle['right'])
 
+    def test_R_prime(self):
+
+        # Corners
+        top_back_right = self.cube.top_layer['back_right'].sides.copy()
+        top_front_right = self.cube.top_layer['front_right'].sides.copy()
+        bot_front_right = self.cube.bot_layer['front_right'].sides.copy()
+        bot_back_right = self.cube.bot_layer['back_right'].sides.copy()
+
+        # Edges
+        mid_back_right = self.cube.mid_layer['back_right'].sides.copy()
+        top_right_middle = self.cube.top_layer['right_middle'].sides.copy()
+        mid_front_right = self.cube.mid_layer['front_right'].sides.copy()
+        bot_right_middle = self.cube.bot_layer['right_middle'].sides.copy()
+
+
+        self.cube._R_prime()
+
 
 if __name__ == "__main__":
     unittest.main()
