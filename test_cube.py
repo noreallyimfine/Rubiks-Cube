@@ -192,6 +192,11 @@ class CubeTurnTests(unittest.TestCase):
         bot_front_left = self.cube.bot_layer['front_left'].sides.copy()
         bot_front_right = self.cube.bot_layer['front_right'].sides.copy()
 
+        top_front_middle = self.cube.top_layer['front_middle'].sides.copy()
+        mid_front_left = self.cube.mid_layer['front_left'].sides.copy()
+        bot_front_middle = self.cube.bot_layer['front_middle'].sides.copy()
+        mid_front_right = self.cube.mid_layer['front_right'].sides.copy()
+
         self.cube._F()
 
         self.assertEqual(self.cube.top_layer['front_right'].sides['right'], top_front_left['top'])
@@ -209,6 +214,15 @@ class CubeTurnTests(unittest.TestCase):
         self.assertEqual(self.cube.bot_layer['front_right'].sides['bottom'], top_front_right['right'])
         self.assertEqual(self.cube.bot_layer['front_right'].sides['right'], top_front_right['top'])
         self.assertEqual(self.cube.bot_layer['front_right'].sides['front'], top_front_right['front'])
+
+        self.assertEqual(self.cube.top_layer['front_middle'].sides['top'], mid_front_left['left'])
+        self.assertEqual(self.cube.top_layer['front_middle'].sides['front'], mid_front_left['front'])
+
+        self.assertEqual(self.cube.mid_layer['front_left'].sides['left'], bot_front_middle['bottom'])
+        self.assertEqual(self.cube.mid_layer['front_left'].sides['front'], bot_front_middle['front'])
+
+        # self.assertEqual(self.cube.mid_layer['front_left'].sides['left'], bot_front_middle['bottom'])
+        # self.assertEqual(self.cube.top_layer['front_left'].sides['front'], bot_front_middle['front'])
 
 
 if __name__ == "__main__":
