@@ -358,7 +358,7 @@ class CubeTurnTests(unittest.TestCase):
         top_front_right = self.cube.top_layer['front_right'].sides.copy()
         top_back_right = self.cube.top_layer['back_right'].sides.copy()
         top_back_left = self.cube.top_layer['back_left'].sides.copy()
-        top_back_right = self.cube.top_layer['back_right'].sides.copy()
+        top_front_left = self.cube.top_layer['front_left'].sides.copy()
 
         top_front_middle = self.cube.top_layer['front_middle'].sides.copy()
         top_right_middle = self.cube.top_layer['right_middle'].sides.copy()
@@ -375,6 +375,9 @@ class CubeTurnTests(unittest.TestCase):
         self.assertEqual(self.cube.top_layer['back_right'].sides['back'], top_back_left['left'])
         self.assertEqual(self.cube.top_layer['back_right'].sides['top'], top_back_left['top'])
 
+        self.assertEqual(self.cube.top_layer['back_left'].sides['back'], top_front_left['left'])
+        self.assertEqual(self.cube.top_layer['back_left'].sides['left'], top_front_left['front'])
+        self.assertEqual(self.cube.top_layer['back_left'].sides['top'], top_front_left['top'])
 
 
 if __name__ == "__main__":
