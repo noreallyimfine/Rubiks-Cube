@@ -386,5 +386,8 @@ class CubeTurnTests(unittest.TestCase):
         self.assertEqual(self.cube.top_layer['front_middle'].sides['front'], top_right_middle['right'])
         self.assertEqual(self.cube.top_layer['front_middle'].sides['top'], top_right_middle['top'])
 
+        self.assertEqual(self.cube.top_layer['right_middle'].sides['right'], top_back_middle['back'])
+        self.assertEqual(self.cube.top_layer['right_middle'].sides['top'], top_back_middle['top'])
+
 if __name__ == "__main__":
     unittest.main()
