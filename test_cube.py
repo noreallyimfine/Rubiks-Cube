@@ -395,5 +395,19 @@ class CubeTurnTests(unittest.TestCase):
         self.assertEqual(self.cube.top_layer['left_middle'].sides['left'], top_front_middle['front'])
         self.assertEqual(self.cube.top_layer['left_middle'].sides['top'], top_front_middle['top'])
 
+    def test_U_prime(self):
+
+        top_front_right = self.cube.top_layer['front_right'].sides.copy()
+        top_back_right = self.cube.top_layer['back_right'].sides.copy()
+        top_back_left = self.cube.top_layer['back_left'].sides.copy()
+        top_front_left = self.cube.top_layer['front_left'].sides.copy()
+
+        top_front_middle = self.cube.top_layer['front_middle'].sides.copy()
+        top_right_middle = self.cube.top_layer['right_middle'].sides.copy()
+        top_back_middle = self.cube.top_layer['back_middle'].sides.copy()
+        top_left_middle = self.cube.top_layer['left_middle'].sides.copy()
+
+        self.cube._U_prime()
+
 if __name__ == "__main__":
     unittest.main()
