@@ -506,5 +506,17 @@ class CubeTurnTests(unittest.TestCase):
         self.assertEqual(self.cube.bot_layer['front_left'].sides['left'], bot_front_right['front'])
         self.assertEqual(self.cube.bot_layer['front_left'].sides['front'], bot_front_right['right'])
         self.assertEqual(self.cube.bot_layer['front_left'].sides['bottom'], bot_front_right['bottom'])
+
+        self.assertEqual(self.cube.bot_layer['front_middle'].sides['front'], bot_right_middle['right'])
+        self.assertEqual(self.cube.bot_layer['front_middle'].sides['bottom'], bot_right_middle['bottom'])
+
+        self.assertEqual(self.cube.bot_layer['right_middle'].sides['right'], bot_back_middle['back'])
+        self.assertEqual(self.cube.bot_layer['right_middle'].sides['bottom'], bot_back_middle['bottom'])
+
+        self.assertEqual(self.cube.bot_layer['back_middle'].sides['back'], bot_left_middle['left'])
+        self.assertEqual(self.cube.bot_layer['back_middle'].sides['bottom'], bot_left_middle['bottom'])
+
+        self.assertEqual(self.cube.bot_layer['left_middle'].sides['left'], bot_front_middle['front'])
+        self.assertEqual(self.cube.bot_layer['left_middle'].sides['bottom'], bot_front_middle['bottom'])
 if __name__ == "__main__":
     unittest.main()

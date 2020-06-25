@@ -1029,7 +1029,7 @@ class RubiksCube:
         # bot left middle <- bot front middle (temp)
             # left <- front, bottom <- bottom
         self.bot_layer['left_middle'].sides['left'] = edge_a
-        self.bot_layer['left_middle'].sides['botom'] = edge_b
+        self.bot_layer['left_middle'].sides['bottom'] = edge_b
 
     def _make_daisy(self):
         '''
