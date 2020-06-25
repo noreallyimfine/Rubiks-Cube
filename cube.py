@@ -1040,24 +1040,33 @@ class RubiksCube:
         # or keep looping the same logic until all 4 are done
         bottom_center = self.bot_layer['bottom_center'].sides['bottom']
 
+        top_edges = [
+            self.top_layer['front_middle'].sides,
+            self.top_layer['left_middle'].sides,
+            self.top_layer['right_middle'].sides,
+            self.top_layer['back_middle'].sides,
+        ]
 
-        # TOP LAYER MATCHERS
-        # if the side face of a top edge matches, 
-        # turn that face clockwise or counter,
-        # turn the top the opposite way
-        # turn the face it attached to the same opposite way
+        while not all(edge['top'] == bottom_center for edge in top_edges):
 
-        # MID LAYER MATCHERS
-        # if a middle edge matches, rotate top until the wrong color
-        # is above it and turn it up
-        
-        # if it is already matching, can rotate top to set up faces properly
+            # TOP LAYER MATCHERS
+            # if the side face of a top edge matches, 
+            # turn that face clockwise or counter,
+            # turn the top the opposite way
+            # turn the face it attached to the same opposite way
 
-        # BOT LAYER MATCHERS
-        # if a bot layer edge matches,
-        # rotate top until same face top edge isnt a match
-        # rotate clockwise or counter
-        # now treat like middle layer
+
+            # MID LAYER MATCHERS
+            # if a middle edge matches, rotate top until the wrong color
+            # is above it and turn it up
+            
+            # if it is already matching, can rotate top to set up faces properly
+
+            # BOT LAYER MATCHERS
+            # if a bot layer edge matches,
+            # rotate top until same face top edge isnt a match
+            # rotate clockwise or counter
+            # now treat like middle layer
 
         pass
     
