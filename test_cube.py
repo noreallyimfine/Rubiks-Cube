@@ -520,5 +520,16 @@ class CubeTurnTests(unittest.TestCase):
 
         self.assertEqual(self.cube.bot_layer['left_middle'].sides['left'], bot_front_middle['front'])
         self.assertEqual(self.cube.bot_layer['left_middle'].sides['bottom'], bot_front_middle['bottom'])
+
+    def test_make_daisy(self):
+
+        bottom_center = self.cube.bot_layer['bottom_center'].sides['bottom']
+
+        self.cube._make_daisy()
+
+        self.assertEqual(self.cube.top_layer['right_middle'].sides['top'], bottom_center)
+        self.assertEqual(self.cube.top_layer['left_middle'].sides['top'], bottom_center)
+        self.assertEqual(self.cube.top_layer['front_middle'].sides['top'], bottom_center)
+        self.assertEqual(self.cube.top_layer['back_middle'].sides['top'], bottom_center)
 if __name__ == "__main__":
     unittest.main()
