@@ -1036,6 +1036,24 @@ class RubiksCube:
         Bring 4 bottom color edge pieces to top layer, creating a daisy-like
         shape around that opposing center.
         '''
+        # list the 4 edges, and solve them 1 at a time?
+        # or keep looping the same logic until all 4 are done
+
+        # TOP LAYER MATCHERS
+        # if the side face of a top edge matches, 
+        # turn that face clockwise or counter,
+        # turn the top the opposite way
+        # turn the face it attached to the same opposite way
+
+        # MID LAYER MATCHERS
+        # if the top right edge isnt matching but the front or right edge
+        # of the mid layer does, its just one turn away
+        
+        # if it is already matching, can rotate top to set up faces properly
+
+        # BOT LAYER MATCHERS
+
+        # 
         pass
     
     def _white_cross(self):
