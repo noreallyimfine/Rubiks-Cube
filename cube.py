@@ -1038,6 +1038,8 @@ class RubiksCube:
         '''
         # list the 4 edges, and solve them 1 at a time?
         # or keep looping the same logic until all 4 are done
+        bottom_center = self.bot_layer['bottom_center'].sides['bottom']
+
 
         # TOP LAYER MATCHERS
         # if the side face of a top edge matches, 
@@ -1046,14 +1048,17 @@ class RubiksCube:
         # turn the face it attached to the same opposite way
 
         # MID LAYER MATCHERS
-        # if the top right edge isnt matching but the front or right edge
-        # of the mid layer does, its just one turn away
+        # if a middle edge matches, rotate top until the wrong color
+        # is above it and turn it up
         
         # if it is already matching, can rotate top to set up faces properly
 
         # BOT LAYER MATCHERS
+        # if a bot layer edge matches,
+        # rotate top until same face top edge isnt a match
+        # rotate clockwise or counter
+        # now treat like middle layer
 
-        # 
         pass
     
     def _white_cross(self):
