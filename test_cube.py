@@ -476,6 +476,8 @@ class CubeTurnTests(unittest.TestCase):
         self.assertEqual(self.cube.bot_layer['back_middle'].sides['back'], bot_right_middle['right'])
         self.assertEqual(self.cube.bot_layer['back_middle'].sides['bottom'], bot_right_middle['bottom'])
 
+        self.assertEqual(self.cube.bot_layer['right_middle'].sides['right'], bot_front_middle['front'])
+        self.assertEqual(self.cube.bot_layer['right_middle'].sides['bottom'], bot_front_middle['bottom'])
 
     def test_D_prime(self):
 
