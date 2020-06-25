@@ -442,7 +442,7 @@ class CubeTurnTests(unittest.TestCase):
         bot_front_right = self.cube.bot_layer['front_right'].sides.copy()
         bot_front_left = self.cube.bot_layer['front_left'].sides.copy()
         bot_back_left = self.cube.bot_layer['back_left'].sides.copy()
-        bot_front_left = self.cube.bot_layer['front_left'].sides.copy()
+        bot_back_right = self.cube.bot_layer['back_right'].sides.copy()
 
         bot_front_middle = self.cube.bot_layer['front_middle'].sides.copy()
         bot_left_middle = self.cube.bot_layer['left_middle'].sides.copy()
@@ -458,5 +458,9 @@ class CubeTurnTests(unittest.TestCase):
         self.assertEqual(self.cube.bot_layer['front_left'].sides['front'], bot_back_left['left'])
         self.assertEqual(self.cube.bot_layer['front_left'].sides['left'], bot_back_left['back'])
         self.assertEqual(self.cube.bot_layer['front_left'].sides['bottom'], bot_back_left['bottom'])
+
+        self.assertEqual(self.cube.bot_layer['back_left'].sides['left'], bot_back_right['back'])
+        self.assertEqual(self.cube.bot_layer['back_left'].sides['back'], bot_back_right['right'])
+        self.assertEqual(self.cube.bot_layer['back_left'].sides['bottom'], bot_back_right['bottom'])
 if __name__ == "__main__":
     unittest.main()
