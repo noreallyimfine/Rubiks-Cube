@@ -1043,8 +1043,18 @@ class RubiksCube:
         # need to return both the face and the side
         # side tells us which face to turn, 
         # face tells us which way to turn
+        verticals = ['front', 'back']
+        horizontals = ['left', 'right']
 
-        
+        for v in verticals:
+            for h in horizontals:
+                piece = f'{v}_{h}'
+                edge = self.top_layer[piece] 
+                if edge.sides[v] == match_color:
+                    return piece, v
+                elif edge.sides[h] == match_color:
+                    return piece, h
+        return None, None
 
     def _make_daisy(self):
         '''
@@ -1103,18 +1113,48 @@ class RubiksCube:
             # MID LAYER MATCHERS
             # if a middle edge matches, rotate top until the wrong color
             # is above it and turn it up
-            face = self._check_mid_edges(bottom_center)
-            while face is not None:
+            piece, side = self._check_mid_edges(bottom_center)
+            while piece is not None:
 
-                if face == 'right':
-                    while self.top_layer['front_middle'].sides['top'] == bottom_center:
-                        self._U()
-                    self._F_prime()
+                if piece == 'front_right':
+                    if side == 'right':
+                        while self.top_layer['front_middle'].sides['top'] == bottom_center:
+                            self._U()
+                        self._F_prime()
+                    elif side == 'front':
+                        while self.top_layer['right_middle'].sides['top'] == bottom_center:
+                            self._U()
+                        self._R()
 
-                elif face == 'front':
-                    while self.top_layer['left_middle'].sides['top'] == bottom_center:
-                        self._U()
-                    self._F_prime()
+                elif piece == 'front_left':
+                    if side == 'left':
+                        while self.top_layer['front_middle'].sides['top'] == bottom_center:
+                            self._U()
+                        self._F()
+                    elif side == 'front':
+                        while self.top_layer['left_middle'].sides['top'] == bottom_center:
+                            self._U()
+                        self._L_prime()
+                
+                elif piece == 'back_right':
+                    if side == 'right':
+                        while self.top_layer['back_middle'].sides['top'] == bottom_center:
+                            self._U()
+                        self._B()
+                    elif side == 'back':
+                        while self.top_layer['right_middle'].sides['top'] == bottom_center:
+                            self._U()
+                        self._R_prime()
+                
+                elif piece == 'back_left':
+                    if side == 'left':
+                        while self.top_layer['back_middle'].sides['top'] == bottom_center:
+                            self._U()
+                        self._B_prime()
+                    elif side == 'back':
+                        while self.top_layer['left_middle'].sides['top'] == bottom_center:
+                            self._U()
+                        self._L()
 
 
                 face = self._check_mid_edges(bottom_center)
