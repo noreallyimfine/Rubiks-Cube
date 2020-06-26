@@ -1049,12 +1049,15 @@ class RubiksCube:
         for v in verticals:
             for h in horizontals:
                 piece = f'{v}_{h}'
-                edge = self.top_layer[piece] 
+                edge = self.mid_layer[piece] 
                 if edge.sides[v] == match_color:
                     return piece, v
                 elif edge.sides[h] == match_color:
                     return piece, h
         return None, None
+    
+    def _check_bot_edges(self, match_color):
+        pass
 
     def _make_daisy(self):
         '''
@@ -1115,44 +1118,61 @@ class RubiksCube:
             # is above it and turn it up
             piece, side = self._check_mid_edges(bottom_center)
             while piece is not None:
+                print("piece found:", piece)
 
                 if piece == 'front_right':
                     if side == 'right':
+                        print("its on the front right (right)")
                         while self.top_layer['front_middle'].sides['top'] == bottom_center:
+                            print("turning top")
                             self._U()
                         self._F_prime()
                     elif side == 'front':
+                        print("its on the front right (front)")
                         while self.top_layer['right_middle'].sides['top'] == bottom_center:
+                            print("turning top")
                             self._U()
                         self._R()
 
                 elif piece == 'front_left':
                     if side == 'left':
+                        print("its on the front left (left)")
                         while self.top_layer['front_middle'].sides['top'] == bottom_center:
+                            print("turning top")
                             self._U()
                         self._F()
                     elif side == 'front':
+                        print("its on the front left (front)")
                         while self.top_layer['left_middle'].sides['top'] == bottom_center:
+                            print("turning top")
                             self._U()
                         self._L_prime()
                 
                 elif piece == 'back_right':
                     if side == 'right':
+                        print("its on the right")
                         while self.top_layer['back_middle'].sides['top'] == bottom_center:
+                            print("turning top")
                             self._U()
                         self._B()
                     elif side == 'back':
+                        print("its on the front")
                         while self.top_layer['right_middle'].sides['top'] == bottom_center:
+                            print("turning top")
                             self._U()
                         self._R_prime()
                 
                 elif piece == 'back_left':
                     if side == 'left':
+                        print("its on the left")
                         while self.top_layer['back_middle'].sides['top'] == bottom_center:
+                            print("turning top")
                             self._U()
                         self._B_prime()
                     elif side == 'back':
+                        print("its on the back")
                         while self.top_layer['left_middle'].sides['top'] == bottom_center:
+                            print("turning top")
                             self._U()
                         self._L()
 
@@ -1160,13 +1180,19 @@ class RubiksCube:
                 piece, side = self._check_mid_edges(bottom_center)
 
 
-            break
+
 
             # BOT LAYER MATCHERS
             # if a bot layer edge matches,
             # rotate top until same face top edge isnt a match
             # rotate clockwise or counter
             # now treat like middle layer
+
+            face = self._check_bot_edges(bottom_center)
+            while face is not None:
+
+                face = self._check_bot_edges(bottom_center)
+            break
 
     
     def _white_cross(self):
