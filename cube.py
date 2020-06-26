@@ -1057,7 +1057,13 @@ class RubiksCube:
         return None, None
     
     def _check_bot_edges(self, match_color):
-        pass
+
+        faces = ['front', 'left', 'back', 'right']
+
+        for face in faces:
+            edge = self.bot_layer[f'{face}_middle']
+            if edge.sides[face] == match_color:
+                return face
 
     def _make_daisy(self):
         '''
