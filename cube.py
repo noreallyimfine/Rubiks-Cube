@@ -1066,31 +1066,32 @@ class RubiksCube:
 
             # check top layer and return first instance of match or None
 
-            face = self._check_top_edges()
+            face = self._check_top_edges(bottom_center)
+            print("Face found:", face)
             while face is not None:
                 if face == 'right':
+                    print("right face")
                     self._R_prime()
                     self._U()
                     self._F_prime()
                 elif face == 'front':
+                    print("front face")
                     self._F_prime()
                     self._U()
                     self._L_prime()
                 elif face == 'left':
+                    print("left face")
                     self._L_prime()
                     self._U()
                     self._B_prime()
                 elif face == 'back':
+                    print("back face")
                     self._B_prime()
                     self._U()
                     self._R_prime()
                 
-                face = self._check_top_edges()
-
-        
-        pass
-
-
+                face = self._check_top_edges(bottom_center)
+                print("Next face:", face)
 
 
             # MID LAYER MATCHERS
@@ -1098,6 +1099,7 @@ class RubiksCube:
             # is above it and turn it up
             
             # if it is already matching, can rotate top to set up faces properly
+            break
 
             # BOT LAYER MATCHERS
             # if a bot layer edge matches,
