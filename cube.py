@@ -1038,6 +1038,12 @@ class RubiksCube:
             edge = self.top_layer[f'{face}_middle']
             if edge.sides[face] == match_color:
                 return face
+    
+    def _check_mid_edges(self, match_color):
+        # need to return both the face and the side
+        # side tells us which face to turn, 
+        # face tells us which way to turn
+
         
 
     def _make_daisy(self):
@@ -1097,8 +1103,23 @@ class RubiksCube:
             # MID LAYER MATCHERS
             # if a middle edge matches, rotate top until the wrong color
             # is above it and turn it up
-            
-            # if it is already matching, can rotate top to set up faces properly
+            face = self._check_mid_edges(bottom_center)
+            while face is not None:
+
+                if face == 'right':
+                    while self.top_layer['front_middle'].sides['top'] == bottom_center:
+                        self._U()
+                    self._F_prime()
+
+                elif face == 'front':
+                    while self.top_layer['left_middle'].sides['top'] == bottom_center:
+                        self._U()
+                    self._F_prime()
+
+
+                face = self._check_mid_edges(bottom_center)
+
+
             break
 
             # BOT LAYER MATCHERS
