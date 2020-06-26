@@ -1030,6 +1030,15 @@ class RubiksCube:
             # left <- front, bottom <- bottom
         self.bot_layer['left_middle'].sides['left'] = edge_a
         self.bot_layer['left_middle'].sides['bottom'] = edge_b
+    
+    def _check_top_edges(self, match_color):
+
+        faces = ['front', 'left', 'back', 'right']
+        for face in faces:
+            edge = self.top_layer[f'{face}_middle']
+            if edge.sides[face] == match_color:
+                return face
+        
 
     def _make_daisy(self):
         '''
@@ -1055,6 +1064,34 @@ class RubiksCube:
             # turn the top the opposite way
             # turn the face it attached to the same opposite way
 
+            # check top layer and return first instance of match or None
+
+            face = self._check_top_edges()
+            while face is not None:
+                if face == 'right':
+                    self._R_prime()
+                    self._U()
+                    self._F_prime()
+                elif face == 'front':
+                    self._F_prime()
+                    self._U()
+                    self._L_prime()
+                elif face == 'left':
+                    self._L_prime()
+                    self._U()
+                    self._B_prime()
+                elif face == 'back':
+                    self._B_prime()
+                    self._U()
+                    self._R_prime()
+                
+                face = self._check_top_edges()
+
+        
+        pass
+
+
+
 
             # MID LAYER MATCHERS
             # if a middle edge matches, rotate top until the wrong color
@@ -1068,7 +1105,6 @@ class RubiksCube:
             # rotate clockwise or counter
             # now treat like middle layer
 
-        pass
     
     def _white_cross(self):
         '''
