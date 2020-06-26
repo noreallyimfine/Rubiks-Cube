@@ -1157,7 +1157,7 @@ class RubiksCube:
                         self._L()
 
 
-                face = self._check_mid_edges(bottom_center)
+                piece, side = self._check_mid_edges(bottom_center)
 
 
             break
