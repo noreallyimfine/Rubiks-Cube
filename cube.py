@@ -1080,6 +1080,15 @@ class RubiksCube:
             edge = self.bot_layer[f'{face}_middle']
             if edge.sides[face] == match_color:
                 return face
+    
+    def _check_bot_face(self, match_color):
+
+        faces = ['front', 'left', 'back', 'right']
+
+        for face in faces:
+            edge = self.bot_layer[f'{face}_middle']
+            if edge.sides['bottom'] == match_color:
+                return face
 
     def _make_daisy(self):
         '''
@@ -1219,7 +1228,33 @@ class RubiksCube:
             
                 face = self._check_bot_edges(bottom_center)
 
-            break
+            # The last remaining place for opposing edges is the bottom face
+            # if the right color is on the bottom edge
+            # we simply rotate the top until the corresponding side is is match free
+            # the turn the piece up twice
+            face = self._check_bot_face(bottom_center)
+            while face is not None:
+
+                while self.top_layer[f'{face}_middle'].sides['top'] == bottom_center:
+                    self._U()
+                
+                if face == 'front':
+                    self._F()
+                    self._F()
+                
+                elif face == 'right':
+                    self._R()
+                    self._R()
+
+                elif face == 'left':
+                    self._L()
+                    self._L()
+                
+                elif face == 'back':
+                    self._B()
+                    self._B()
+
+                face = self._check_bot_face(bottom_center)
 
     def _white_cross(self):
         '''
