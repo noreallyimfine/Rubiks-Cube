@@ -85,7 +85,11 @@ class RubiksCube:
         '''
         After initializing the cube, use this to confirm each of the
         colors was placed 9 times.
+
+        -- This should be moved to a test --
         '''
+
+        
 
         colors = {color: 0 for color in RubiksCube.colors}
         layers = [self.bot_layer, self.mid_layer, self.top_layer]
@@ -281,11 +285,12 @@ class RubiksCube:
 
         self._initialize_corners()
     
-    def _L(self):
+    def _L_prime(self):
         '''
-        Turn left face clockwise
+        Turn left face counter-clockwise
         '''
 
+        print("initiating L_prime turn")
         # CORNERS #
 
         # Temp variables so as not to overwrite as we go
@@ -342,10 +347,11 @@ class RubiksCube:
         self.bot_layer['left_middle'].sides['bottom'] = edge_a
         self.bot_layer['left_middle'].sides['left'] = edge_b
 
-    def _L_prime(self):
+    def _L(self):
         '''
-        Turn left face counter-clockwise
+        Turn left face clockwise
         '''
+        print("initiating L turn")
 
         # CORNERS # 
 
@@ -380,7 +386,6 @@ class RubiksCube:
 
         # EDGES #
 
-# << Tested until here >>
         # Temp variables so one edge doesn't get overwritten as we go
         edge_a = self.bot_layer['left_middle'].sides['bottom']
         edge_b = self.bot_layer['left_middle'].sides['left']
@@ -410,6 +415,8 @@ class RubiksCube:
         '''
         Turn right face clockwise
         '''
+
+        print("initiating _R turn")
 
         # CORNERS # 
 
@@ -474,6 +481,7 @@ class RubiksCube:
         '''
         Turn right face counter-clockwise
         '''
+        print("initiating _R_prime turn")
 
         # CORNERS #
 
@@ -536,6 +544,7 @@ class RubiksCube:
         '''
         Turn front face clockwise
         '''
+        print("initiating _F turn")
 
         # CORNERS #
 
@@ -598,6 +607,7 @@ class RubiksCube:
         '''
         Turn front face counter-clockwise
         '''
+        print("initiating _F_prime turn")
 
         # CORNERS #
 
@@ -661,6 +671,7 @@ class RubiksCube:
         '''
         Turn back face clockwise
         '''
+        print("initiating _B turn")
 
         # CORNERS #
 
@@ -726,6 +737,7 @@ class RubiksCube:
         '''
         Turn back face counter-clockwise
         '''
+        print("initiating _B_prime turn")
 
         # CORNERS #
 
@@ -788,6 +800,7 @@ class RubiksCube:
         '''
         Turn upward face clockwise
         '''
+        print("initiating _U turn")
         
         # CORNERS #
 
@@ -851,6 +864,7 @@ class RubiksCube:
         '''
         Turn upward face counter-clockwise
         '''
+        print("initiating _U_prime turn")
 
         # CORNERS #
 
@@ -913,6 +927,7 @@ class RubiksCube:
         '''
         Turn downward face clockwise
         '''
+        print("initiating _D turn")
         # CORNERS #
 
         # temp variables to protect against overwrite
@@ -974,6 +989,7 @@ class RubiksCube:
         '''
         Turn downward face counter-clockwise
         '''
+        print("initiating _D_prime turn")
         # CORNERS #
 
         # temp variable to protect against overwrite
@@ -1051,10 +1067,10 @@ class RubiksCube:
                 piece = f'{v}_{h}'
                 edge = self.mid_layer[piece] 
                 if edge.sides[v] == match_color:
-                    return piece, v
+                    return piece, v, h
                 elif edge.sides[h] == match_color:
-                    return piece, h
-        return None, None
+                    return piece, h, v
+        return None, None, None
     
     def _check_bot_edges(self, match_color):
 
@@ -1122,68 +1138,53 @@ class RubiksCube:
             # MID LAYER MATCHERS
             # if a middle edge matches, rotate top until the wrong color
             # is above it and turn it up
-            piece, side = self._check_mid_edges(bottom_center)
+            piece, side, face = self._check_mid_edges(bottom_center)
             while piece is not None:
                 print("piece found:", piece)
 
+                # if we know the 2 'directions' separately
+                # reference the side its on by that direction
+                # reference the place is going by the other direction + middle
+                # locate the correct direction by joining them (always need [front, back] first)
+                # first-pass: return 3 values from func
+                while self.top_layer[f'{face}_middle'] == bottom_center:
+                    print('turning top')
+                    self._U()
+
                 if piece == 'front_right':
                     if side == 'right':
-                        print("its on the front right (right)")
-                        while self.top_layer['front_middle'].sides['top'] == bottom_center:
-                            print("turning top")
-                            self._U()
+                        print("its on the right")
                         self._F_prime()
                     elif side == 'front':
-                        print("its on the front right (front)")
-                        while self.top_layer['right_middle'].sides['top'] == bottom_center:
-                            print("turning top")
-                            self._U()
+                        print("its on the front")
                         self._R()
 
                 elif piece == 'front_left':
                     if side == 'left':
-                        print("its on the front left (left)")
-                        while self.top_layer['front_middle'].sides['top'] == bottom_center:
-                            print("turning top")
-                            self._U()
+                        print("its on the left")
                         self._F()
                     elif side == 'front':
-                        print("its on the front left (front)")
-                        while self.top_layer['left_middle'].sides['top'] == bottom_center:
-                            print("turning top")
-                            self._U()
+                        print("its on the front")
                         self._L_prime()
                 
                 elif piece == 'back_right':
                     if side == 'right':
                         print("its on the right")
-                        while self.top_layer['back_middle'].sides['top'] == bottom_center:
-                            print("turning top")
-                            self._U()
                         self._B()
                     elif side == 'back':
-                        print("its on the front")
-                        while self.top_layer['right_middle'].sides['top'] == bottom_center:
-                            print("turning top")
-                            self._U()
+                        print("its on the back")
                         self._R_prime()
                 
                 elif piece == 'back_left':
                     if side == 'left':
                         print("its on the left")
-                        while self.top_layer['back_middle'].sides['top'] == bottom_center:
-                            print("turning top")
-                            self._U()
                         self._B_prime()
                     elif side == 'back':
                         print("its on the back")
-                        while self.top_layer['left_middle'].sides['top'] == bottom_center:
-                            print("turning top")
-                            self._U()
                         self._L()
 
 
-                piece, side = self._check_mid_edges(bottom_center)
+                piece, side, face = self._check_mid_edges(bottom_center)
 
 
 
@@ -1196,11 +1197,30 @@ class RubiksCube:
 
             face = self._check_bot_edges(bottom_center)
             while face is not None:
-
+                while self.top_layer[f'{face}_middle'].sides['top'] == bottom_center:
+                    self._U()
+                
+                if face == 'front':
+                    self._F()
+                    self._U()
+                    self._R()
+                elif face == 'left':
+                    self._L()
+                    self._U()
+                    self._B_prime()
+                elif face == 'back':
+                    self._B()
+                    self._U()
+                    self._R_prime()
+                elif face == 'right':
+                    self._R()
+                    self._U()
+                    self._F_prime()
+            
                 face = self._check_bot_edges(bottom_center)
+
             break
 
-    
     def _white_cross(self):
         '''
         Move edge pieces from top to bottom, creating a cross shape in the 

@@ -5,7 +5,7 @@ class CubeTurnTests(unittest.TestCase):
     def setUp(self):
         self.cube = RubiksCube()
 
-    def test_L(self):
+    def test_L_prime(self):
 
         # Corners
         top_back_left = self.cube.top_layer['back_left'].sides.copy()
@@ -20,7 +20,7 @@ class CubeTurnTests(unittest.TestCase):
         bot_left_middle = self.cube.bot_layer['left_middle'].sides.copy()
 
 
-        self.cube._L()
+        self.cube._L_prime()
 
         self.assertEqual(self.cube.top_layer['back_left'].sides['back'], top_front_left['top'])
         self.assertEqual(self.cube.top_layer['back_left'].sides['top'], top_front_left['front'])
@@ -50,7 +50,7 @@ class CubeTurnTests(unittest.TestCase):
         self.assertEqual(self.cube.bot_layer['left_middle'].sides['left'], mid_back_left['left'])
         self.assertEqual(self.cube.bot_layer['left_middle'].sides['bottom'], mid_back_left['back'])
 
-    def test_L_prime(self):
+    def test_L(self):
 
         # Corners
         top_back_left = self.cube.top_layer['back_left'].sides.copy()
@@ -65,7 +65,7 @@ class CubeTurnTests(unittest.TestCase):
         bot_left_middle = self.cube.bot_layer['left_middle'].sides.copy()
 
 
-        self.cube._L_prime()
+        self.cube._L()
 
         self.assertEqual(self.cube.top_layer['back_left'].sides['back'], bot_back_left['bottom'])
         self.assertEqual(self.cube.top_layer['back_left'].sides['top'], bot_back_left['back'])
