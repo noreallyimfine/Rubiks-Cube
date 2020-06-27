@@ -1147,7 +1147,7 @@ class RubiksCube:
                 # reference the place is going by the other direction + middle
                 # locate the correct direction by joining them (always need [front, back] first)
                 # first-pass: return 3 values from func
-                while self.top_layer[f'{face}_middle'] == bottom_center:
+                while self.top_layer[f'{face}_middle'].sides['top'] == bottom_center:
                     print('turning top')
                     self._U()
 
