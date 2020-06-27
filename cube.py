@@ -1256,7 +1256,7 @@ class RubiksCube:
 
                 face = self._check_bot_face(bottom_center)
 
-    def _white_cross(self):
+    def _bottom_cross(self):
         '''
         Move edge pieces from top to bottom, creating a cross shape in the 
         correct position on the bottom face.
