@@ -1266,14 +1266,6 @@ class RubiksCube:
 
         bottom_center = self.bot_layer['bottom_center'].sides['bottom']
 
-        # top edges
-        top_edges = [
-            self.top_layer['right_middle'],
-            self.top_layer['back_middle'],
-            self.top_layer['left_middle'],
-            self.top_layer['front_middle']
-        ]
-
 
         # while any of the top edges match the bottom
         # while any(edge.sides['top'] == bottom_center for edge in top_edges):
@@ -1307,11 +1299,37 @@ class RubiksCube:
             # spin top until its other side matches the center
             # turn it down twice
     
+    def _solve_bot_layer_trigger_helper(self):
+        pass
+
+    def _solve_bot_layer_double_trigger_helper(self):
+
+        self._solve_bot_layer_trigger_helper()
+        pass
+    
     def _solve_bot_layer(self):
         '''
         Solve the rest of the bottom layer, and in the process, the bottom
         face.
         '''
+
+        self._bottom_cross()
+
+        # first check for top layer (non-top-side)
+        # rotate til it matches the center
+        # trigger (based on center)
+        # this needs to be exported to a function
+        self._solve_bot_layer_trigger_helper()
+
+        # if none on top layer, check top side
+        # rotate until it does NOT match corresponding on bottom
+        # double trigger
+        # call check top layer function
+        # this will also be exported
+        self._solve_bot_layer_double_trigger_helper()
+        # if none on top side, check bottom (non-bottom-side)
+        # trigger up to top 
+        # go back to step 2 
         
         pass
     
