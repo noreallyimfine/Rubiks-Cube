@@ -1262,6 +1262,8 @@ class RubiksCube:
         correct position on the bottom face.
         '''
 
+        self._make_daisy()
+
         bottom_center = self.bot_layer['bottom_center'].sides['bottom']
 
         # top edges
