@@ -1261,13 +1261,54 @@ class RubiksCube:
         Move edge pieces from top to bottom, creating a cross shape in the 
         correct position on the bottom face.
         '''
-        pass
+
+        bottom_center = self.bot_layer['bottom_center'].sides['bottom']
+
+        # top edges
+        top_edges = [
+            self.top_layer['right_middle'],
+            self.top_layer['back_middle'],
+            self.top_layer['left_middle'],
+            self.top_layer['front_middle']
+        ]
+
+
+        # while any of the top edges match the bottom
+        while any(edge.sides['top'] == bottom_center for edge in top_edges):
+            print("Top edges right now:")
+            [print(edge.sides['top']) for edge in top_edges]
+            # find one that matches
+            for face in ['front', 'left', 'back', 'right']:
+                edge = self.top_layer[f'{face}_middle']
+                if edge.sides['top'] == bottom_center:
+                    center = self.mid_layer[f'{face}_center'].sides[face]
+                    top = edge.sides['top']
+                    print("Center", center, "top", top)
+                    while top != center:
+                        self._U()
+                        top = edge.sides['top']
+                        print("Center/top", center, "/", top)
+                    if face == 'front':
+                        self._F()
+                        self._F()
+                    elif face == 'right':
+                        self._R()
+                        self._R()
+                    elif face == 'back':
+                        self._B()
+                        self._B()
+                    elif face == 'left':
+                        self._L()
+                        self._L()
+            # spin top until its other side matches the center
+            # turn it down twice
     
     def _solve_bot_layer(self):
         '''
         Solve the rest of the bottom layer, and in the process, the bottom
         face.
         '''
+        
         pass
     
     def _solve_mid_layer(self):

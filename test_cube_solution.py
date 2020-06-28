@@ -25,10 +25,10 @@ class CubeSolutionTests(unittest.TestCase):
 
         self.cube._bottom_cross()
 
-        self.assertEqual(self.cube.bot_layer['right_middle'].sides['top'], bottom_center)
-        self.assertEqual(self.cube.bot_layer['left_middle'].sides['top'], bottom_center)
-        self.assertEqual(self.cube.bot_layer['front_middle'].sides['top'], bottom_center)
-        self.assertEqual(self.cube.bot_layer['back_middle'].sides['top'], bottom_center)
+        self.assertEqual(self.cube.bot_layer['right_middle'].sides['bottom'], bottom_center)
+        self.assertEqual(self.cube.bot_layer['left_middle'].sides['bottom'], bottom_center)
+        self.assertEqual(self.cube.bot_layer['front_middle'].sides['bottom'], bottom_center)
+        self.assertEqual(self.cube.bot_layer['back_middle'].sides['bottom'], bottom_center)
 
     def test_bottom_layer(self):
 
@@ -70,3 +70,6 @@ class CubeSolutionTests(unittest.TestCase):
         self.assertEqual(self.cube.bot_layer['back_right'].sides['right'], right_center)
         self.assertEqual(self.cube.bot_layer['right_middle'].sides['right'], right_center)
         self.assertEqual(self.cube.bot_layer['front_right'].sides['right'], right_center)
+
+if __name__ == '__main__':
+    unittest.main()
