@@ -1279,27 +1279,26 @@ class RubiksCube:
             [print(edge.sides['top']) for edge in top_edges]
             # find one that matches
             for face in ['front', 'left', 'back', 'right']:
-                edge = self.top_layer[f'{face}_middle']
-                if edge.sides['top'] == bottom_center:
-                    center = self.mid_layer[f'{face}_center'].sides[face]
-                    top = edge.sides[face]
-                    print("Center", center, "top", top)
-                    while top != center:
-                        self._U()
-                        top = edge.sides['top']
-                        print("Center/top", center, "/", top)
-                    if face == 'front':
-                        self._F()
-                        self._F()
-                    elif face == 'right':
-                        self._R()
-                        self._R()
-                    elif face == 'back':
-                        self._B()
-                        self._B()
-                    elif face == 'left':
-                        self._L()
-                        self._L()
+
+                center = self.mid_layer[f'{face}_center'].sides[face]
+
+                while self.top_layer[f'{face}_middle'].sides[face] != center:
+                    self._U()
+                    print("center/top:", center, '/', self.top_layer[f'{face}_middle'].sides[face])
+                    print("face", face)
+
+                if face == 'front':
+                    self._F()
+                    self._F()
+                elif face == 'right':
+                    self._R()
+                    self._R()
+                elif face == 'back':
+                    self._B()
+                    self._B()
+                elif face == 'left':
+                    self._L()
+                    self._L()
             # spin top until its other side matches the center
             # turn it down twice
     
@@ -1343,7 +1342,7 @@ class RubiksCube:
 
         self._make_daisy()
 
-        self._white_cross()
+        self._bottom_cross()
 
         self._solve_bot_layer()
 
