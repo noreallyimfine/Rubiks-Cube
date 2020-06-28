@@ -1081,6 +1081,12 @@ class RubiksCube:
             if edge.sides[face] == match_color:
                 return face
     
+    def _check_top_corners(self, match_color):
+
+        # what do i need to return from this func
+        
+        pass
+    
     def _check_bot_face(self, match_color):
 
         faces = ['front', 'left', 'back', 'right']
@@ -1302,7 +1308,9 @@ class RubiksCube:
     def _solve_bot_layer_trigger_helper(self, match_color):
 
         # search through all corners sides for the match
-        # when we find one, 
+        # when we find one, identify its partner color (the non-top one) 
+        # rotate til partner matches center
+        # determine side to do appropriate trigger <- this seems initially difficult
         pass
 
     def _solve_bot_layer_double_trigger_helper(self, match_color):
