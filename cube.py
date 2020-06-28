@@ -1282,7 +1282,7 @@ class RubiksCube:
                 edge = self.top_layer[f'{face}_middle']
                 if edge.sides['top'] == bottom_center:
                     center = self.mid_layer[f'{face}_center'].sides[face]
-                    top = edge.sides['top']
+                    top = edge.sides[face]
                     print("Center", center, "top", top)
                     while top != center:
                         self._U()
