@@ -1,6 +1,8 @@
 import unittest
 from cube import RubiksCube
 
+unittest.TestLoader.sortTestMethodsUsing = None
+
 # rename that class
 class CubeSolutionTests(unittest.TestCase):
     def setUp(self):
@@ -19,16 +21,21 @@ class CubeSolutionTests(unittest.TestCase):
         self.assertEqual(self.cube.top_layer['front_middle'].sides['top'], bottom_center)
         self.assertEqual(self.cube.top_layer['back_middle'].sides['top'], bottom_center)
     
-    def test_bottom_cross(self):
-
-        bottom_center = self.cube.bot_layer['bottom_center'].sides['bottom']
-
         self.cube._bottom_cross()
-
         self.assertEqual(self.cube.bot_layer['right_middle'].sides['bottom'], bottom_center)
         self.assertEqual(self.cube.bot_layer['left_middle'].sides['bottom'], bottom_center)
         self.assertEqual(self.cube.bot_layer['front_middle'].sides['bottom'], bottom_center)
         self.assertEqual(self.cube.bot_layer['back_middle'].sides['bottom'], bottom_center)
+
+        right_center = self.cube.mid_layer['right_center'].sides['right']
+        left_center = self.cube.mid_layer['left_center'].sides['left']
+        front_center = self.cube.mid_layer['front_center'].sides['front']
+        back_center = self.cube.mid_layer['back_center'].sides['back']
+        # also test the other sides match their face
+        self.assertEqual(self.cube.bot_layer['right_middle'].sides['right'], right_center)
+        self.assertEqual(self.cube.bot_layer['front_middle'].sides['front'], front_center)
+        self.assertEqual(self.cube.bot_layer['back_middle'].sides['back'], back_center)
+        self.assertEqual(self.cube.bot_layer['left_middle'].sides['left'], left_center)
 
     def test_bottom_layer(self):
 

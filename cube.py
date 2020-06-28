@@ -1274,31 +1274,34 @@ class RubiksCube:
 
 
         # while any of the top edges match the bottom
-        while any(edge.sides['top'] == bottom_center for edge in top_edges):
-            print("Top edges right now:")
-            [print(edge.sides['top']) for edge in top_edges]
-            # find one that matches
-            for face in ['front', 'left', 'back', 'right']:
+        # while any(edge.sides['top'] == bottom_center for edge in top_edges):
+        # find one that matches
+        for face in ['front', 'left', 'back', 'right']:
 
-                center = self.mid_layer[f'{face}_center'].sides[face]
+            center = self.mid_layer[f'{face}_center'].sides[face]
+            top = self.top_layer[f'{face}_middle'].sides['top']
+            print(self)
 
-                while self.top_layer[f'{face}_middle'].sides[face] != center:
-                    self._U()
-                    print("center/top:", center, '/', self.top_layer[f'{face}_middle'].sides[face])
-                    print("face", face)
 
-                if face == 'front':
-                    self._F()
-                    self._F()
-                elif face == 'right':
-                    self._R()
-                    self._R()
-                elif face == 'back':
-                    self._B()
-                    self._B()
-                elif face == 'left':
-                    self._L()
-                    self._L()
+            while (self.top_layer[f'{face}_middle'].sides[face], top) != (center, bottom_center):
+                self._U()
+                top = self.top_layer[f'{face}_middle'].sides['top']
+                print("center/top:", center, '/', self.top_layer[f'{face}_middle'].sides[face])
+                print("top side of edge:", top, "-- should match", bottom_center)
+                print("face", face)
+
+            if face == 'front':
+                self._F()
+                self._F()
+            elif face == 'right':
+                self._R()
+                self._R()
+            elif face == 'back':
+                self._B()
+                self._B()
+            elif face == 'left':
+                self._L()
+                self._L()
             # spin top until its other side matches the center
             # turn it down twice
     
