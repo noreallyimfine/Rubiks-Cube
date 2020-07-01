@@ -3,8 +3,9 @@ Class instatiation of pieces to use on a Rubik's Cube or similar object.
 '''
 
 class Piece:
-    def __init__(self, sides, num_sides=1):
-        self.num_sides = num_sides 
+    def __init__(self, location, sides, num_sides=1):
+        self.location = None
+        self.num_sides = num_sides
         if sides and len(sides) != self.num_sides:
                 raise ValueError("Error: Wrong # of sides for that piece!")
         self.sides = {face: None for face in sides} 
