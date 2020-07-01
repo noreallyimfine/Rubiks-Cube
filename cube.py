@@ -1081,11 +1081,6 @@ class RubiksCube:
             if edge.sides[face] == match_color:
                 return face
     
-    def _check_top_corners(self, match_color):
-
-        # what do i need to return from this func
-        
-        pass
     
     def _check_bot_face(self, match_color):
 
@@ -1305,10 +1300,27 @@ class RubiksCube:
             # spin top until its other side matches the center
             # turn it down twice
     
+    def _check_top_corners(self, match_color):
+
+        # what do i need to return from this func
+        verticals = ['front', 'back']
+        horizontals = ['left', 'right']
+
+        for v in verticals:
+            for h in horizontals:
+                piece = f'{v}_{h}'
+                sides = [self.top_layer[piece].sides[side] for side in self.top_layer[piece].sides if side != 'top']
+                if match_color in sides:
+                    return piece
+        
+        return None
+        
+        pass
     def _solve_bot_layer_trigger_helper(self, match_color):
 
-        # search through all corners sides for the match
+
         # when we find one, identify its partner color (the non-top one) 
+
         # rotate til partner matches center
         # determine side to do appropriate trigger <- this seems initially difficult
         pass
@@ -1324,15 +1336,34 @@ class RubiksCube:
         face.
         '''
 
+        self._bottom_cross()
         bottom_center = self.bot_layer['bottom_center'].sides['bottom']
 
-        self._bottom_cross()
+        # find a piece that has match_color on it (not on top side)
+        # find the color on the side thats not the match or the top
+        # find which center is that color
+        # turn until it matches
+        # but how do i keep track of the piece as I turn it?
+
+
+
+
 
         # first check for top layer (non-top-side)
+        # find the piece, and the side for the matching color
+        # other side will be the face to align
+        piece, color = self._check_top_corners()
+        # problem = reference changes as you go. 
+        # solution = maybe once we have the 'other' color, approach it from the center
+        # for face in each of the possible faces
+            # get the face that has the appropriate color
+            # problem = how to know if it will be up to the right, or up to the left
+            # solution = the face will be the common thing to match on
+            
+            # need to line up with correct center and know which side we are
         # rotate til it matches the center
         # trigger (based on center)
         # this needs to be exported to a function
-        self._solve_bot_layer_trigger_helper(bottom_center)
 
         # if none on top layer, check top side
         # rotate until it does NOT match corresponding on bottom
