@@ -4,7 +4,7 @@ Class instatiation of pieces to use on a Rubik's Cube or similar object.
 
 class Piece:
     def __init__(self, location, sides, num_sides=1):
-        self.location = None
+        self.location = location
         self.num_sides = num_sides
         if sides and len(sides) != self.num_sides:
                 raise ValueError("Error: Wrong # of sides for that piece!")
@@ -12,8 +12,8 @@ class Piece:
 
 
 class Center(Piece):
-    def __init__(self, sides=None, num_sides=1):
-        super().__init__(sides, num_sides)
+    def __init__(self, location, sides=None, num_sides=1):
+        super().__init__(location, sides, num_sides)
 
     def __repr__(self):
         return f"Center({self.sides})"
@@ -23,8 +23,8 @@ class Center(Piece):
 
 
 class Edge(Piece):
-    def __init__(self, sides=None, num_sides=2):
-        super().__init__(sides, num_sides)
+    def __init__(self, location, sides=None, num_sides=2):
+        super().__init__(location, sides, num_sides)
 
     def __repr__(self):
         return f"Edge({self.sides})"
@@ -34,8 +34,8 @@ class Edge(Piece):
 
 
 class Corner(Piece):
-    def __init__(self, sides=None, num_sides=3):
-        super().__init__(sides, num_sides)
+    def __init__(self, location, sides=None, num_sides=3):
+        super().__init__(location, sides, num_sides)
 
     def __repr__(self):
         return f"Corner({self.sides})"
