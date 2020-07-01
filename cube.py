@@ -10,32 +10,32 @@ class RubiksCube:
     colors = ['w', 'y', 'o', 'b', 'r', 'g']
     
     def __init__(self):
-        self.bot_layer = {'bottom_center': Center(sides=['bottom']), 
-                          'front_middle': Edge(sides=['front', 'bottom']),
-                          'front_left': Corner(sides=['front', 'bottom', 'left']),
-                          'front_right': Corner(sides=['front', 'bottom', 'right']),
-                          'back_left': Corner(sides=['back', 'bottom', 'left']),
-                          'back_right': Corner(sides=['back', 'bottom', 'right']),
-                          'back_middle': Edge(sides=['back', 'bottom']),
-                          'left_middle': Edge(sides=['left', 'bottom']),
-                          'right_middle': Edge(sides=['right', 'bottom'])}
-        self.mid_layer = {'front_center': Center(sides=['front']),
-                          'right_center': Center(sides=['right']),
-                          'left_center': Center(sides=['left']),
-                          'back_center': Center(sides=['back']),
-                          'front_left': Edge(sides=['front', 'left']),
-                          'front_right': Edge(sides=['front', 'right']),
-                          'back_left': Edge(sides=['back', 'left']),
-                          'back_right': Edge(sides=['back', 'right'])}
-        self.top_layer = {'top_center': Center(sides=['top']),
-                          'front_middle': Edge(sides=['front', 'top']),
-                          'front_left': Corner(sides=['top', 'front', 'left']),
-                          'front_right': Corner(sides=['top', 'front', 'right']),
-                          'back_left': Corner(sides=['top', 'back', 'left']),
-                          'back_right': Corner(sides=['top', 'back', 'right']),
-                          'back_middle': Edge(sides=['back', 'top']),
-                          'left_middle': Edge(sides=['left', 'top']),
-                          'right_middle': Edge(sides=['right', 'top'])}
+        self.bot_layer = {'bottom_center': Center(location='bottom_center', sides=['bottom']), 
+                          'front_middle': Edge(location='front_middle', sides=['front', 'bottom']),
+                          'front_left': Corner(location='front_left', sides=['front', 'bottom', 'left']),
+                          'front_right': Corner(location='front_right', sides=['front', 'bottom', 'right']),
+                          'back_left': Corner(location='back_left', sides=['back', 'bottom', 'left']),
+                          'back_right': Corner(location='back_right', sides=['back', 'bottom', 'right']),
+                          'back_middle': Edge(location='back_middle', sides=['back', 'bottom']),
+                          'left_middle': Edge(location='left_middle', sides=['left', 'bottom']),
+                          'right_middle': Edge(location='right_middle', sides=['right', 'bottom'])}
+        self.mid_layer = {'front_center': Center(location='front_center', sides=['front']),
+                          'right_center': Center(location='right_center', sides=['right']),
+                          'left_center': Center(location='left_center', sides=['left']),
+                          'back_center': Center(location='back_center', sides=['back']),
+                          'front_left': Edge(location='front_left', sides=['front', 'left']),
+                          'front_right': Edge(location='front_right', sides=['front', 'right']),
+                          'back_left': Edge(location='back_left', sides=['back', 'left']),
+                          'back_right': Edge(location='back_right', sides=['back', 'right'])}
+        self.top_layer = {'top_center': Center(location='top_center', sides=['top']),
+                          'front_middle': Edge(location='front_middle', sides=['front', 'top']),
+                          'front_left': Corner(location='front_left', sides=['top', 'front', 'left']),
+                          'front_right': Corner(location='front_right', sides=['top', 'front', 'right']),
+                          'back_left': Corner(location='back_left', sides=['top', 'back', 'left']),
+                          'back_right': Corner(location='back_right', sides=['top', 'back', 'right']),
+                          'back_middle': Edge(location='back_middle', sides=['back', 'top']),
+                          'left_middle': Edge(location='left_middle', sides=['left', 'top']),
+                          'right_middle': Edge(location='right_middle', sides=['right', 'top'])}
         
         self.centers = [self.bot_layer['bottom_center'],
                         self.mid_layer['right_center'],
