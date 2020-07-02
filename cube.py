@@ -1311,7 +1311,7 @@ class RubiksCube:
                 piece = f'{v}_{h}'
                 sides = [self.top_layer[piece].sides[side] for side in self.top_layer[piece].sides if side != 'top']
                 if match_color in sides:
-                    return piece
+                    return self.top_layer[piece]
         
         return None
     
@@ -1363,14 +1363,14 @@ class RubiksCube:
                 # face obvi needs to match
                 # and then horizontal needs to match too 
                 # good news is we know the piece we're matching
-                while ((self.top_layer[f'front_{face}'].sides[face], self.top_layer[f'front_{face}'].sides['front'])
-                or (self.top_layer[f'back_{face}'].sides[face], self.top_layer[f'back_{face}'].sides['back']) == (other_color, bottom_center)):
+                while ((self.top_layer[f'front_{face}'].sides[face], self.top_layer[f'front_{face}'].sides['front']) != (other_color, bottom_center)
+                and (self.top_layer[f'back_{face}'].sides[face], self.top_layer[f'back_{face}'].sides['back']) != (other_color, bottom_center)):
                     print("here")
                     self._U()
 
             elif face in verticals:
-                while ((self.top_layer[f'{face}_right'].sides[face], self.top_layer[f'{face}_right'].sides['right'])
-                or (self.top_layer[f'{face}_left'].sides[face], self.top_layer[f'{face}_left'].sides['left']) == (other_color, bottom_center)):
+                while ((self.top_layer[f'{face}_right'].sides[face], self.top_layer[f'{face}_right'].sides['right']) != (other_color, bottom_center)
+                and (self.top_layer[f'{face}_left'].sides[face], self.top_layer[f'{face}_left'].sides['left']) != (other_color, bottom_center)):
                     print("here")
                     self._U()
             # but it needs to be tracked together not independently
