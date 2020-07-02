@@ -1309,7 +1309,7 @@ class RubiksCube:
         for v in verticals:
             for h in horizontals:
                 piece = f'{v}_{h}'
-                sides = [self.top_layer[piece].sides[side] for side in self.top_layer[piece].sides if side != 'top']
+                sides = [self.top_layer[piece].sides[side] for side in self.top_layer[piece].sides.keys() if side != 'top']
                 if match_color in sides:
                     return self.top_layer[piece]
         
@@ -1320,18 +1320,54 @@ class RubiksCube:
                 if self.mid_layer[f'{face}_center'].sides[face] == match_color:
                     return face
         
-    def _solve_bot_layer_trigger_helper(self, match_color):
+    def _bot_layer_trigger_helper(self, face, side):
+
+        # first we note face
+        if face == 'front':
+            # is it left or right?
+            if side == 'left':
+                self._L_prime()
+                self._U_prime()
+                self._L()
+            elif side == 'right':
+                self._R()
+                self._U()
+                self._R_prime()
+        elif face == 'back':
+            # left or right
+            if side == 'right':
+                self._R_prime()
+                self._U_prime()
+                self._R()
+            elif side == 'left':
+                self._L()
+                self._U()
+                self._L_prime()
+        elif face == 'left':
+            # front or back
+            if side == 'front':
+                self._F()
+                self._U()
+                self._F_prime()
+            elif side == 'back':
+                self._B_prime()
+                self._U_prime()
+                self._B()
+        elif face == 'right':
+            # front or back
+            if side == 'front':
+                self._F_prime()
+                self._U_prime()
+                self._F()
+            elif side == 'back':
+                self._B()
+                self._U()
+                self._B_prime()
 
 
-        # when we find one, identify its partner color (the non-top one) 
+    def _bot_layer_double_trigger_helper(self, match_color):
 
-        # rotate til partner matches center
-        # determine side to do appropriate trigger <- this seems initially difficult
-        pass
-
-    def _solve_bot_layer_double_trigger_helper(self, match_color):
-
-        self._solve_bot_layer_trigger_helper(match_color)
+        self._bot_layer_trigger_helper(match_color)
         pass
     
     def _solve_bot_layer(self):
@@ -1346,38 +1382,57 @@ class RubiksCube:
         verticals = ['front', 'back']
         horizontals = ['left', 'right']
         # ALL CODE UNDER THIS NEEDS TO RUN INSIDE WHILE BOTTOM FACE NOT ALL THE SAME
+        bottoms = [
+            self.bot_layer['front_right'].sides['bottom'],
+            self.bot_layer['front_middle'].sides['bottom'],
+            self.bot_layer['front_left'].sides['bottom'],
+            self.bot_layer['left_middle'].sides['bottom'],
+            self.bot_layer['back_left'].sides['bottom'],
+            self.bot_layer['back_middle'].sides['bottom'],
+            self.bot_layer['back_right'].sides['bottom'],
+            self.bot_layer['right_middle'].sides['bottom']
+        ]
 
-        # find a piece that has match_color on it (not on top side)
-        piece = self._check_top_corners(bottom_center)
-        # find the color on the side thats not the match or the top
-        while piece is not None:
-            for side in piece.sides:
-                if side != 'top' and piece.sides[side] != bottom_center:
-                    other_color = piece.sides[side]
-            # find which center is that color
-            face = self._find_matching_center(other_color)
-            
-            # turn until it matches
-            # track same face color to match, and side colors to match bottom 
-            if face in horizontals:
-                # face obvi needs to match
-                # and then horizontal needs to match too 
-                # good news is we know the piece we're matching
-                while ((self.top_layer[f'front_{face}'].sides[face], self.top_layer[f'front_{face}'].sides['front']) != (other_color, bottom_center)
-                and (self.top_layer[f'back_{face}'].sides[face], self.top_layer[f'back_{face}'].sides['back']) != (other_color, bottom_center)):
-                    print("here")
-                    self._U()
+        while not all(color == bottom_center for color in bottoms):
 
-            elif face in verticals:
-                while ((self.top_layer[f'{face}_right'].sides[face], self.top_layer[f'{face}_right'].sides['right']) != (other_color, bottom_center)
-                and (self.top_layer[f'{face}_left'].sides[face], self.top_layer[f'{face}_left'].sides['left']) != (other_color, bottom_center)):
-                    print("here")
-                    self._U()
-            # but it needs to be tracked together not independently
-            # but also each side needs to be a separate pair
+            # find a piece that has match_color on it (not on top side)
+            piece = self._check_top_corners(bottom_center)
+            # find the color on the side thats not the match or the top
+            while piece is not None:
+                for side in piece.sides:
+                    if side != 'top' and piece.sides[side] != bottom_center:
+                        other_color = piece.sides[side]
+                        break
+                # find which center is that color
+                face = self._find_matching_center(other_color)
+                
+                # turn until it matches
+                # track same face color to match, and side colors to match bottom 
+                if face in horizontals:
+                    # face obvi needs to match
+                    # and then horizontal needs to match too 
+                    # good news is we know the piece we're matching
+                    while ((self.top_layer[f'front_{face}'].sides[face], self.top_layer[f'front_{face}'].sides['front']) != (other_color, bottom_center)
+                    and (self.top_layer[f'back_{face}'].sides[face], self.top_layer[f'back_{face}'].sides['back']) != (other_color, bottom_center)):
+                        print("here")
+                        self._U()
+                    
+                    # now turn appropriately:
+                    self._bot_layer_trigger_helper(face, side)
 
+                elif face in verticals:
+                    while ((self.top_layer[f'{face}_right'].sides[face], self.top_layer[f'{face}_right'].sides['right']) != (other_color, bottom_center)
+                    and (self.top_layer[f'{face}_left'].sides[face], self.top_layer[f'{face}_left'].sides['left']) != (other_color, bottom_center)):
+                        print("here")
+                        self._U()
+                
+                    print("face", face)
+                    print("side", side)
+                    self._bot_layer_trigger_helper(face, side)
 
+                piece = self._check_top_corners(bottom_center)
 
+            break
 
 
         # first check for top layer (non-top-side)
@@ -1404,7 +1459,7 @@ class RubiksCube:
         # double trigger
         # call check top layer function
         # this will also be exported
-        self._solve_bot_layer_double_trigger_helper(bottom_center)
+        # self._bot_layer_double_trigger_helper(bottom_center)
         # if none on top side, check bottom (non-bottom-side)
         # trigger up to top 
         # go back to step 2 
