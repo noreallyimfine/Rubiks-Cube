@@ -1333,8 +1333,8 @@ class RubiksCube:
             and self.top_layer[f'{face}_{other_side}'].sides[other_side] == match_color):
                 return other_side
             else:
-                other_side == 'left'
-                return other_side
+                return 'left'
+
             
         elif face in ['left', 'right']:
             face_side = self.top_layer[f'front_{face}'].sides[face]
