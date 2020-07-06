@@ -1275,15 +1275,11 @@ class RubiksCube:
 
             center = self.mid_layer[f'{face}_center'].sides[face]
             top = self.top_layer[f'{face}_middle'].sides['top']
-            print(self)
 
 
             while (self.top_layer[f'{face}_middle'].sides[face], top) != (center, bottom_center):
                 self._U()
                 top = self.top_layer[f'{face}_middle'].sides['top']
-                print("center/top:", center, '/', self.top_layer[f'{face}_middle'].sides[face])
-                print("top side of edge:", top, "-- should match", bottom_center)
-                print("face", face)
 
             if face == 'front':
                 self._F()
@@ -1322,11 +1318,13 @@ class RubiksCube:
     
     def _get_other_color(self, piece, match_color):
         for side in piece.sides:
+            print("side in get_other_color", side)
             if side != 'top' and piece.sides[side] != match_color:
-                other_color = piece.sides[side]
-                return other_color
+
+                return piece.sides[side]
     
     def _get_side_color(self, face, match_color):
+        print("face", face)
         if face in ['front', 'back']:
             face_side = self.top_layer[f'{face}_right'].sides[face]
             other_side = 'right'
@@ -1343,7 +1341,7 @@ class RubiksCube:
             other_side = 'front'
 
             if (face_side == self.mid_layer[f'{face}_center'].sides[face] 
-            and self.top_layer[f'{face}_{other_side}'].sides[other_side] == match_color):
+            and self.top_layer[f'{other_side}_{face}'].sides[other_side] == match_color):
                 return other_side
             else:
                 other_side = 'back'
