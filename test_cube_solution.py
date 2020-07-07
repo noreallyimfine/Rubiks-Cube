@@ -120,5 +120,18 @@ class CubeSolutionTests(unittest.TestCase):
         self.assertEqual(self.cube.top_layer['left_middle'].sides['top'], top_center)
         self.assertEqual(self.cube.top_layer['back_middle'].sides['top'], top_center)
 
+    def test_solved_cube(self):
+
+        self.cube._final_step()
+
+        top_center = self.cube.top_layer['top_center'].sides['top']
+        bottom_center = self.cube.bot_layer['bottom_center'].sides['bottom']
+        front_center = self.cube.mid_layer['front_center'].sides['front']
+        back_center = self.cube.mid_layer['back_center'].sides['back']
+        right_center = self.cube.mid_layer['right_center'].sides['right']
+        left_center = self.cube.mid_layer['left_center'].sides['left']
+
+
+
 if __name__ == '__main__':
     unittest.main()
