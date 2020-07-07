@@ -80,6 +80,17 @@ class CubeSetupTests(unittest.TestCase):
 
         # Test the each color combo is hit the right amount of times
 
+        # there should be 12 edges
+        # top + 4 sides = 4
+        # bottom + 4 sides = 4
+        # front + 2 sides = 2
+        # back + 2 sides = 2
+        # color combos should be [(top, left), (top, right),
+        #                         (top, front), (top, back),
+        #                         (bottom, left), (bottom, right),
+        #                         (bottom, front), (bottom, back),
+        #                         (front, left), (front, right),
+        #                         (back, left), (back, right)]
         pass
 
 
