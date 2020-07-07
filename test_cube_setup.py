@@ -41,5 +41,14 @@ class CubeSetupTests(unittest.TestCase):
 
         self.assertEqual(len(pieces), 26)
 
+
+        for piece in pieces:
+            for side in piece.sides:
+                color = piece.sides[side]
+                color_dict[color] += 1
+
+        for color in color_dict:
+            self.assertEqual(color_dict[color], 9)
+
 if __name__ == "__main__":
     unittest.main()
