@@ -85,7 +85,12 @@ class CubeSetupTests(unittest.TestCase):
         ]
 
         # check that no combo of colors on any piece is opposing colors
-        # 
+        # if the piece is an edge, just need to compare the two sides
+        for piece in self.cube.edges:
+            sides_tuple = tuple(piece.sides.values())
+
+            self.assertNotIn(sides_tuple, self.cube.opposing_colors)
+        # if its a corner, need to compare a:b, a:c, b:c
 
 
 if __name__ == "__main__":
