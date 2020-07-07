@@ -1329,8 +1329,10 @@ class RubiksCube:
             face_side = self.top_layer[f'{face}_right'].sides[face]
             other_side = 'right'
 
-            if (face_side == self.mid_layer[f'{face}_center'].sides[face] 
-            and self.top_layer[f'{face}_{other_side}'].sides[other_side] == match_color):
+            print("face side", face_side)
+            print("tuple comparison evaluates to:")
+            print((face_side, self.top_layer[f'{face}_{other_side}'].sides[other_side]) == (self.mid_layer[f'{face}_center'].sides[face], match_color))
+            if ((face_side, self.top_layer[f'{face}_{other_side}'].sides[other_side]) == (self.mid_layer[f'{face}_center'].sides[face], match_color)):
                 return other_side
             else:
                 return 'left'
@@ -1340,12 +1342,13 @@ class RubiksCube:
             face_side = self.top_layer[f'front_{face}'].sides[face]
             other_side = 'front'
 
-            if (face_side == self.mid_layer[f'{face}_center'].sides[face] 
-            and self.top_layer[f'{other_side}_{face}'].sides[other_side] == match_color):
+            print("face side", face_side)
+            print("tuple comparison evaluates to:")
+            print((face_side, self.top_layer[f'{other_side}_{face}'].sides[other_side]) == (self.mid_layer[f'{face}_center'].sides[face], match_color))
+            if (face_side, self.top_layer[f'{other_side}_{face}'].sides[other_side]) == (self.mid_layer[f'{face}_center'].sides[face], match_color):
                 return other_side
             else:
-                other_side = 'back'
-                return other_side
+                return 'back'
 
         
     def _bot_layer_trigger_helper(self, face, side):
@@ -1459,6 +1462,7 @@ class RubiksCube:
                     print("side", side)
                     self._bot_layer_trigger_helper(face, side)
 
+                print(self)
                 print("finding next piece...")
                 piece = self._check_top_corners(bottom_center)
 
