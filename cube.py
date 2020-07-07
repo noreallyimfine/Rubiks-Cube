@@ -81,31 +81,6 @@ class RubiksCube:
         Bottom layer: {self.bot_layer}\n\n\n"""
         return output
     
-    def count_colors(self):
-        '''
-        After initializing the cube, use this to confirm each of the
-        colors was placed 9 times.
-
-        -- This should be moved to a test --
-        '''
-
-        
-
-        colors = {color: 0 for color in RubiksCube.colors}
-        layers = [self.bot_layer, self.mid_layer, self.top_layer]
-        for layer in layers:
-            # Now we have a dict of pieces
-            # For each key in the dict...
-            for key in layer:
-                # unpack the sides
-                for side in layer[key].sides:
-                # increment the value in the dict
-                    colors[layer[key].sides[side]] += 1
-        
-        print(colors)
-
-            
-
     def _initialize_centers(self):
         '''
         Initializes centers of cube by assigning each center a random color
