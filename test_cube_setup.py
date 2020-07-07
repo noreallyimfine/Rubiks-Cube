@@ -60,29 +60,6 @@ class CubeSetupTests(unittest.TestCase):
         self.assertIn(front_back, self.cube.opposing_colors)
         
     def test_opposing_colors(self):
-        
-        pieces = [
-            self.cube.top_layer['front_right'],
-            self.cube.top_layer['back_right'],
-            self.cube.top_layer['front_left'],
-            self.cube.top_layer['back_left'],
-            self.cube.top_layer['back_middle'],
-            self.cube.top_layer['front_middle'],
-            self.cube.top_layer['right_middle'],
-            self.cube.top_layer['left_middle'],
-            self.cube.mid_layer['front_left'],
-            self.cube.mid_layer['back_left'],
-            self.cube.mid_layer['back_right'],
-            self.cube.mid_layer['front_right'],
-            self.cube.bot_layer['front_right'],
-            self.cube.bot_layer['front_left'],
-            self.cube.bot_layer['back_left'],
-            self.cube.bot_layer['back_right'],
-            self.cube.bot_layer['back_middle'],
-            self.cube.bot_layer['front_middle'],
-            self.cube.bot_layer['right_middle'],
-            self.cube.bot_layer['left_middle'],
-        ]
 
         # check that no combo of colors on any piece is opposing colors
         # if the piece is an edge, just need to compare the two sides
@@ -97,6 +74,14 @@ class CubeSetupTests(unittest.TestCase):
             self.assertNotIn((sides_tuple[0], sides_tuple[1]), self.cube.opposing_colors)
             self.assertNotIn((sides_tuple[0], sides_tuple[2]), self.cube.opposing_colors)
             self.assertNotIn((sides_tuple[1], sides_tuple[2]), self.cube.opposing_colors)
+        
+    
+    def test_piece_colors(self):
+
+        # Test the each color combo is hit the right amount of times
+
+        pass
+
 
 
 if __name__ == "__main__":
