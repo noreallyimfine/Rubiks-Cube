@@ -91,6 +91,12 @@ class CubeSetupTests(unittest.TestCase):
 
             self.assertNotIn(sides_tuple, self.cube.opposing_colors)
         # if its a corner, need to compare a:b, a:c, b:c
+        for corner in self.cube.corners:
+            sides_tuple = tuple(corner.sides.values())
+
+            self.assertNotIn((sides_tuple[0], sides_tuple[1]), self.cube.opposing_colors)
+            self.assertNotIn((sides_tuple[0], sides_tuple[2]), self.cube.opposing_colors)
+            self.assertNotIn((sides_tuple[1], sides_tuple[2]), self.cube.opposing_colors)
 
 
 if __name__ == "__main__":
