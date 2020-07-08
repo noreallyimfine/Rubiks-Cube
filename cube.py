@@ -1368,7 +1368,7 @@ class RubiksCube:
                 self._L()
                 self._U()
                 self._U()
-                self._U_prime()
+                self._L_prime()
     
     def _solve_bot_layer(self):
         '''
@@ -1396,11 +1396,19 @@ class RubiksCube:
 
                 # rotate top until the right color is the same piece 
                 while top_location != bottom_location:
+                    print("top location", top_location)
+                    print("bottom location", bottom_location)
                     self._U()
+                    top_location = self._check_top_face(bottom_center)
+
                 
                 # double trigger -> front and back should cover all bases
                 v, h = top_location.split('_')
                 self._bot_layer_double_trigger_helper(v, h)
+                
+                piece = self._check_top_corners(bottom_center)
+                self._handle_top_corners(piece, bottom_center)
+                
                 # handle top corners 
                 top_location = self._check_top_face(bottom_center)
             break

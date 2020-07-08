@@ -1,7 +1,6 @@
 import unittest
 from cube import RubiksCube
 
-unittest.TestLoader.sortTestMethodsUsing = None
 
 # rename that class
 class CubeSolutionTests(unittest.TestCase):
