@@ -1319,6 +1319,29 @@ class RubiksCube:
                 if self.bot_layer[bottom].sides['bottom'] != match_color:
                         return bottom
     
+    def _handle_top_face(self, top_location, match_color):
+
+        while top_location is not None:
+
+            # find the piece with bottom thats the wrong color
+            bottom_location = self._find_mismatched_bottom(match_color)
+
+            # rotate top until the right color is the same piece 
+            while top_location != bottom_location:
+                self._U()
+                top_location = self._check_top_face(match_color)
+            # double trigger -> front and back should cover all bases
+            v, h = top_location.split('_')
+            self._bot_layer_double_trigger_helper(v, h)
+            
+            piece = self._check_top_corners(match_color)
+            self._handle_top_corners(piece, match_color)
+            
+            # handle top corners 
+            top_location = self._check_top_face(match_color)
+        
+        return
+ 
     def _bot_layer_double_trigger_helper(self, v, h):
 
         # if front
@@ -1354,6 +1377,28 @@ class RubiksCube:
                 self._U()
                 self._L_prime()
     
+    def _check_bot_corners(self, match_color):
+        # THis is ugly. make better.
+    
+        for corner in self.bot_layer:
+            if 'middle' not in corner and 'center' not in corner:
+                for side in self.bot_layer[corner].sides:
+                    if self.bot_layer[corner].sides[side] == match_color and side != 'bottom':
+                        return corner
+
+        return None
+
+    def _handle_bottom_corners(self, bottom_location, match_color):
+
+        while bottom_location is not None:
+            v, h = bottom_location.split("_")
+
+            self._bot_layer_trigger_helper(v, h)
+            top_location = self._check_top_face(match_color)
+            self._handle_top_face(top_location, match_color)
+
+            bottom_location = self._check_bot_corners(match_color)
+
     def _solve_bot_layer(self):
         '''
         Solve the rest of the bottom layer, and in the process, the bottom
@@ -1368,32 +1413,16 @@ class RubiksCube:
 
             # find a piece that has match_color on it (not on top side)
             piece = self._check_top_corners(bottom_center)
-
             self._handle_top_corners(piece, bottom_center)
 
+            # when out of not top side pieces, look for top side
             top_location = self._check_top_face(bottom_center)
-
-            while top_location is not None:
-
-                # find the piece with bottom thats the wrong color
-                bottom_location = self._find_mismatched_bottom(bottom_center)
-
-                # rotate top until the right color is the same piece 
-                while top_location != bottom_location:
-                    self._U()
-                    top_location = self._check_top_face(bottom_center)
-
+            self._handle_top_face(top_location, bottom_center)
                 
-                # double trigger -> front and back should cover all bases
-                v, h = top_location.split('_')
-                self._bot_layer_double_trigger_helper(v, h)
-                
-                piece = self._check_top_corners(bottom_center)
-                self._handle_top_corners(piece, bottom_center)
-                
-                # handle top corners 
-                top_location = self._check_top_face(bottom_center)
-            break
+            # when out of all top row matches, must be on the bottom
+            bottom_location = self._check_bot_corners(bottom_center)
+            self._handle_bottom_corners(bottom_location, bottom_center)
+        
 
 
         # first check for top layer (non-top-side)
