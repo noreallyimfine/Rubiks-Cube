@@ -79,6 +79,12 @@ class CubeSetupTests(unittest.TestCase):
     def test_piece_colors(self):
 
         # Test the each color combo is hit the right amount of times
+        top = self.cube.top_layer['top_center'].sides['top']
+        bottom = self.cube.bot_layer['bottom_center'].sides['bottom']
+        front = self.cube.mid_layer['front_center'].sides['front']
+        back = self.cube.mid_layer['back_center'].sides['back']
+        right = self.cube.mid_layer['right_center'].sides['right']
+        left = self.cube.mid_layer['left_center'].sides['left']
 
         # there should be 12 edges
         # top + 4 sides = 4
@@ -92,6 +98,30 @@ class CubeSetupTests(unittest.TestCase):
         #                         (front, left), (front, right),
         #                         (back, left), (back, right)]
 
+        edge_set_list = [
+            {top, left},
+            {top, right},
+            {top, front},
+            {top, back},
+            {bottom, back},
+            {bottom, front},
+            {bottom, right},
+            {bottom, left},
+            {front, left},
+            {back, left},
+            {front, right},
+            {back, right}
+        ]
+
+        for edge in self.cube.edges:
+            colors_set = set(edge.sides.values())
+            self.assertIn(colors_set, edge_set_list)
+            edge_set_list.remove(colors_set)
+
+        # list of sets of correct color combos
+        # for every edge, assert color combo in list
+        # pop out set so if we have it again it fails
+
         # theres 8 corners
         # top + front + 2 sides = 2
         # top + back + 2 sides = 2
@@ -102,7 +132,16 @@ class CubeSetupTests(unittest.TestCase):
         #                         (bottom, front, left), (bottom, front, right),
         #                         (top, back, left), (top, back, right),
         #                         (bottom, back, left), (bottom, back, right)]
-        pass
+        corner_set_list = [
+            {top, front, left},
+            {top, front, right},
+            {bottom, front, right},
+            {bottom, front, left},
+            {bottom, back, left},
+            {bottom, back, right},
+            {top, back, right},
+            {top, back, left}
+        ]
 
 
 
