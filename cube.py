@@ -1211,6 +1211,41 @@ class RubiksCube:
         
         return None
     
+    def _handle_top_corners(self, piece, match_color):
+        # move the whole while loop here
+        # find the color on the side thats not the match or the top
+        while piece is not None:
+            other_color = self._get_other_color(piece, match_color)
+            # find which center is that color
+            face = self._find_matching_center(other_color)
+            
+            # turn until it matches
+            # track same face color to match, and side colors to match bottom 
+            if face in RubiksCube.horizontals:
+                # face obvi needs to match
+                # and then horizontal needs to match too 
+                # good news is we know the piece we're matching
+                while ((self.top_layer[f'front_{face}'].sides[face], self.top_layer[f'front_{face}'].sides['front']) != (other_color, match_color)
+                and (self.top_layer[f'back_{face}'].sides[face], self.top_layer[f'back_{face}'].sides['back']) != (other_color, match_color)):
+                    self._U()
+                
+                # now turn appropriately:
+                side = self._get_side_color(face, match_color)
+                self._bot_layer_trigger_helper(face, side)
+
+            elif face in RubiksCube.verticals:
+                while ((self.top_layer[f'{face}_right'].sides[face], self.top_layer[f'{face}_right'].sides['right']) != (other_color, match_color)
+                and (self.top_layer[f'{face}_left'].sides[face], self.top_layer[f'{face}_left'].sides['left']) != (other_color, match_color)):
+                    self._U()
+            
+                # get side
+                side = self._get_side_color(face, match_color)
+                self._bot_layer_trigger_helper(face, side)
+
+            piece = self._check_top_corners(match_color)
+        
+        return
+    
     def _find_matching_center(self, match_color):
             for face in ['front', 'right', 'back', 'left']:
                 if self.mid_layer[f'{face}_center'].sides[face] == match_color:
@@ -1317,41 +1352,16 @@ class RubiksCube:
 
             # find a piece that has match_color on it (not on top side)
             piece = self._check_top_corners(bottom_center)
-            # find the color on the side thats not the match or the top
-            while piece is not None:
-                other_color = self._get_other_color(piece, bottom_center)
-                # find which center is that color
-                face = self._find_matching_center(other_color)
-                
-                # turn until it matches
-                # track same face color to match, and side colors to match bottom 
-                if face in RubiksCube.horizontals:
-                    # face obvi needs to match
-                    # and then horizontal needs to match too 
-                    # good news is we know the piece we're matching
-                    while ((self.top_layer[f'front_{face}'].sides[face], self.top_layer[f'front_{face}'].sides['front']) != (other_color, bottom_center)
-                    and (self.top_layer[f'back_{face}'].sides[face], self.top_layer[f'back_{face}'].sides['back']) != (other_color, bottom_center)):
-                        self._U()
-                    
-                    # now turn appropriately:
-                    side = self._get_side_color(face, bottom_center)
-                    self._bot_layer_trigger_helper(face, side)
 
-                elif face in RubiksCube.verticals:
-                    while ((self.top_layer[f'{face}_right'].sides[face], self.top_layer[f'{face}_right'].sides['right']) != (other_color, bottom_center)
-                    and (self.top_layer[f'{face}_left'].sides[face], self.top_layer[f'{face}_left'].sides['left']) != (other_color, bottom_center)):
-                        self._U()
-                
-                    # get side
-                    side = self._get_side_color(face, bottom_center)
-                    self._bot_layer_trigger_helper(face, side)
-
-                piece = self._check_top_corners(bottom_center)
+            self._handle_top_corners(piece, bottom_center)
 
             piece = self._check_top_face(bottom_center)
+
             while piece is not None:
 
-                piece = self_check_top_face(bottom_center)
+                # 
+
+                piece = self._check_top_face(bottom_center)
             break
 
 
