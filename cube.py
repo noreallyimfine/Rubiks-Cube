@@ -1326,14 +1326,14 @@ class RubiksCube:
     def _check_top_face(self, match_color):
         for top in self.top_layer:
             if self.top_layer[top].sides['top'] == match_color:
-                return self.top_layer[top], top
+                return top
         
         return None
     
     def _find_mismatched_bottom(self, match_color):
             for bottom in self.bot_layer:
                 if self.bot_layer[bottom].sides['bottom'] != match_color:
-                        return self.bot_layer[bottom], bottom
+                        return bottom
     
     def _bot_layer_double_trigger_helper(self, v, h):
 
@@ -1380,19 +1380,19 @@ class RubiksCube:
         bottom_center = self.bot_layer['bottom_center'].sides['bottom']
 
         # ALL CODE UNDER THIS NEEDS TO RUN INSIDE WHILE BOTTOM FACE NOT ALL THE SAME
-        while not all(bottom.sides['bottom'] == bottom_center for bottom in self.bot_layer):
+        while not all(self.bot_layer[bottom].sides['bottom'] == bottom_center for bottom in self.bot_layer):
 
             # find a piece that has match_color on it (not on top side)
             piece = self._check_top_corners(bottom_center)
 
             self._handle_top_corners(piece, bottom_center)
 
-            top_piece, top_location = self._check_top_face(bottom_center)
+            top_location = self._check_top_face(bottom_center)
 
-            while top_piece is not None:
+            while top_location is not None:
 
                 # find the piece with bottom thats the wrong color
-                bottom_piece, bottom_location = self._find_mismatched_bottom(bottom_center)
+                bottom_location = self._find_mismatched_bottom(bottom_center)
 
                 # rotate top until the right color is the same piece 
                 while top_location != bottom_location:
@@ -1402,7 +1402,7 @@ class RubiksCube:
                 v, h = top_location.split('_')
                 self._bot_layer_double_trigger_helper(v, h)
                 # handle top corners 
-                top_piece, top_location = self._check_top_face(bottom_center)
+                top_location = self._check_top_face(bottom_center)
             break
 
 
