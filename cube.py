@@ -253,13 +253,108 @@ class RubiksCube:
         Function to call to initialize cube. Calls on helper functions for 
         centers, edges, and corners; in that order.
         '''
-
-        self._initialize_centers()
-
-        self._initialize_edges()
-
-        self._initialize_corners()
     
+        # THE POINT OF THIS BRANCH IS TO FIND OUT IF THIS IS THE ISSUE
+        # initialize a solved cube
+
+        # top face - y
+        self.top_layer['top_center'].sides['top'] = 'y'
+        self.top_layer['front_right'].sides['top'] = 'y'
+        self.top_layer['front_left'].sides['top'] = 'y'
+        self.top_layer['front_middle'].sides['top'] = 'y'
+        self.top_layer['left_middle'].sides['top'] = 'y'
+        self.top_layer['right_middle'].sides['top'] = 'y'
+        self.top_layer['back_middle'].sides['top'] = 'y'
+        self.top_layer['back_left'].sides['top'] = 'y'
+        self.top_layer['back_right'].sides['top'] = 'y'
+
+        # bottom face - w
+        self.bot_layer['bottom_center'].sides['bottom'] = 'w'
+        self.bot_layer['front_right'].sides['bottom'] = 'w'
+        self.bot_layer['front_left'].sides['bottom'] = 'w'
+        self.bot_layer['front_middle'].sides['bottom'] = 'w'
+        self.bot_layer['right_middle'].sides['bottom'] = 'w'
+        self.bot_layer['left_middle'].sides['bottom'] = 'w'
+        self.bot_layer['back_middle'].sides['bottom'] = 'w'
+        self.bot_layer['back_right'].sides['bottom'] = 'w'
+        self.bot_layer['back_left'].sides['bottom'] = 'w'
+
+        # front face - r
+        self.mid_layer['front_center'].sides['front'] = 'r'
+        self.mid_layer['front_right'].sides['front'] = 'r'
+        self.mid_layer['front_left'].sides['front'] = 'r'
+        self.top_layer['front_left'].sides['front'] = 'r'
+        self.top_layer['front_right'].sides['front'] = 'r'
+        self.top_layer['front_middle'].sides['front'] = 'r'
+        self.bot_layer['front_middle'].sides['front'] = 'r'
+        self.bot_layer['front_right'].sides['front'] = 'r'
+        self.bot_layer['front_left'].sides['front'] = 'r'
+
+        # back face - o
+        self.mid_layer['back_center'].sides['back'] = 'o'
+        self.mid_layer['back_right'].sides['back'] = 'o'
+        self.mid_layer['back_left'].sides['back'] = 'o'
+        self.top_layer['back_left'].sides['back'] = 'o'
+        self.top_layer['back_right'].sides['back'] = 'o'
+        self.top_layer['back_middle'].sides['back'] = 'o'
+        self.bot_layer['back_middle'].sides['back'] = 'o'
+        self.bot_layer['back_left'].sides['back'] = 'o'
+        self.bot_layer['back_right'].sides['back'] = 'o'
+
+        # right face - g
+        self.mid_layer['right_center'].sides['right'] = 'g'
+        self.mid_layer['front_right'].sides['right'] = 'g'
+        self.mid_layer['back_right'].sides['right'] = 'g'
+        self.top_layer['back_right'].sides['right'] = 'g'
+        self.top_layer['front_right'].sides['right'] = 'g'
+        self.top_layer['right_middle'].sides['right'] = 'g'
+        self.bot_layer['right_middle'].sides['right'] = 'g'
+        self.bot_layer['back_right'].sides['right'] = 'g'
+        self.bot_layer['front_right'].sides['right'] = 'g'
+
+        # left face - b
+        self.mid_layer['left_center'].sides['left'] = 'b'
+        self.mid_layer['front_left'].sides['left'] = 'b'
+        self.mid_layer['back_left'].sides['left'] = 'b'
+        self.top_layer['back_left'].sides['left'] = 'b'
+        self.top_layer['front_left'].sides['left'] = 'b'
+        self.top_layer['left_middle'].sides['left'] = 'b'
+        self.bot_layer['left_middle'].sides['left'] = 'b'
+        self.bot_layer['front_left'].sides['left'] = 'b'
+        self.bot_layer['back_left'].sides['left'] = 'b'
+
+        self.scramble_cube()
+
+    def scramble_cube(self):
+
+        '''
+        Scrambles cube by making 50 random turns
+        '''
+
+        # This could be better if i find some computer generated scrambles
+        # can have list of scramble sequences
+        # and randomly choose which one to use each time
+
+        moves = [
+            self._L,
+            self._L_prime,
+            self._R,
+            self._R_prime,
+            self._D,
+            self._D_prime,
+            self._U,
+            self._U_prime,
+            self._B,
+            self._B_prime,
+            self._F,
+            self._F_prime
+        ]
+
+        for _ in range(50):
+            random.choice(moves)()
+        
+
+        # scramble the cube.
     def _L_prime(self):
         '''
         Turn left face counter-clockwise
