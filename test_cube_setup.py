@@ -91,6 +91,17 @@ class CubeSetupTests(unittest.TestCase):
         #                         (bottom, front), (bottom, back),
         #                         (front, left), (front, right),
         #                         (back, left), (back, right)]
+
+        # theres 8 corners
+        # top + front + 2 sides = 2
+        # top + back + 2 sides = 2
+        # bottom + front + 2 sides = 2
+        # bottom + back + 2 sides = 2
+
+        # color combos should be [(top, front, left), (top, front, right),
+        #                         (bottom, front, left), (bottom, front, right),
+        #                         (top, back, left), (top, back, right),
+        #                         (bottom, back, left), (bottom, back, right)]
         pass
 
 
