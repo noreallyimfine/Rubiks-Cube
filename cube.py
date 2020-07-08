@@ -1278,6 +1278,11 @@ class RubiksCube:
                 return 'back'
 
         
+    def _find_mismatched_bottom(self, match_color):
+            for bottom in self.bot_layer:
+                if bottom.sides['bottom'] != match_color:
+                        return bottom
+    
     def _bot_layer_trigger_helper(self, face, side):
 
         # first we note face
@@ -1355,13 +1360,17 @@ class RubiksCube:
 
             self._handle_top_corners(piece, bottom_center)
 
-            piece = self._check_top_face(bottom_center)
+            top_piece = self._check_top_face(bottom_center)
 
-            while piece is not None:
+            while top_piece is not None:
 
-                # 
+                # find the piece with bottom thats the wrong color
+                bottom_piece = self._find_mismatched_bottom(bottom_center)
 
-                piece = self._check_top_face(bottom_center)
+                # rotate top until the right color is the same piece 
+                # double trigger -> front and back should cover all bases
+                # handle top corners 
+                top_piece = self._check_top_face(bottom_center)
             break
 
 
