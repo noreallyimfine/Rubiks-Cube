@@ -143,6 +143,11 @@ class CubeSetupTests(unittest.TestCase):
             {top, back, left}
         ]
 
+        for corner in self.cube.corners:
+            colors_set = set(corner.sides.values())
+            self.assertIn(colors_set, corner_set_list)
+            corner_set_list.remove(colors_set)
+
 
 
 if __name__ == "__main__":
