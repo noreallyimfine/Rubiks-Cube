@@ -44,7 +44,6 @@ class CubeSolutionTests(unittest.TestCase):
 
     def test_bottom_layer(self):
 
-        bottom_center = self.cube.bot_layer['bottom_center'].sides['bottom']
         right_center = self.cube.mid_layer['right_center'].sides['right']
         left_center = self.cube.mid_layer['left_center'].sides['left']
         front_center = self.cube.mid_layer['front_center'].sides['front']
@@ -75,6 +74,7 @@ class CubeSolutionTests(unittest.TestCase):
         for _ in range(50):
             self.cube.initialize_cube()
             self.test_bottom_layer()
+            print("Success")
     # def test_middle_layer(self):
 
     #     self.cube._solve_mid_layer()

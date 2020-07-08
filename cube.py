@@ -1100,7 +1100,7 @@ class RubiksCube:
                 if face == 'front':
                     self._F()
                     self._U()
-                    self._R()
+                    self._L_prime()
                 elif face == 'left':
                     self._L()
                     self._U()
