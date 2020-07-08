@@ -1325,17 +1325,50 @@ class RubiksCube:
 
     def _check_top_face(self, match_color):
         for top in self.top_layer:
-            if top.sides['top'] == match_color:
-                return top
+            if self.top_layer[top].sides['top'] == match_color:
+                return self.top_layer[top], top
+        
+        return None
     
     def _find_mismatched_bottom(self, match_color):
             for bottom in self.bot_layer:
-                if bottom.sides['bottom'] != match_color:
-                        return bottom
+                if self.bot_layer[bottom].sides['bottom'] != match_color:
+                        return self.bot_layer[bottom], bottom
     
-    def _bot_layer_double_trigger_helper(self, match_color):
+    def _bot_layer_double_trigger_helper(self, v, h):
 
-        pass
+        # if front
+        if v == 'front':
+            # if right
+            if h == 'right':
+                # R, U, U, R`
+                self._R()
+                self._U()
+                self._U()
+                self._R_prime()
+            # if left
+            elif h == 'left':
+                # L`, U, U, L
+                self._L_prime()
+                self._U()
+                self._U()
+                self._L()
+        # if back
+        elif v == 'back':
+            # if right
+            if h == 'right':
+                # R`, U, U, R
+                self._R_prime()
+                self._U()
+                self._U()
+                self._R()
+            # if left
+            elif h == 'left':
+                # L, U, U, L`
+                self._L()
+                self._U()
+                self._U()
+                self._U_prime()
     
     def _solve_bot_layer(self):
         '''
@@ -1354,17 +1387,22 @@ class RubiksCube:
 
             self._handle_top_corners(piece, bottom_center)
 
-            top_piece = self._check_top_face(bottom_center)
+            top_piece, top_location = self._check_top_face(bottom_center)
 
             while top_piece is not None:
 
                 # find the piece with bottom thats the wrong color
-                bottom_piece = self._find_mismatched_bottom(bottom_center)
+                bottom_piece, bottom_location = self._find_mismatched_bottom(bottom_center)
 
                 # rotate top until the right color is the same piece 
+                while top_location != bottom_location:
+                    self._U()
+                
                 # double trigger -> front and back should cover all bases
+                v, h = top_location.split('_')
+                self._bot_layer_double_trigger_helper(v, h)
                 # handle top corners 
-                top_piece = self._check_top_face(bottom_center)
+                top_piece, top_location = self._check_top_face(bottom_center)
             break
 
 
