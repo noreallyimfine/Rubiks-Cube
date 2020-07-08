@@ -253,13 +253,35 @@ class RubiksCube:
         Function to call to initialize cube. Calls on helper functions for 
         centers, edges, and corners; in that order.
         '''
-
-        self._initialize_centers()
-
-        self._initialize_edges()
-
-        self._initialize_corners()
     
+        # THE POINT OF THIS BRANCH IS TO FIND OUT IF THIS IS THE ISSUE
+        # initialize a solved cube
+
+        # top face - y
+        self.top_layer['top_center'].sides['top'] = 'y'
+        self.top_layer['front_right'].sides['top'] = 'y'
+        self.top_layer['front_left'].sides['top'] = 'y'
+        self.top_layer['front_middle'].sides['top'] = 'y'
+        self.top_layer['left_middle'].sides['top'] = 'y'
+        self.top_layer['right_middle'].sides['top'] = 'y'
+        self.top_layer['back_middle'].sides['top'] = 'y'
+        self.top_layer['back_left'].sides['top'] = 'y'
+        self.top_layer['back_right'].sides['top'] = 'y'
+
+        # bottom face - w
+        self.bot_layer['bottom_center'].sides['bottom'] = 'w'
+        self.bot_layer['front_right'].sides['bottom'] = 'w'
+        self.bot_layer['front_left'].sides['bottom'] = 'w'
+        self.bot_layer['front_middle'].sides['bottom'] = 'w'
+        self.bot_layer['right_middle'].sides['bottom'] = 'w'
+        self.bot_layer['left_middle'].sides['bottom'] = 'w'
+        self.bot_layer['back_middle'].sides['bottom'] = 'w'
+        self.bot_layer['back_right'].sides['bottom'] = 'w'
+        self.bot_layer['back_left'].sides['bottom'] = 'w'
+
+        # 
+
+        # scramble the cube.
     def _L_prime(self):
         '''
         Turn left face counter-clockwise
