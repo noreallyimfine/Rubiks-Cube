@@ -1278,10 +1278,6 @@ class RubiksCube:
                 return 'back'
 
         
-    def _find_mismatched_bottom(self, match_color):
-            for bottom in self.bot_layer:
-                if bottom.sides['bottom'] != match_color:
-                        return bottom
     
     def _bot_layer_trigger_helper(self, face, side):
 
@@ -1327,7 +1323,16 @@ class RubiksCube:
                 self._U()
                 self._B_prime()
 
-
+    def _check_top_face(self, match_color):
+        for top in self.top_layer:
+            if top.sides['top'] == match_color:
+                return top
+    
+    def _find_mismatched_bottom(self, match_color):
+            for bottom in self.bot_layer:
+                if bottom.sides['bottom'] != match_color:
+                        return bottom
+    
     def _bot_layer_double_trigger_helper(self, match_color):
 
         pass
@@ -1342,18 +1347,7 @@ class RubiksCube:
         bottom_center = self.bot_layer['bottom_center'].sides['bottom']
 
         # ALL CODE UNDER THIS NEEDS TO RUN INSIDE WHILE BOTTOM FACE NOT ALL THE SAME
-        bottoms = [
-            self.bot_layer['front_right'].sides['bottom'],
-            self.bot_layer['front_middle'].sides['bottom'],
-            self.bot_layer['front_left'].sides['bottom'],
-            self.bot_layer['left_middle'].sides['bottom'],
-            self.bot_layer['back_left'].sides['bottom'],
-            self.bot_layer['back_middle'].sides['bottom'],
-            self.bot_layer['back_right'].sides['bottom'],
-            self.bot_layer['right_middle'].sides['bottom']
-        ]
-
-        while not all(color == bottom_center for color in bottoms):
+        while not all(bottom.sides['bottom'] == bottom_center for bottom in self.bot_layer):
 
             # find a piece that has match_color on it (not on top side)
             piece = self._check_top_corners(bottom_center)
