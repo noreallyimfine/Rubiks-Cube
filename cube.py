@@ -322,6 +322,28 @@ class RubiksCube:
         self.bot_layer['left_middle'].sides['left'] = 'b'
         self.bot_layer['front_left'].sides['left'] = 'b'
         self.bot_layer['back_left'].sides['left'] = 'b'
+
+        self.scramble_cube()
+
+    def scramble_cube(self):
+
+        moves = [
+            self._L,
+            self._L_prime,
+            self._R,
+            self._R_prime,
+            self._D,
+            self._D_prime,
+            self._U,
+            self._U_prime,
+            self._B,
+            self._B_prime,
+            self._F,
+            self._F_prime
+        ]
+
+        for _ in range(20):
+            random.choice(moves)()
         
 
         # scramble the cube.

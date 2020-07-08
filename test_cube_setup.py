@@ -49,6 +49,7 @@ class CubeSetupTests(unittest.TestCase):
 
         for color in color_dict:
             self.assertEqual(color_dict[color], 9)
+
     
 if __name__ == "__main__":
     unittest.main()
