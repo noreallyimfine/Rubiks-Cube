@@ -1021,31 +1021,25 @@ class RubiksCube:
             # check top layer and return first instance of match or None
 
             face = self._check_top_edges(bottom_center)
-            print("Face found:", face)
             while face is not None:
                 if face == 'right':
-                    print("right face")
                     self._R_prime()
                     self._U()
                     self._F_prime()
                 elif face == 'front':
-                    print("front face")
                     self._F_prime()
                     self._U()
                     self._L_prime()
                 elif face == 'left':
-                    print("left face")
                     self._L_prime()
                     self._U()
                     self._B_prime()
                 elif face == 'back':
-                    print("back face")
                     self._B_prime()
                     self._U()
                     self._R_prime()
                 
                 face = self._check_top_edges(bottom_center)
-                print("Next face:", face)
 
 
             # MID LAYER MATCHERS
@@ -1053,7 +1047,6 @@ class RubiksCube:
             # is above it and turn it up
             piece, side, face = self._check_mid_edges(bottom_center)
             while piece is not None:
-                print("piece found:", piece)
 
                 # if we know the 2 'directions' separately
                 # reference the side its on by that direction
@@ -1061,39 +1054,30 @@ class RubiksCube:
                 # locate the correct direction by joining them (always need [front, back] first)
                 # first-pass: return 3 values from func
                 while self.top_layer[f'{face}_middle'].sides['top'] == bottom_center:
-                    print('turning top')
                     self._U()
 
                 if piece == 'front_right':
                     if side == 'right':
-                        print("its on the right")
                         self._F_prime()
                     elif side == 'front':
-                        print("its on the front")
                         self._R()
 
                 elif piece == 'front_left':
                     if side == 'left':
-                        print("its on the left")
                         self._F()
                     elif side == 'front':
-                        print("its on the front")
                         self._L_prime()
                 
                 elif piece == 'back_right':
                     if side == 'right':
-                        print("its on the right")
                         self._B()
                     elif side == 'back':
-                        print("its on the back")
                         self._R_prime()
                 
                 elif piece == 'back_left':
                     if side == 'left':
-                        print("its on the left")
                         self._B_prime()
                     elif side == 'back':
-                        print("its on the back")
                         self._L()
 
 
@@ -1396,8 +1380,6 @@ class RubiksCube:
 
                 # rotate top until the right color is the same piece 
                 while top_location != bottom_location:
-                    print("top location", top_location)
-                    print("bottom location", bottom_location)
                     self._U()
                     top_location = self._check_top_face(bottom_center)
 
