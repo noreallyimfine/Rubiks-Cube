@@ -279,7 +279,50 @@ class RubiksCube:
         self.bot_layer['back_right'].sides['bottom'] = 'w'
         self.bot_layer['back_left'].sides['bottom'] = 'w'
 
-        # 
+        # front face - r
+        self.mid_layer['front_center'].sides['front'] = 'r'
+        self.mid_layer['front_right'].sides['front'] = 'r'
+        self.mid_layer['front_left'].sides['front'] = 'r'
+        self.top_layer['front_left'].sides['front'] = 'r'
+        self.top_layer['front_right'].sides['front'] = 'r'
+        self.top_layer['front_middle'].sides['front'] = 'r'
+        self.bot_layer['front_middle'].sides['front'] = 'r'
+        self.bot_layer['front_right'].sides['front'] = 'r'
+        self.bot_layer['front_left'].sides['front'] = 'r'
+
+        # back face - o
+        self.mid_layer['back_center'].sides['back'] = 'o'
+        self.mid_layer['back_right'].sides['back'] = 'o'
+        self.mid_layer['back_left'].sides['back'] = 'o'
+        self.top_layer['back_left'].sides['back'] = 'o'
+        self.top_layer['back_right'].sides['back'] = 'o'
+        self.top_layer['back_middle'].sides['back'] = 'o'
+        self.bot_layer['back_middle'].sides['back'] = 'o'
+        self.bot_layer['back_left'].sides['back'] = 'o'
+        self.bot_layer['back_right'].sides['back'] = 'o'
+
+        # right face - g
+        self.mid_layer['right_center'].sides['right'] = 'g'
+        self.mid_layer['front_right'].sides['right'] = 'g'
+        self.mid_layer['back_right'].sides['right'] = 'g'
+        self.top_layer['back_right'].sides['right'] = 'g'
+        self.top_layer['front_right'].sides['right'] = 'g'
+        self.top_layer['right_middle'].sides['right'] = 'g'
+        self.bot_layer['right_middle'].sides['right'] = 'g'
+        self.bot_layer['back_right'].sides['right'] = 'g'
+        self.bot_layer['front_right'].sides['right'] = 'g'
+
+        # left face - b
+        self.mid_layer['left_center'].sides['left'] = 'b'
+        self.mid_layer['front_left'].sides['left'] = 'b'
+        self.mid_layer['back_left'].sides['left'] = 'b'
+        self.top_layer['back_left'].sides['left'] = 'b'
+        self.top_layer['front_left'].sides['left'] = 'b'
+        self.top_layer['left_middle'].sides['left'] = 'b'
+        self.bot_layer['left_middle'].sides['left'] = 'b'
+        self.bot_layer['front_left'].sides['left'] = 'b'
+        self.bot_layer['back_left'].sides['left'] = 'b'
+        
 
         # scramble the cube.
     def _L_prime(self):
