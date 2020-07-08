@@ -327,6 +327,14 @@ class RubiksCube:
 
     def scramble_cube(self):
 
+        '''
+        Scrambles cube by making 50 random turns
+        '''
+
+        # This could be better if i find some computer generated scrambles
+        # can have list of scramble sequences
+        # and randomly choose which one to use each time
+
         moves = [
             self._L,
             self._L_prime,
@@ -342,7 +350,7 @@ class RubiksCube:
             self._F_prime
         ]
 
-        for _ in range(20):
+        for _ in range(50):
             random.choice(moves)()
         
 
