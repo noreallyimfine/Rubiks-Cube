@@ -8,6 +8,8 @@ from piece import Piece, Center, Edge, Corner
 class RubiksCube:
 
     colors = ['w', 'y', 'o', 'b', 'r', 'g']
+    verticals = ['front', 'back']
+    horizontals = ['right', 'left']
     
     def __init__(self):
         self.bot_layer = {'bottom_center': Center(sides=['bottom']), 
@@ -962,11 +964,9 @@ class RubiksCube:
         # need to return both the face and the side
         # side tells us which face to turn, 
         # face tells us which way to turn
-        verticals = ['front', 'back']
-        horizontals = ['left', 'right']
 
-        for v in verticals:
-            for h in horizontals:
+        for v in RubiksCube.verticals:
+            for h in RubiksCube.horizontals:
                 piece = f'{v}_{h}'
                 edge = self.mid_layer[piece] 
                 if edge.sides[v] == match_color:
@@ -1202,11 +1202,8 @@ class RubiksCube:
     def _check_top_corners(self, match_color):
 
         # what do i need to return from this func
-        verticals = ['front', 'back']
-        horizontals = ['left', 'right']
-
-        for v in verticals:
-            for h in horizontals:
+        for v in RubiksCube.verticals:
+            for h in RubiksCube.horizontals:
                 piece = f'{v}_{h}'
                 sides = [self.top_layer[piece].sides[side] for side in self.top_layer[piece].sides.keys() if side != 'top']
                 if match_color in sides:
@@ -1221,20 +1218,15 @@ class RubiksCube:
     
     def _get_other_color(self, piece, match_color):
         for side in piece.sides:
-            print("side in get_other_color", side)
             if side != 'top' and piece.sides[side] != match_color:
 
                 return piece.sides[side]
     
     def _get_side_color(self, face, match_color):
-        print("face", face)
         if face in ['front', 'back']:
             face_side = self.top_layer[f'{face}_right'].sides[face]
             other_side = 'right'
 
-            print("face side", face_side)
-            print("tuple comparison evaluates to:")
-            print((face_side, self.top_layer[f'{face}_{other_side}'].sides[other_side]) == (self.mid_layer[f'{face}_center'].sides[face], match_color))
             if ((face_side, self.top_layer[f'{face}_{other_side}'].sides[other_side]) == (self.mid_layer[f'{face}_center'].sides[face], match_color)):
                 return other_side
             else:
@@ -1245,9 +1237,6 @@ class RubiksCube:
             face_side = self.top_layer[f'front_{face}'].sides[face]
             other_side = 'front'
 
-            print("face side", face_side)
-            print("tuple comparison evaluates to:")
-            print((face_side, self.top_layer[f'{other_side}_{face}'].sides[other_side]) == (self.mid_layer[f'{face}_center'].sides[face], match_color))
             if (face_side, self.top_layer[f'{other_side}_{face}'].sides[other_side]) == (self.mid_layer[f'{face}_center'].sides[face], match_color):
                 return other_side
             else:
@@ -1312,8 +1301,6 @@ class RubiksCube:
         self._bottom_cross()
         bottom_center = self.bot_layer['bottom_center'].sides['bottom']
 
-        verticals = ['front', 'back']
-        horizontals = ['left', 'right']
         # ALL CODE UNDER THIS NEEDS TO RUN INSIDE WHILE BOTTOM FACE NOT ALL THE SAME
         bottoms = [
             self.bot_layer['front_right'].sides['bottom'],
@@ -1338,37 +1325,33 @@ class RubiksCube:
                 
                 # turn until it matches
                 # track same face color to match, and side colors to match bottom 
-                if face in horizontals:
+                if face in RubiksCube.horizontals:
                     # face obvi needs to match
                     # and then horizontal needs to match too 
                     # good news is we know the piece we're matching
                     while ((self.top_layer[f'front_{face}'].sides[face], self.top_layer[f'front_{face}'].sides['front']) != (other_color, bottom_center)
                     and (self.top_layer[f'back_{face}'].sides[face], self.top_layer[f'back_{face}'].sides['back']) != (other_color, bottom_center)):
-                        print("here")
                         self._U()
                     
                     # now turn appropriately:
                     side = self._get_side_color(face, bottom_center)
-                    print("face", face)
-                    print("side", side)
                     self._bot_layer_trigger_helper(face, side)
 
-                elif face in verticals:
+                elif face in RubiksCube.verticals:
                     while ((self.top_layer[f'{face}_right'].sides[face], self.top_layer[f'{face}_right'].sides['right']) != (other_color, bottom_center)
                     and (self.top_layer[f'{face}_left'].sides[face], self.top_layer[f'{face}_left'].sides['left']) != (other_color, bottom_center)):
-                        print("here")
                         self._U()
                 
                     # get side
                     side = self._get_side_color(face, bottom_center)
-                    print("face", face)
-                    print("side", side)
                     self._bot_layer_trigger_helper(face, side)
 
-                print(self)
-                print("finding next piece...")
                 piece = self._check_top_corners(bottom_center)
 
+            piece = self._check_top_face(bottom_center)
+            while piece is not None:
+
+                piece = self_check_top_face(bottom_center)
             break
 
 
