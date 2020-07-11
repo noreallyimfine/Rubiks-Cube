@@ -986,9 +986,24 @@ class RubiksCube:
                 self._R_prime()
             
             face = self._check_top_edges(match_color)
+
+    def _check_mid_edges(self, match_color):
+        # need to return both the face and the side
+        # side tells us which face to turn, 
+        # face tells us which way to turn
+
+        for v in RubiksCube.verticals:
+            for h in RubiksCube.horizontals:
+                piece = f'{v}_{h}'
+                edge = self.mid_layer[piece] 
+                if edge.sides[v] == match_color:
+                    return piece, v, h
+                elif edge.sides[h] == match_color:
+                    return piece, h, v
+        return None, None, None
     
     def _handle_mid_layer_edges(self, match_color):
-        piece, side, face = self._check_mid_edges(bottom_center)
+        piece, side, face = self._check_mid_edges(match_color)
         while piece is not None:
 
             # if we know the 2 'directions' separately
@@ -996,7 +1011,7 @@ class RubiksCube:
             # reference the place is going by the other direction + middle
             # locate the correct direction by joining them (always need [front, back] first)
             # first-pass: return 3 values from func
-            while self.top_layer[f'{face}_middle'].sides['top'] == bottom_center:
+            while self.top_layer[f'{face}_middle'].sides['top'] == match_color:
                 self._U()
 
             if piece == 'front_right':
@@ -1024,22 +1039,10 @@ class RubiksCube:
                     self._L()
 
 
-            piece, side, face = self._check_mid_edges(bottom_center)
+            piece, side, face = self._check_mid_edges(match_color)
+        
+        self._handle_top_layer_edges(match_color)
 
-    def _check_mid_edges(self, match_color):
-        # need to return both the face and the side
-        # side tells us which face to turn, 
-        # face tells us which way to turn
-
-        for v in RubiksCube.verticals:
-            for h in RubiksCube.horizontals:
-                piece = f'{v}_{h}'
-                edge = self.mid_layer[piece] 
-                if edge.sides[v] == match_color:
-                    return piece, v, h
-                elif edge.sides[h] == match_color:
-                    return piece, h, v
-        return None, None, None
     
     def _check_bot_edges(self, match_color):
 
@@ -1050,6 +1053,32 @@ class RubiksCube:
             if edge.sides[face] == match_color:
                 return face
     
+    def _handle_bot_layer_edges(self, match_color):
+        face = self._check_bot_edges(match_color)
+        while face is not None:
+            while self.top_layer[f'{face}_middle'].sides['top'] == match_color:
+                self._U()
+            
+            if face == 'front':
+                self._F()
+                self._U()
+                self._L_prime()
+            elif face == 'left':
+                self._L()
+                self._U()
+                self._B_prime()
+            elif face == 'back':
+                self._B()
+                self._U()
+                self._R_prime()
+            elif face == 'right':
+                self._R()
+                self._U()
+                self._F_prime()
+        
+            face = self._check_bot_edges(match_color)
+        
+        self._handle_mid_layer_edges(match_color)
     
     def _check_bot_face(self, match_color):
 
@@ -1059,6 +1088,9 @@ class RubiksCube:
             edge = self.bot_layer[f'{face}_middle']
             if edge.sides['bottom'] == match_color:
                 return face
+    
+    def _handle_bot_face_edges(self, match_color):
+        pass
 
     def _make_daisy(self):
         '''
@@ -1103,29 +1135,8 @@ class RubiksCube:
             # rotate clockwise or counter
             # now treat like middle layer
 
-            face = self._check_bot_edges(bottom_center)
-            while face is not None:
-                while self.top_layer[f'{face}_middle'].sides['top'] == bottom_center:
-                    self._U()
-                
-                if face == 'front':
-                    self._F()
-                    self._U()
-                    self._L_prime()
-                elif face == 'left':
-                    self._L()
-                    self._U()
-                    self._B_prime()
-                elif face == 'back':
-                    self._B()
-                    self._U()
-                    self._R_prime()
-                elif face == 'right':
-                    self._R()
-                    self._U()
-                    self._F_prime()
-            
-                face = self._check_bot_edges(bottom_center)
+            self._handle_bot_layer_edges(bottom_center)
+
 
             # The last remaining place for opposing edges is the bottom face
             # if the right color is on the bottom edge
