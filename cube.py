@@ -185,8 +185,11 @@ class RubiksCube:
             self._F_prime
         ]
 
-        for _ in range(50):
+        # fewer turns for testing where mistakes are happening
+        for _ in range(10):
             random.choice(moves)()
+        # for _ in range(50):
+        #     random.choice(moves)()
         
 
         # scramble the cube.
@@ -958,6 +961,8 @@ class RubiksCube:
         for face in faces:
             edge = self.top_layer[f'{face}_middle']
             if edge.sides[face] == match_color:
+                print("top edge for daisy found, located on the", face)
+                print("the color on the face side is", edge.sides[face])
                 return face
     
     def _check_mid_edges(self, match_color):
@@ -1011,6 +1016,7 @@ class RubiksCube:
         ]
 
         while not all(edge['top'] == bottom_center for edge in top_edges):
+            print([edge['top'] for edge in top_edges])
 
             # TOP LAYER MATCHERS
             # if the side face of a top edge matches, 
@@ -1233,6 +1239,7 @@ class RubiksCube:
     def _find_matching_center(self, match_color):
             for face in ['front', 'right', 'back', 'left']:
                 if self.mid_layer[f'{face}_center'].sides[face] == match_color:
+                    print("matching face is:", face)
                     return face
     
     def _get_other_color(self, piece, match_color):
