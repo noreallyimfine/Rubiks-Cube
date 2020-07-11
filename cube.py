@@ -965,6 +965,28 @@ class RubiksCube:
                 print("the color on the face side is", edge.sides[face])
                 return face
     
+    def _handle_top_layer_edges(self, match_color):
+        face = self._check_top_edges(match_color)
+        while face is not None:
+            if face == 'right':
+                self._R_prime()
+                self._U()
+                self._F_prime()
+            elif face == 'front':
+                self._F_prime()
+                self._U()
+                self._L_prime()
+            elif face == 'left':
+                self._L_prime()
+                self._U()
+                self._B_prime()
+            elif face == 'back':
+                self._B_prime()
+                self._U()
+                self._R_prime()
+            
+            face = self._check_top_edges(match_color)
+    
     def _check_mid_edges(self, match_color):
         # need to return both the face and the side
         # side tells us which face to turn, 
@@ -1015,7 +1037,9 @@ class RubiksCube:
             self.top_layer['back_middle'].sides,
         ]
 
-        while not all(edge['top'] == bottom_center for edge in top_edges):
+        all_edges_white = all(edge['top'] == bottom_center for edge in top_edges)
+
+        while not all_edges_white:
             print([edge['top'] for edge in top_edges])
 
             # TOP LAYER MATCHERS
@@ -1027,25 +1051,8 @@ class RubiksCube:
             # check top layer and return first instance of match or None
 
             face = self._check_top_edges(bottom_center)
-            while face is not None:
-                if face == 'right':
-                    self._R_prime()
-                    self._U()
-                    self._F_prime()
-                elif face == 'front':
-                    self._F_prime()
-                    self._U()
-                    self._L_prime()
-                elif face == 'left':
-                    self._L_prime()
-                    self._U()
-                    self._B_prime()
-                elif face == 'back':
-                    self._B_prime()
-                    self._U()
-                    self._R_prime()
+            self._handle_top_layer_edges(face, bottom_center)
                 
-                face = self._check_top_edges(bottom_center)
 
 
             # MID LAYER MATCHERS
@@ -1149,6 +1156,7 @@ class RubiksCube:
                     self._B()
 
                 face = self._check_bot_face(bottom_center)
+            all_edges_white = all(edge['top'] == bottom_center for edge in top_edges)
 
     def _bottom_cross(self):
         '''
