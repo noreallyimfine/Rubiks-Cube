@@ -987,6 +987,45 @@ class RubiksCube:
             
             face = self._check_top_edges(match_color)
     
+    def _handle_mid_layer_edges(self, match_color):
+        piece, side, face = self._check_mid_edges(bottom_center)
+        while piece is not None:
+
+            # if we know the 2 'directions' separately
+            # reference the side its on by that direction
+            # reference the place is going by the other direction + middle
+            # locate the correct direction by joining them (always need [front, back] first)
+            # first-pass: return 3 values from func
+            while self.top_layer[f'{face}_middle'].sides['top'] == bottom_center:
+                self._U()
+
+            if piece == 'front_right':
+                if side == 'right':
+                    self._F_prime()
+                elif side == 'front':
+                    self._R()
+
+            elif piece == 'front_left':
+                if side == 'left':
+                    self._F()
+                elif side == 'front':
+                    self._L_prime()
+            
+            elif piece == 'back_right':
+                if side == 'right':
+                    self._B()
+                elif side == 'back':
+                    self._R_prime()
+            
+            elif piece == 'back_left':
+                if side == 'left':
+                    self._B_prime()
+                elif side == 'back':
+                    self._L()
+
+
+            piece, side, face = self._check_mid_edges(bottom_center)
+
     def _check_mid_edges(self, match_color):
         # need to return both the face and the side
         # side tells us which face to turn, 
@@ -1040,7 +1079,7 @@ class RubiksCube:
         all_edges_white = all(edge['top'] == bottom_center for edge in top_edges)
 
         while not all_edges_white:
-            print([edge['top'] for edge in top_edges])
+            print(all_edges_white)
 
             # TOP LAYER MATCHERS
             # if the side face of a top edge matches, 
@@ -1049,55 +1088,14 @@ class RubiksCube:
             # turn the face it attached to the same opposite way
 
             # check top layer and return first instance of match or None
-
-            face = self._check_top_edges(bottom_center)
-            self._handle_top_layer_edges(face, bottom_center)
+            self._handle_top_layer_edges(bottom_center)
                 
-
-
             # MID LAYER MATCHERS
             # if a middle edge matches, rotate top until the wrong color
             # is above it and turn it up
-            piece, side, face = self._check_mid_edges(bottom_center)
-            while piece is not None:
-
-                # if we know the 2 'directions' separately
-                # reference the side its on by that direction
-                # reference the place is going by the other direction + middle
-                # locate the correct direction by joining them (always need [front, back] first)
-                # first-pass: return 3 values from func
-                while self.top_layer[f'{face}_middle'].sides['top'] == bottom_center:
-                    self._U()
-
-                if piece == 'front_right':
-                    if side == 'right':
-                        self._F_prime()
-                    elif side == 'front':
-                        self._R()
-
-                elif piece == 'front_left':
-                    if side == 'left':
-                        self._F()
-                    elif side == 'front':
-                        self._L_prime()
-                
-                elif piece == 'back_right':
-                    if side == 'right':
-                        self._B()
-                    elif side == 'back':
-                        self._R_prime()
-                
-                elif piece == 'back_left':
-                    if side == 'left':
-                        self._B_prime()
-                    elif side == 'back':
-                        self._L()
 
 
-                piece, side, face = self._check_mid_edges(bottom_center)
-
-
-
+            self._handle_mid_layer_edges(bottom_center)
 
             # BOT LAYER MATCHERS
             # if a bot layer edge matches,
