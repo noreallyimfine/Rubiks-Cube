@@ -962,7 +962,6 @@ class RubiksCube:
             edge = self.top_layer[f'{face}_middle']
             if edge.sides[face] == match_color:
                 print("top edge for daisy found, located on the", face)
-                print("the color on the face side is", edge.sides[face])
                 return face
     
     def _handle_top_layer_edges(self, match_color):
@@ -997,8 +996,10 @@ class RubiksCube:
                 piece = f'{v}_{h}'
                 edge = self.mid_layer[piece] 
                 if edge.sides[v] == match_color:
+                    print("mid layer find ", piece, "on the", v, "side")
                     return piece, v, h
                 elif edge.sides[h] == match_color:
+                    print("mid layer find ", piece, "on the", h, "side")
                     return piece, h, v
         return None, None, None
     
@@ -1041,7 +1042,7 @@ class RubiksCube:
 
             piece, side, face = self._check_mid_edges(match_color)
         
-        self._handle_top_layer_edges(match_color)
+        # self._handle_top_layer_edges(match_color)
 
     
     def _check_bot_edges(self, match_color):
@@ -1051,6 +1052,7 @@ class RubiksCube:
         for face in faces:
             edge = self.bot_layer[f'{face}_middle']
             if edge.sides[face] == match_color:
+                print("found on a bottom edge on the", face, "side")
                 return face
     
     def _handle_bot_layer_edges(self, match_color):
@@ -1078,7 +1080,8 @@ class RubiksCube:
         
             face = self._check_bot_edges(match_color)
         
-        self._handle_mid_layer_edges(match_color)
+        # self._handle_top_layer_edges(match_color)
+        # self._handle_mid_layer_edges(match_color)
     
     def _check_bot_face(self, match_color):
 
@@ -1087,6 +1090,7 @@ class RubiksCube:
         for face in faces:
             edge = self.bot_layer[f'{face}_middle']
             if edge.sides['bottom'] == match_color:
+                print("found one on the bottom face", face, "side")
                 return face
     
     def _handle_bot_face_edges(self, match_color):
@@ -1114,7 +1118,9 @@ class RubiksCube:
 
             face = self._check_bot_face(match_color)
 
-        self._handle_bot_layer_edges(match_color)
+        # self._handle_top_layer_edges(match_color)
+        # self._handle_mid_layer_edges(match_color)
+        # self._handle_bot_layer_edges(match_color)
 
 
     def _make_daisy(self):
@@ -1136,7 +1142,7 @@ class RubiksCube:
         all_edges_white = all(edge['top'] == bottom_center for edge in top_edges)
 
         while not all_edges_white:
-            print(all_edges_white)
+            print([edge['top'] == bottom_center for edge in top_edges])
 
             # TOP LAYER MATCHERS
             # if the side face of a top edge matches, 
@@ -1150,8 +1156,6 @@ class RubiksCube:
             # MID LAYER MATCHERS
             # if a middle edge matches, rotate top until the wrong color
             # is above it and turn it up
-
-
             self._handle_mid_layer_edges(bottom_center)
 
             # BOT LAYER MATCHERS
@@ -1159,9 +1163,7 @@ class RubiksCube:
             # rotate top until same face top edge isnt a match
             # rotate clockwise or counter
             # now treat like middle layer
-
             self._handle_bot_layer_edges(bottom_center)
-
 
             # The last remaining place for opposing edges is the bottom face
             # if the right color is on the bottom edge
