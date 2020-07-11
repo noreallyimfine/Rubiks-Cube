@@ -955,6 +955,18 @@ class RubiksCube:
         self.bot_layer['left_middle'].sides['left'] = edge_a
         self.bot_layer['left_middle'].sides['bottom'] = edge_b
     
+    def _check_solvable(self, step, match_color):
+        if step == 'daisy':
+            # are any of the top corners white?
+            top_corners = [
+                self.top_layer['front_right'],
+                self.top_layer['front_left'],
+                self.top_layer['back_left'],
+                self.top_layer['back_right']
+            ]
+
+            return any(corner.sides['top'] == match_color for corner in top_corners)
+
     def _check_top_edges(self, match_color):
 
         faces = ['front', 'left', 'back', 'right']
@@ -1173,6 +1185,11 @@ class RubiksCube:
             # the turn the piece up twice
             self._handle_bot_face_edges(bottom_center)
             all_edges_white = all(edge['top'] == bottom_center for edge in top_edges)
+        
+        if not self._check_solvable(step='daisy', match_color=bottom_center):
+            self.initialize_cube()
+            self.scramble_cube()
+            self._make_daisy()
 
     def _bottom_cross(self):
         '''
