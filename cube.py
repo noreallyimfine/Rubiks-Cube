@@ -985,6 +985,8 @@ class RubiksCube:
                 self._R_prime()
             
             face = self._check_top_edges(match_color)
+        
+        self._handle_mid_layer_edges(match_color)
 
     def _check_mid_edges(self, match_color):
         # need to return both the face and the side
@@ -1041,8 +1043,6 @@ class RubiksCube:
 
 
             piece, side, face = self._check_mid_edges(match_color)
-        
-        # self._handle_top_layer_edges(match_color)
 
     
     def _check_bot_edges(self, match_color):
@@ -1080,8 +1080,9 @@ class RubiksCube:
         
             face = self._check_bot_edges(match_color)
         
-        # self._handle_top_layer_edges(match_color)
-        # self._handle_mid_layer_edges(match_color)
+        self._handle_mid_layer_edges(match_color)
+        self._handle_top_layer_edges(match_color)
+
     
     def _check_bot_face(self, match_color):
 
@@ -1118,9 +1119,9 @@ class RubiksCube:
 
             face = self._check_bot_face(match_color)
 
-        # self._handle_top_layer_edges(match_color)
-        # self._handle_mid_layer_edges(match_color)
-        # self._handle_bot_layer_edges(match_color)
+        self._handle_mid_layer_edges(match_color)
+        self._handle_top_layer_edges(match_color)
+        self._handle_bot_layer_edges(match_color)
 
 
     def _make_daisy(self):
@@ -1144,6 +1145,11 @@ class RubiksCube:
         while not all_edges_white:
             print([edge['top'] == bottom_center for edge in top_edges])
 
+            # MID LAYER MATCHERS
+            # if a middle edge matches, rotate top until the wrong color
+            # is above it and turn it up
+            self._handle_mid_layer_edges(bottom_center)
+
             # TOP LAYER MATCHERS
             # if the side face of a top edge matches, 
             # turn that face clockwise or counter,
@@ -1153,10 +1159,6 @@ class RubiksCube:
             # check top layer and return first instance of match or None
             self._handle_top_layer_edges(bottom_center)
                 
-            # MID LAYER MATCHERS
-            # if a middle edge matches, rotate top until the wrong color
-            # is above it and turn it up
-            self._handle_mid_layer_edges(bottom_center)
 
             # BOT LAYER MATCHERS
             # if a bot layer edge matches,
