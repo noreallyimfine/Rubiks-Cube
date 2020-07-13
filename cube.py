@@ -955,18 +955,6 @@ class RubiksCube:
         self.bot_layer['left_middle'].sides['left'] = edge_a
         self.bot_layer['left_middle'].sides['bottom'] = edge_b
     
-    def _check_solvable(self, step, match_color):
-        if step == 'daisy':
-            # are any of the top corners white?
-            top_corners = [
-                self.top_layer['front_right'],
-                self.top_layer['front_left'],
-                self.top_layer['back_left'],
-                self.top_layer['back_right']
-            ]
-
-            return any(corner.sides['top'] == match_color for corner in top_corners)
-
     def _check_top_edges(self, match_color):
 
         faces = ['front', 'left', 'back', 'right']
@@ -1185,17 +1173,14 @@ class RubiksCube:
             # the turn the piece up twice
             self._handle_bot_face_edges(bottom_center)
             all_edges_white = all(edge['top'] == bottom_center for edge in top_edges)
-        
-        if not self._check_solvable(step='daisy', match_color=bottom_center):
-            self.initialize_cube()
-            self._make_daisy()
 
-    def _check_bot_face_corners(self):
+    def _handle_problematic_crosses(self):
         # check bottom layer corners for white on the bottom face
 
         # for every one we find, check if the 2 other sides match their faces
 
         # if not trigger them outta there
+        pass
 
     def _bottom_cross(self):
         '''
@@ -1462,7 +1447,7 @@ class RubiksCube:
         self._bottom_cross()
         bottom_center = self.bot_layer['bottom_center'].sides['bottom']
 
-        self._check_bot_face_corners()
+        self._handle_problematic_crosses()
 
         # ALL CODE UNDER THIS NEEDS TO RUN INSIDE WHILE BOTTOM FACE NOT ALL THE SAME
         while not all(self.bot_layer[bottom].sides['bottom'] == bottom_center for bottom in self.bot_layer):
