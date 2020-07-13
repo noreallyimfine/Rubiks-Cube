@@ -1582,6 +1582,27 @@ class RubiksCube:
         for edge in edges:
             if 'y' not in edge.sides.values():
                 return edge
+    
+    def _handle_mid_layer_get_opposing_color(self, match_color):
+        for color_pair in self.opposing_colors:
+            color_a, color_b = color_pair
+
+            if color_a == top_color:
+                return color_b
+            if color_b == top_color:
+                return color_a
+
+    def _handle_mid_layer_top_piece(self, piece):
+        # get the top side color
+        top_color = piece.sides['top']
+        # find its opposite
+        oppo_color = self._handle_mid_layer_get_opposing_color(top_color)
+        
+        # turn til aligned
+        self._handle_mid_layer_align_opposing_colors()
+        # figure out which way non-top side is
+        # handle appropriate turns
+            pass
 
     def _solve_mid_layer(self):
         '''
@@ -1593,8 +1614,9 @@ class RubiksCube:
 
         while not layer_complete:
             # first check the top layer for edges that dont have yellow
-            piece = self._find_top_non_yellow()
+            piece = self._non_yellow_top()
             # those edges get aligned properly 
+            self._handle_mid_layer_top_piece(piece)
                 # could just rotate until it matches, then turn away from the other match
                 # or could use better computer logic to just turn it directly to the correct location
                     # where the top side matches its oppposing center,
@@ -1605,7 +1627,7 @@ class RubiksCube:
             # first trigger it out onto the top
             # then back to the first part
             layer_complete = self._mid_layer_solved()
-        pass
+            break
     
     def _get_top_cross(self):
         '''
