@@ -1560,6 +1560,18 @@ class RubiksCube:
         '''
         Solve the middle layer of the cube
         '''
+
+        # first check the top layer for edges that dont have yellow
+            # those edges get aligned properly 
+                # could just rotate until it matches, then turn away from the other match
+                # or could use better computer logic to just turn it directly to the correct location
+                    # where the top side matches its oppposing center,
+                    # and then just need to know where the side center is
+            # handled using a trigger from the opposite side and then fixing the bottom layer
+        
+        # second it must mispositioned in the middle layer somewhere
+            # first trigger it out onto the top
+            # then back to the first part
         pass
     
     def _get_top_cross(self):
