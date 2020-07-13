@@ -1174,8 +1174,25 @@ class RubiksCube:
             self._handle_bot_face_edges(bottom_center)
             all_edges_white = all(edge['top'] == bottom_center for edge in top_edges)
 
-    def _handle_problematic_crosses(self):
+    def _check_bad_corners_bot_face(self, match_color):
+        corners = [
+            self.bot_layer['front_right'],
+            self.bot_layer['front_left'],
+            self.bot_layer['back_left'],
+            self.bot_layer['back_right'],
+        ]
+        pass
+
+    def _handle_problematic_crosses(self, match_color):
         # check bottom layer corners for white on the bottom face
+
+        bad_white_corners = self._check_bad_corners_bot_face(match_color)
+
+        while bad_white_corners:
+
+
+            bad_white_corners = self._check_bad_corners_bot_face(match_color)
+
 
         # for every one we find, check if the 2 other sides match their faces
 
