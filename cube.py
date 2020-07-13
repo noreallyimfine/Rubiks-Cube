@@ -1540,16 +1540,10 @@ class RubiksCube:
         return True
 
     def _non_yellow_top(self):
-        edges = [
-            self.top_layer['front_right'],
-            self.top_layer['front_left'],
-            self.top_layer['back_left'],
-            self.top_layer['back_right'],
-        ]
-
-        for edge in edges:
-            if 'y' not in edge.sides.values():
-                return edge
+        for face in ['front', 'left', 'back', 'right']:
+            edge = self.top_layer[f'{face}_middle']
+            if 'y' in edge.sides.values():
+                return face
     
     def _handle_mid_layer_get_opposing_face(self, match_color):
         for color_pair in self.opposing_colors:
