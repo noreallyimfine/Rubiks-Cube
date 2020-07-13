@@ -1188,8 +1188,14 @@ class RubiksCube:
         
         if not self._check_solvable(step='daisy', match_color=bottom_center):
             self.initialize_cube()
-            self.scramble_cube()
             self._make_daisy()
+
+    def _check_bot_face_corners(self):
+        # check bottom layer corners for white on the bottom face
+
+        # for every one we find, check if the 2 other sides match their faces
+
+        # if not trigger them outta there
 
     def _bottom_cross(self):
         '''
@@ -1455,6 +1461,8 @@ class RubiksCube:
 
         self._bottom_cross()
         bottom_center = self.bot_layer['bottom_center'].sides['bottom']
+
+        self._check_bot_face_corners()
 
         # ALL CODE UNDER THIS NEEDS TO RUN INSIDE WHILE BOTTOM FACE NOT ALL THE SAME
         while not all(self.bot_layer[bottom].sides['bottom'] == bottom_center for bottom in self.bot_layer):
