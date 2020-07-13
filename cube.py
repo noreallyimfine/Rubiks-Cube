@@ -1523,38 +1523,6 @@ class RubiksCube:
             bottom_location = self._check_bot_corners(bottom_center)
             self._handle_bottom_corners(bottom_location, bottom_center)
         
-
-
-        # first check for top layer (non-top-side)
-        # find the piece, and the side for the matching color
-        # other side will be the face to align
-
-        # the next step is to get the other color
-
-
-        # problem = reference changes as you go. 
-        # solution = maybe once we have the 'other' color, approach it from the center
-        # for face in each of the possible faces
-            # get the face that has the appropriate color
-            # problem = how to know if it will be up to the right, or up to the left
-            # solution = the face will be the common thing to match on
-            
-            # need to line up with correct center and know which side we are
-        # rotate til it matches the center
-        # trigger (based on center)
-        # this needs to be exported to a function
-
-        # if none on top layer, check top side
-        # rotate until it does NOT match corresponding on bottom
-        # double trigger
-        # call check top layer function
-        # this will also be exported
-        # self._bot_layer_double_trigger_helper(bottom_center)
-        # if none on top side, check bottom (non-bottom-side)
-        # trigger up to top 
-        # go back to step 2 
-        
-        pass
     
     def _mid_layer_solved(self):
         edges = [
@@ -1583,23 +1551,33 @@ class RubiksCube:
             if 'y' not in edge.sides.values():
                 return edge
     
-    def _handle_mid_layer_get_opposing_color(self, match_color):
+    def _handle_mid_layer_get_opposing_face(self, match_color):
         for color_pair in self.opposing_colors:
             color_a, color_b = color_pair
 
             if color_a == top_color:
-                return color_b
+                for center in ['front', 'left', 'back', 'right']:
+                    if self.mid_layer[f'{face}_center'].sides[face] == color_b:
+                        return face
+
             if color_b == top_color:
-                return color_a
+                for center in ['front', 'left', 'back', 'right']:
+                    if self.mid_layer[f'{face}_center'].sides[face] == color_a:
+                        return face
+
+    def _handle_mid_layer_align_opposing_colors(self, piece, top_color, other_color):
+        # find the center that has the opposing color
+        # turn the piece - what does that mean
+        pass
 
     def _handle_mid_layer_top_piece(self, piece):
         # get the top side color
         top_color = piece.sides['top']
         # find its opposite
-        oppo_color = self._handle_mid_layer_get_opposing_color(top_color)
+        oppo_face = self._handle_mid_layer_get_opposing_face(top_color)
         
         # turn til aligned
-        self._handle_mid_layer_align_opposing_colors()
+        self._handle_mid_layer_align_opposing_colors(oppo_face)
         # figure out which way non-top side is
         # handle appropriate turns
             pass
