@@ -1565,9 +1565,10 @@ class RubiksCube:
                     if self.mid_layer[f'{face}_center'].sides[face] == color_a:
                         return face
 
-    def _handle_mid_layer_align_opposing_colors(self, piece, top_color, other_color):
-        # find the center that has the opposing color
+    def _handle_mid_layer_align_opposing_colors(self, piece, opposing_face):
         # turn the piece - what does that mean
+        
+
         pass
 
     def _handle_mid_layer_top_piece(self, piece):
@@ -1577,7 +1578,7 @@ class RubiksCube:
         oppo_face = self._handle_mid_layer_get_opposing_face(top_color)
         
         # turn til aligned
-        self._handle_mid_layer_align_opposing_colors(oppo_face)
+        self._handle_mid_layer_align_opposing_colors(piece, oppo_face)
         # figure out which way non-top side is
         # handle appropriate turns
             pass
