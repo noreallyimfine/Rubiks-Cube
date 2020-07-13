@@ -1556,12 +1556,44 @@ class RubiksCube:
         
         pass
     
+    def _mid_layer_solved(self):
+        edges = [
+            self.mid_layer['front_right'],
+            self.mid_layer['front_left'],
+            self.mid_layer['back_left'],
+            self.mid_layer['back_right'],
+        ]
+
+        for edge in edges:
+            for side in edge.sides:
+                if edge.sides[side] != self.mid_layer[f'{side}_center'].sides[side]:
+                    return False
+        
+        return True
+
+    def _non_yellow_top(self):
+        edges = [
+            self.top_layer['front_right'],
+            self.top_layer['front_left'],
+            self.top_layer['back_left'],
+            self.top_layer['back_right'],
+        ]
+
+        for edge in edges:
+            if 'y' not in edge.sides.values():
+                return edge
+
     def _solve_mid_layer(self):
         '''
         Solve the middle layer of the cube
         '''
 
-        # first check the top layer for edges that dont have yellow
+
+        layer_complete = self._mid_layer_solved()
+
+        while not layer_complete:
+            # first check the top layer for edges that dont have yellow
+            piece = self._find_top_non_yellow()
             # those edges get aligned properly 
                 # could just rotate until it matches, then turn away from the other match
                 # or could use better computer logic to just turn it directly to the correct location
@@ -1572,6 +1604,7 @@ class RubiksCube:
         # second it must mispositioned in the middle layer somewhere
             # first trigger it out onto the top
             # then back to the first part
+            layer_complete = self._mid_layer_solved()
         pass
     
     def _get_top_cross(self):
