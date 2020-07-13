@@ -1403,6 +1403,18 @@ class RubiksCube:
                 if self.bot_layer[bottom].sides['bottom'] != match_color:
                         return bottom
     
+    def _get_next_location(self, previous_location):
+        if previous_location == 'front_right':
+            top_location = 'front_left'
+        elif previous_location == 'front_left':
+            top_location = 'back_left'
+        elif previous_location == 'back_left':
+            top_location = 'back_right'
+        elif previous_location == 'back_right':
+            top_location = 'front_right'
+        
+        return top_location
+    
     def _handle_top_face(self, top_location, match_color):
 
         while top_location is not None:
@@ -1410,10 +1422,12 @@ class RubiksCube:
             # find the piece with bottom thats the wrong color
             bottom_location = self._find_mismatched_bottom(match_color)
 
+            print(f'top location - {top_location}, bottom location - {bottom_location}')
+
             # rotate top until the right color is the same piece 
             while top_location != bottom_location:
                 self._U()
-                top_location = self._check_top_face(match_color)
+                top_location = self._get_next_location(top_location)
             # double trigger -> front and back should cover all bases
             v, h = top_location.split('_')
             self._bot_layer_double_trigger_helper(v, h)
