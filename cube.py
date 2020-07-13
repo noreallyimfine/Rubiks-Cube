@@ -1181,23 +1181,51 @@ class RubiksCube:
             self.bot_layer['back_left'],
             self.bot_layer['back_right'],
         ]
-        pass
+
+        for corner in corners:
+            if corner.sides['bottom'] == match_color:
+
+                side_a, side_b = (side for side in corner.sides if side != 'bottom')
+                if corner.sides[side_a] != self.mid_layer[f'{side_a}_center'].sides[side_a]:
+                    return corner
+                if corner.sides[side_b] != self.mid_layer[f'{side_b}_center'].sides[side_b]:
+                    return corner
+    
+    def _handle_bad_corner(self, corner):
+
+        if 'front' in corner.sides and 'right' in corner.sides:
+            self._R()
+            self._U()
+            self._R_prime()
+    
+        elif 'front' in corner.sides and 'left' in corner.sides:
+            self._L_prime()
+            self._U()
+            self._L()
+        
+        elif 'back' in corner.sides and 'left' in corner.sides:
+            self._L()
+            self._U()
+            self._L_prime()
+
+        elif 'back' in corner.sides and 'right' in corner.sides:
+            self._R_prime()
+            self._U()
+            self._R()
+
+
 
     def _handle_problematic_crosses(self, match_color):
         # check bottom layer corners for white on the bottom face
 
-        bad_white_corners = self._check_bad_corners_bot_face(match_color)
+        bad_corner = self._check_bad_corners_bot_face(match_color)
 
-        while bad_white_corners:
+        while bad_corner is not None:
+
+            self._handle_bad_corner(bad_corner)
 
 
-            bad_white_corners = self._check_bad_corners_bot_face(match_color)
-
-
-        # for every one we find, check if the 2 other sides match their faces
-
-        # if not trigger them outta there
-        pass
+            bad_corner = self._check_bad_corners_bot_face(match_color)
 
     def _bottom_cross(self):
         '''
@@ -1464,7 +1492,7 @@ class RubiksCube:
         self._bottom_cross()
         bottom_center = self.bot_layer['bottom_center'].sides['bottom']
 
-        self._handle_problematic_crosses()
+        self._handle_problematic_crosses(bottom_center)
 
         # ALL CODE UNDER THIS NEEDS TO RUN INSIDE WHILE BOTTOM FACE NOT ALL THE SAME
         while not all(self.bot_layer[bottom].sides['bottom'] == bottom_center for bottom in self.bot_layer):
