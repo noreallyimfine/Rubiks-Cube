@@ -69,9 +69,9 @@ class CubeSolutionTests(unittest.TestCase):
         self.assertEqual(self.cube.bot_layer['right_middle'].sides['right'], right_center)
         self.assertEqual(self.cube.bot_layer['front_right'].sides['right'], right_center)
 
-    def test_bottom_layer_robustness(self):
+    def test_bottom_layer_robustness(self, n=50):
 
-        for _ in range(50):
+        for _ in range(n):
             self.cube.initialize_cube()
             self.test_bottom_layer()
             print("Success")
@@ -96,6 +96,12 @@ class CubeSolutionTests(unittest.TestCase):
 
         self.assertEqual(self.cube.mid_layer['back_right'].sides['right'], right_center)
         self.assertEqual(self.cube.mid_layer['front_right'].sides['right'], right_center)
+    
+    def test_middle_layer_robustness(self, n=50):
+        for _ in range(n):
+            self.cube.initialize_cube()
+            self.cube._solve_mid_layer()
+
 
     # def test_top_face(self):
 
