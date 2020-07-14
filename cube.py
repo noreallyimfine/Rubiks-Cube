@@ -961,7 +961,6 @@ class RubiksCube:
         for face in faces:
             edge = self.top_layer[f'{face}_middle']
             if edge.sides[face] == match_color:
-                print("top edge for daisy found, located on the", face)
                 return face
     
     def _handle_top_layer_edges(self, match_color):
@@ -998,10 +997,8 @@ class RubiksCube:
                 piece = f'{v}_{h}'
                 edge = self.mid_layer[piece] 
                 if edge.sides[v] == match_color:
-                    print("mid layer find ", piece, "on the", v, "side")
                     return piece, v, h
                 elif edge.sides[h] == match_color:
-                    print("mid layer find ", piece, "on the", h, "side")
                     return piece, h, v
         return None, None, None
     
@@ -1052,7 +1049,6 @@ class RubiksCube:
         for face in faces:
             edge = self.bot_layer[f'{face}_middle']
             if edge.sides[face] == match_color:
-                print("found on a bottom edge on the", face, "side")
                 return face
     
     def _handle_bot_layer_edges(self, match_color):
@@ -1091,7 +1087,6 @@ class RubiksCube:
         for face in faces:
             edge = self.bot_layer[f'{face}_middle']
             if edge.sides['bottom'] == match_color:
-                print("found one on the bottom face", face, "side")
                 return face
     
     def _handle_bot_face_edges(self, match_color):
@@ -1131,6 +1126,7 @@ class RubiksCube:
         '''
         # list the 4 edges, and solve them 1 at a time?
         # or keep looping the same logic until all 4 are done
+        print("Making Daisy...")
         bottom_center = self.bot_layer['bottom_center'].sides['bottom']
 
         top_edges = [
@@ -1143,7 +1139,6 @@ class RubiksCube:
         all_edges_white = all(edge['top'] == bottom_center for edge in top_edges)
 
         while not all_edges_white:
-            print([edge['top'] == bottom_center for edge in top_edges])
 
             # MID LAYER MATCHERS
             # if a middle edge matches, rotate top until the wrong color
@@ -1235,6 +1230,8 @@ class RubiksCube:
 
         self._make_daisy()
 
+        print("Making Bottom Cross...")
+
         bottom_center = self.bot_layer['bottom_center'].sides['bottom']
 
 
@@ -1316,7 +1313,6 @@ class RubiksCube:
     def _find_matching_center(self, match_color):
             for face in ['front', 'right', 'back', 'left']:
                 if self.mid_layer[f'{face}_center'].sides[face] == match_color:
-                    print("matching face is:", face)
                     return face
     
     def _get_other_color(self, piece, match_color):
@@ -1434,7 +1430,6 @@ class RubiksCube:
             # find the piece with bottom thats the wrong color
             bottom_location = self._find_mismatched_bottom(match_color)
 
-            print(f'top location - {top_location}, bottom location - {bottom_location}')
 
             # rotate top until the right color is the same piece 
             while top_location != bottom_location:
@@ -1516,6 +1511,9 @@ class RubiksCube:
         '''
 
         self._bottom_cross()
+
+        print("Solving bottom layer...")
+
         bottom_center = self.bot_layer['bottom_center'].sides['bottom']
 
         self._handle_problematic_crosses(bottom_center)
@@ -1555,24 +1553,18 @@ class RubiksCube:
         for face in ['front', 'left', 'back', 'right']:
             edge = self.top_layer[f'{face}_middle']
             if 'y' not in edge.sides.values():
-                print(edge.sides)
                 return face
     
     def _handle_mid_layer_get_opposing_face(self, match_color):
         for color_pair in self.opposing_colors:
             color_a, color_b = color_pair
 
-            print("opposing colors", color_a, color_b)
-            print("matching color", match_color)
-
             if color_a == match_color:
-                print("color A matches")
                 for face in ['front', 'left', 'back', 'right']:
                     if self.mid_layer[f'{face}_center'].sides[face] == color_b:
                         return face
 
             if color_b == match_color:
-                print("color b matches")
                 for face in ['front', 'left', 'back', 'right']:
                     if self.mid_layer[f'{face}_center'].sides[face] == color_a:
                         return face
@@ -1640,6 +1632,7 @@ class RubiksCube:
 
         self._solve_bot_layer()
 
+        print("Solving Middle Layer...")
 
         layer_complete = self._mid_layer_solved()
 
@@ -1717,12 +1710,14 @@ class RubiksCube:
 
             
     
-    def _get_top_cross(self):
+    def _solve_top_cross(self):
         '''
         Solve the cross on the top layer without messing up solved layers.
         '''
 
         self._solve_mid_layer()
+
+        print("Solving Top Cross...")
         # so long as not all 4 edges are yellow
         edges_complete = self._top_cross_solved()
 

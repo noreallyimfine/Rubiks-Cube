@@ -104,7 +104,7 @@ class CubeSolutionTests(unittest.TestCase):
 
 
     def test_top_cross(self):
-        self.cube._get_top_cross()
+        self.cube._solve_top_cross()
 
         self.assertEqual(self.cube.top_layer['left_middle'].sides['top'], 'y')
         self.assertEqual(self.cube.top_layer['front_middle'].sides['top'], 'y')
