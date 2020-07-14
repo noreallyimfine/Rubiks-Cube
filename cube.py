@@ -1680,6 +1680,12 @@ class RubiksCube:
         self._R_prime()
         self._F_prime()
     
+    def _get_nine_twelve_colors(self):
+        return [
+            self.top_layer['left_middle'].sides['top'],
+            self.top_layer['back_middle'].sides['top']
+        ]
+    
     def _handle_top_cross_turns(self, yellow_edges):
 
         # if no edges are yellow, just F U R U` R` F`
@@ -1691,8 +1697,25 @@ class RubiksCube:
             # if they are opposite each other, either F U R U` R` F` or R U B U` B` R`
             if set(yellow_edges) == set(RubiksCube.verticals):
                 self._FURURF()
+            elif set(yellow_edges) == set(RubiksCube.horizontals):
+                self._R()
+                self._U()
+                self._B()
+                self._U_prime()
+                self._B_prime()
+                self._R_prime()
 
             # if they are adjacent, rotate until its the left and the back
+            else:
+                nine_twelve = self._get_nine_twelve_colors()
+
+                while not all(color == 'y' for color in nine_twelve):
+                    self._U()
+                    nine_twelve = self._get_nine_twelve_colors()
+                
+                self._FURURF()
+
+            
     
     def _get_top_cross(self):
         '''
@@ -1705,6 +1728,8 @@ class RubiksCube:
 
         while not edges_complete:
             yellow_edges = self._get_yellow_edges()
+            self._handle_top_cross_turns(yellow_edges)
+
             edges_complete = self._top_cross_solved()
     
     def _solve_top_face(self):
