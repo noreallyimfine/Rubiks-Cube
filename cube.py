@@ -1728,12 +1728,12 @@ class RubiksCube:
             edges_complete = self._top_cross_solved()
         
     def _count_yellow_corners(self):
-        yellow_corners = []
+        yellow_corners = 0
         for v in RubiksCube.verticals:
             for h in RubiksCube.horizontals:
                 piece = f'{v}_{h}'
                 if self.top_layer[piece].sides['top'] == 'y':
-                    yellow_corners.append(piece)
+                    yellow_corners += 1
         
         return yellow_corners
     
@@ -1772,7 +1772,7 @@ class RubiksCube:
             yellow_corners = self._count_yellow_corners()
 
             # if none, rotate until the front left left-side is yellow
-            if len(yellow_corners) == 0:
+            if yellow_corners == 0:
                 front_left = self.top_layer['front_left'].sides['left']
                 while front_left != 'y':
                     self._U()
@@ -1781,7 +1781,7 @@ class RubiksCube:
                 self._RUR_prime()
 
             # if one, rotate until its the front left top-side
-            elif len(yellow_corners) == 1:
+            elif yellow_corners == 1:
                 front_left = self.top_layer['front_left'].sides['top']
                 while front_left != 'y':
                     self._U()
@@ -1789,8 +1789,8 @@ class RubiksCube:
                 # R U R` U R U U R`
                 self._RUR_prime()
 
-            # if two, rotat until the front left front-side is yellow,
-            elif len(yellow_corners) == 2:
+            # if two, rotate until the front left front-side is yellow,
+            elif yellow_corners == 2:
                 front_left = self.top_layer['front_left'].sides['front']
                 while front_left != 'y':
                     self._U()
@@ -1800,16 +1800,19 @@ class RubiksCube:
 
             top_face_solved = self._top_face_solved()
     
-    def _final_step(self):
+    def _solve_top_corners(self):
         '''
         Final solve step (this might actually need to be broken up into more
         steps).
         '''
+        self._solve_top_face()
+
+        print("Solving Top Corners...")
         pass
     
     def solve_cube(self):
         '''
         User facing function to solve cube.
         '''
-        self._final_step()
+        pass
 
