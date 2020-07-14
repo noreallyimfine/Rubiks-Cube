@@ -1726,6 +1726,16 @@ class RubiksCube:
             self._handle_top_cross_turns(yellow_edges)
 
             edges_complete = self._top_cross_solved()
+        
+    def _count_yellow_corners(self):
+        yellow_corners = []
+        for v in RubiksCube.verticals:
+            for h in RubiksCube.horizontals:
+                piece = f'{v}_{h}'
+                if self.top_layer[piece].sides['top'] == 'y':
+                    yellow_corners.append(piece)
+        
+        return yellow_corners
     
     def _solve_top_face(self):
         '''
@@ -1736,6 +1746,8 @@ class RubiksCube:
         print("Solving Top Face...")
 
         # find how many corners we have
+        yellow_corners = self._count_yellow_corners()
+
         # if none, rotate until the front left left-side is yellow
             # R U R` U R U U R`
         # if one, rotate until its the front left top-side
