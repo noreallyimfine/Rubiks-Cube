@@ -110,21 +110,27 @@ class CubeSolutionTests(unittest.TestCase):
         self.assertEqual(self.cube.top_layer['front_middle'].sides['top'], 'y')
         self.assertEqual(self.cube.top_layer['right_middle'].sides['top'], 'y')
         self.assertEqual(self.cube.top_layer['back_middle'].sides['top'], 'y')
+    
+    def test_top_cross_robustness(self, n=50):
+        for _ in range(n):
+            self.cube.initialize_cube()
+            self.test_top_cross()
 
-    def test_top_face(self):
 
-        self.cube._solve_top_face()
+    # def test_top_face(self):
 
-        top_center = self.cube.top_layer['top_center'].sides['top']
+    #     self.cube._solve_top_face()
 
-        self.assertEqual(self.cube.top_layer['front_right'].sides['top'], top_center)
-        self.assertEqual(self.cube.top_layer['front_left'].sides['top'], top_center)
-        self.assertEqual(self.cube.top_layer['front_middle'].sides['top'], top_center)
-        self.assertEqual(self.cube.top_layer['right_middle'].sides['top'], top_center)
-        self.assertEqual(self.cube.top_layer['back_right'].sides['top'], top_center)
-        self.assertEqual(self.cube.top_layer['back_left'].sides['top'], top_center)
-        self.assertEqual(self.cube.top_layer['left_middle'].sides['top'], top_center)
-        self.assertEqual(self.cube.top_layer['back_middle'].sides['top'], top_center)
+    #     top_center = self.cube.top_layer['top_center'].sides['top']
+
+    #     self.assertEqual(self.cube.top_layer['front_right'].sides['top'], top_center)
+    #     self.assertEqual(self.cube.top_layer['front_left'].sides['top'], top_center)
+    #     self.assertEqual(self.cube.top_layer['front_middle'].sides['top'], top_center)
+    #     self.assertEqual(self.cube.top_layer['right_middle'].sides['top'], top_center)
+    #     self.assertEqual(self.cube.top_layer['back_right'].sides['top'], top_center)
+    #     self.assertEqual(self.cube.top_layer['back_left'].sides['top'], top_center)
+    #     self.assertEqual(self.cube.top_layer['left_middle'].sides['top'], top_center)
+    #     self.assertEqual(self.cube.top_layer['back_middle'].sides['top'], top_center)
 
     # def test_solved_cube(self):
 
