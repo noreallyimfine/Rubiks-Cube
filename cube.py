@@ -1806,7 +1806,7 @@ class RubiksCube:
         for face in faces:
             for piece in ['front_right', 'front_left', 'back_left', 'back_right']:
                 if face in self.top_layer[piece].sides:
-                    faces_dict[face].append(self.top_layer[pieces].sides[face])
+                    faces_dict[face].append(self.top_layer[piece].sides[face])
         
         for face in faces_dict:
             if faces_dict[face][0] == faces_dict[face][1]:
@@ -1846,6 +1846,59 @@ class RubiksCube:
                         self._U()
                         corner_color = self.top_layer[piece].sides[matching_center]
 
+    def _handle_matching_corners_turns(self, matching_center):
+        # if on the left, LUR func
+        if matching_center == 'left':
+            self._LURULR()
+        
+        # if on the back B` U F U` B U U F` U F U U F`
+        elif matching_center == 'back':
+            self._B_prime()
+            self._U()
+            self._F()
+            self._U_prime()
+            self._B()
+            self._U()
+            self._U()
+            self._F_prime()
+            self._U()
+            self._F()
+            self._U()
+            self._U()
+            self._F_prime()
+
+        # if it's on the right R` U L U` R U U L` U L U U L`
+        elif matching_center == 'right':
+            self._R_prime()
+            self._U()
+            self._L()
+            self._U_prime()
+            self._R()
+            self._U()
+            self._U()
+            self._L_prime()
+            self._U()
+            self._L()
+            self._U()
+            self._U()
+            self._L_prime()
+
+        # if it's on the front F` U B U` F U U B` U B U U B`
+        elif matching_center == 'front':
+            self._F_prime()
+            self._U()
+            self._B()
+            self._U_prime()
+            self._F()
+            self._U()
+            self._U()
+            self._B_prime()
+            self._U()
+            self._B()
+            self._U()
+            self._U()
+            self._B_prime()
+            
     def _solve_top_corners(self):
         '''
         Final solve step (this might actually need to be broken up into more
@@ -1871,9 +1924,10 @@ class RubiksCube:
                 # find the center that matches
                 matching_center = self._find_matching_center(matching_corner)
 
-                self._align_corners_to_face(matching_center)
                 # rotate until its aligned with the one it matches
+                self._align_corners_to_face(matching_center)
                 # figure out the turns needed
+                self._handle_matching_corners_turns(matching_center)
             # handle those turns based on which face that is
     
     def solve_cube(self):
