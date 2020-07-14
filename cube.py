@@ -1593,7 +1593,8 @@ class RubiksCube:
         # pass to trigger helper with side as main and top as secondary
         self._bot_layer_trigger_helper(side_color_face, top_color_face)
 
-        self._solve_bot_layer()
+        piece = self._check_top_corners('w')
+        self._handle_top_corners(piece, 'w')
 
     def _handle_mid_layer_top_piece(self, matching_face):
         # get the top side color
@@ -1623,18 +1624,16 @@ class RubiksCube:
             # first check the top layer for edges that dont have yellow
             matching_face = self._non_yellow_top()
             # those edges get aligned properly 
-            self._handle_mid_layer_top_piece(matching_face)
-                # could just rotate until it matches, then turn away from the other match
-                # or could use better computer logic to just turn it directly to the correct location
-                    # where the top side matches its oppposing center,
-                    # and then just need to know where the side center is
-            # handled using a trigger from the opposite side and then fixing the bottom layer
+            if matching_face is not None:
+                self._handle_mid_layer_top_piece(matching_face)
         
+            if not matching_face:
+                break
         # second it must mispositioned in the middle layer somewhere
             # first trigger it out onto the top
             # then back to the first part
             layer_complete = self._mid_layer_solved()
-            break
+            # break
     
     def _get_top_cross(self):
         '''
