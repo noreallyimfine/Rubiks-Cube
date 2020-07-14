@@ -1626,8 +1626,8 @@ class RubiksCube:
         white_piece = self._check_top_corners('w')
         self._handle_top_corners(white_piece, 'w')
 
-        matching_face = self._non_yellow_top()
-        self._handle_mid_layer_top_piece(matching_face)
+        # matching_face = self._non_yellow_top()
+        # self._handle_mid_layer_top_piece(matching_face)
 
 
         # trigger them up to the top
