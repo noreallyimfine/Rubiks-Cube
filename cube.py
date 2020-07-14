@@ -1657,11 +1657,27 @@ class RubiksCube:
             # then back to the first part
             layer_complete = self._mid_layer_solved()
     
+    def _top_cross_solved(self):
+        for face in ['front', 'left', 'back', 'right']:
+            if self.top_layer[f'{face}_middle'].sides['top'] != 'y':
+                return False
+        
+        return True
+    
     def _get_top_cross(self):
         '''
         Solve the cross on the top layer without messing up solved layers.
         '''
-        pass
+        # so long as not all 4 edges are yellow
+        edges_complete = self._top_cross_solved()
+
+        while not edges_complete:
+            # if no edges are yellow, just F U R U` R` F`
+            # if 2 edges are yellow
+                # if they are opposite each other, either F U R U` R` F` or R U B U` B` R`
+
+                # if they are adjacent, rotate until its the left and the back
+                edges_complete = self._top_cross_solved()
     
     def _solve_top_face(self):
         '''
