@@ -1804,14 +1804,9 @@ class RubiksCube:
         faces = ['front', 'left', 'back', 'right']
         faces_dict = {face: [] for face in faces}
         for face in faces:
-            for piece in [
-                'front_right',
-                'front_left',
-                'back_left',
-                'back_right'
-            ]:
-            if face in self.top_layer[piece].sides:
-                faces_dict[face].append(self.top_layer[pieces].sides[face])
+            for piece in ['front_right', 'front_left', 'back_left', 'back_right']:
+                if face in self.top_layer[piece].sides:
+                    faces_dict[face].append(self.top_layer[pieces].sides[face])
         
         for face in faces_dict:
             if faces_dict[face][0] == faces_dict[face][1]:
