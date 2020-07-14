@@ -1590,9 +1590,10 @@ class RubiksCube:
         # then the face that matches the side color
         side_color_face = self._find_matching_center(side_color)
         
-        # appropriate turns
+        # pass to trigger helper with side as main and top as secondary
+        self._bot_layer_trigger_helper(side_color_face, top_color_face)
 
-        pass
+        self._solve_bot_layer()
 
     def _handle_mid_layer_top_piece(self, matching_face):
         # get the top side color
