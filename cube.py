@@ -1608,8 +1608,30 @@ class RubiksCube:
         # figure out which way non-top side is
         self._handle_mid_layer_trigger_helper(top_color, side_color)
         # handle appropriate turns
+    
+    def _get_mismatched_middle_edge(self):
+        for v in RubiksCube.verticals:
+            for h in RubiksCube.horizontals:
+                piece = f'{v}_{h}'
+                for side in self.mid_layer[piece].sides:
+                    if self.mid_layer[piece].sides[side] != self.mid_layer[f'{side}_center'].sides[side]:
+                        return piece
 
     def _handle_mid_layer_middle_piece(self):
+        # find middle edges that are out of place
+        mismatched_piece = self._get_mismatched_middle_edge()
+        face, side = mismatched_piece.split("_")
+        self._bot_layer_trigger_helper(face, side)
+
+        white_piece = self._check_top_corners('w')
+        self._handle_top_corners(white_piece, 'w')
+
+        matching_face = self._non_yellow_top()
+        self._handle_mid_layer_top_piece(matching_face)
+
+
+        # trigger them up to the top
+        # top trigger we once again will need to know 2 faces in some order
         pass
 
     def _solve_mid_layer(self):
