@@ -1584,8 +1584,14 @@ class RubiksCube:
             self._U()
             matching_face = self._get_next_location('edges', matching_face)
     
-    def _handle_mid_layer_trigger_helper(self, opposing_face, side_color):
-        #
+    def _handle_mid_layer_trigger_helper(self, top_color, side_color):
+        # first get the face which matches the top color
+        top_color_face = self._find_matching_center(top_color)
+        # then the face that matches the side color
+        side_color_face = self._find_matching_center(side_color)
+        
+        # appropriate turns
+
         pass
 
     def _handle_mid_layer_top_piece(self, matching_face):
@@ -1598,7 +1604,7 @@ class RubiksCube:
         # turn til aligned
         self._handle_mid_layer_align_opposing_colors(matching_face, oppo_face)
         # figure out which way non-top side is
-        self._handle_mid_layer_trigger_helper(oppo_face, side_color)
+        self._handle_mid_layer_trigger_helper(top_color, side_color)
         # handle appropriate turns
         pass
 
