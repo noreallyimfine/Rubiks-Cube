@@ -1737,6 +1737,25 @@ class RubiksCube:
         
         return yellow_corners
     
+    def _RUR_prime(self):
+        self._R()
+        self._U()
+        self._R_prime()
+        self._U()
+        self._R()
+        self._U()
+        self._U()
+        self._R_prime()
+    
+    def _top_face_solved(self):
+        for v in RubiksCube.verticals:
+            for h in RubiksCube.horizontals:
+                piece = f'{v}_{h}'
+                if self.top_layer[piece].sides['top'] != 'y':
+                    return False
+        
+        return True
+    
     def _solve_top_face(self):
         '''
         Complete the rest of the top face.
@@ -1744,18 +1763,42 @@ class RubiksCube:
         self._solve_top_cross()
 
         print("Solving Top Face...")
+        
+        top_face_solved = self._top_face_solved()
+        while not top_face_solved:
 
-        # find how many corners we have
-        yellow_corners = self._count_yellow_corners()
 
-        # if none, rotate until the front left left-side is yellow
-            # R U R` U R U U R`
-        # if one, rotate until its the front left top-side
-            # R U R` U R U U R`
-        # if two, rotat until the front left front-side is yellow,
-            # R U R` U R U U R`
+            # find how many corners we have
+            yellow_corners = self._count_yellow_corners()
 
-        pass
+            # if none, rotate until the front left left-side is yellow
+            if len(yellow_corners) == 0:
+                front_left = self.top_layer['front_left'].sides['left']
+                while front_left != 'y':
+                    self._U()
+                    front_left = self.top_layer['front_left'].sides['left']
+                # R U R` U R U U R`
+                self._RUR_prime()
+
+            # if one, rotate until its the front left top-side
+            elif len(yellow_corners) == 1:
+                front_left = self.top_layer['front_left'].sides['top']
+                while front_left != 'y':
+                    self._U()
+                    front_left = self.top_layer['front_left'].sides['top']
+                # R U R` U R U U R`
+                self._RUR_prime()
+
+            # if two, rotat until the front left front-side is yellow,
+            elif len(yellow_corners) == 2:
+                front_left = self.top_layer['front_left'].sides['front']
+                while front_left != 'y':
+                    self._U()
+                    front_left = self.top_layer['front_left'].sides['front']
+                # R U R` U R U U R`
+                self._RUR_prime()
+
+            top_face_solved = self._top_face_solved()
     
     def _final_step(self):
         '''
@@ -1768,18 +1811,5 @@ class RubiksCube:
         '''
         User facing function to solve cube.
         '''
-
-        self._make_daisy()
-
-        self._bottom_cross()
-
-        self._solve_bot_layer()
-
-        self._solve_mid_layer()
-
-        self._get_top_cross()
-
-        self._solve_top_face()
-
         self._final_step()
 
