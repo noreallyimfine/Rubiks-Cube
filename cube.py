@@ -1608,6 +1608,8 @@ class RubiksCube:
         # figure out which way non-top side is
         self._handle_mid_layer_trigger_helper(top_color, side_color)
         # handle appropriate turns
+
+    def _handle_mid_layer_middle_piece(self):
         pass
 
     def _solve_mid_layer(self):
@@ -1627,13 +1629,13 @@ class RubiksCube:
             if matching_face is not None:
                 self._handle_mid_layer_top_piece(matching_face)
         
-            if not matching_face:
-                break
+            elif not matching_face:
+                self._handle_mid_layer_middle_piece()
         # second it must mispositioned in the middle layer somewhere
             # first trigger it out onto the top
             # then back to the first part
             layer_complete = self._mid_layer_solved()
-            # break
+            break
     
     def _get_top_cross(self):
         '''
