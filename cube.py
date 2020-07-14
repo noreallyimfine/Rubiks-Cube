@@ -1799,6 +1799,24 @@ class RubiksCube:
                 self._RUR_prime()
 
             top_face_solved = self._top_face_solved()
+        
+    def _get_matching_top_corners(self):
+        faces = ['front', 'left', 'back', 'right']
+        faces_dict = {face: [] for face in faces}
+        for face in faces:
+            for piece in [
+                'front_right',
+                'front_left',
+                'back_left',
+                'back_right'
+            ]:
+            if face in self.top_layer[piece].sides:
+                faces_dict[face].append(self.top_layer[pieces].sides[face])
+        
+        for face in faces_dict:
+            if faces_dict[face][0] == faces_dict[face][1]:
+                return faces_dict[face][0]
+
     
     def _solve_top_corners(self):
         '''
@@ -1808,6 +1826,13 @@ class RubiksCube:
         self._solve_top_face()
 
         print("Solving Top Corners...")
+
+        # find corners that match each other
+        matching_corners = self._get_matching_top_corners()
+
+        # if there are none, L` U R U` L U U R` U R U U R`
+        # if there is one, align it to its' face
+        # handle those turns based on which face that is
         pass
     
     def solve_cube(self):
