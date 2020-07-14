@@ -1657,7 +1657,6 @@ class RubiksCube:
             # first trigger it out onto the top
             # then back to the first part
             layer_complete = self._mid_layer_solved()
-            break
     
     def _get_top_cross(self):
         '''
