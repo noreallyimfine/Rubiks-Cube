@@ -1813,6 +1813,39 @@ class RubiksCube:
                 return faces_dict[face][0]
 
     
+    def _LURULR(self):
+        self._L_prime()
+        self._U()
+        self._R()
+        self._U_prime()
+        self._L()
+        self._U()
+        self._RUR_prime()
+    
+    def _check_solved_face(self):
+        faces = ['front', 'left', 'back', 'right']
+        faces_dict = {face: set() for face in faces}
+
+        for piece in self.top_layer:
+            for side in piece.sides:
+                faces_dict[side].add(piece.sides[side])
+
+        for face in faces_dict:
+            if len(faces_dict[face]) == 1:
+                return True
+        
+        return False
+    
+    def _align_corners_to_face(self, matching_center):
+        for v in RubiksCube.verticals:
+            for h in RubiksCube.horizontals:
+                piece = f'{v}_{h}'
+                if matching_center in self.top_layer[piece].sides:
+                    corner_color = self.top_layer[piece].sides[matching_center]
+                    while corner_color != self.mid_layer[f'{matching_center}_center'].sides[matching_center]:
+                        self._U()
+                        corner_color = self.top_layer[piece].sides[matching_center]
+
     def _solve_top_corners(self):
         '''
         Final solve step (this might actually need to be broken up into more
@@ -1822,13 +1855,26 @@ class RubiksCube:
 
         print("Solving Top Corners...")
 
-        # find corners that match each other
-        matching_corners = self._get_matching_top_corners()
+        # need to do this so long as no one face is solved
+        solved_face = self._check_solved_face()
 
-        # if there are none, L` U R U` L U U R` U R U U R`
-        # if there is one, align it to its' face
-        # handle those turns based on which face that is
-        pass
+        while not solved_face:
+            # substitute that with no 3 top colors match each other (or maybe match their center but that seems silly)
+            # find corners that match each other
+            matching_corner = self._get_matching_top_corners()
+
+            # if there are none, L` U R U` L U U R` U R U U R`
+            if not matching_corner:
+                self._LURULR()
+            # if there is one, align it to its' face
+            else:
+                # find the center that matches
+                matching_center = self._find_matching_center(matching_corner)
+
+                self._align_corners_to_face(matching_center)
+                # rotate until its aligned with the one it matches
+                # figure out the turns needed
+            # handle those turns based on which face that is
     
     def solve_cube(self):
         '''
