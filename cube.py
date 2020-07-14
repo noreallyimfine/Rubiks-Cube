@@ -1664,20 +1664,48 @@ class RubiksCube:
         
         return True
     
+    def _get_yellow_edges(self):
+        yellow_edges = []
+        for face in ['front', 'left', 'back', 'right']:
+            if self.top_layer[f'{face}_middle'].sides['top'] == 'y':
+                yellow_edges.append(face)
+        
+        return yellow_edges
+    
+    def _FURURF(self):
+        self._F()
+        self._U()
+        self._R()
+        self._U_prime()
+        self._R_prime()
+        self._F_prime()
+    
+    def _handle_top_cross_turns(self, yellow_edges):
+
+        # if no edges are yellow, just F U R U` R` F`
+        if len(yellow_edges) == 0:
+            self._FURURF()
+        
+        # if 2 edges are yellow
+        elif len(yellow_edges) == 2:
+            # if they are opposite each other, either F U R U` R` F` or R U B U` B` R`
+            if set(yellow_edges) == set(RubiksCube.verticals):
+                self._FURURF()
+
+            # if they are adjacent, rotate until its the left and the back
+    
     def _get_top_cross(self):
         '''
         Solve the cross on the top layer without messing up solved layers.
         '''
+
+        self._solve_mid_layer()
         # so long as not all 4 edges are yellow
         edges_complete = self._top_cross_solved()
 
         while not edges_complete:
-            # if no edges are yellow, just F U R U` R` F`
-            # if 2 edges are yellow
-                # if they are opposite each other, either F U R U` R` F` or R U B U` B` R`
-
-                # if they are adjacent, rotate until its the left and the back
-                edges_complete = self._top_cross_solved()
+            yellow_edges = self._get_yellow_edges()
+            edges_complete = self._top_cross_solved()
     
     def _solve_top_face(self):
         '''
