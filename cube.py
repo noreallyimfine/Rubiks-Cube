@@ -1731,6 +1731,18 @@ class RubiksCube:
         '''
         Complete the rest of the top face.
         '''
+        self._solve_top_cross()
+
+        print("Solving Top Face...")
+
+        # find how many corners we have
+        # if none, rotate until the front left left-side is yellow
+            # R U R` U R U U R`
+        # if one, rotate until its the front left top-side
+            # R U R` U R U U R`
+        # if two, rotat until the front left front-side is yellow,
+            # R U R` U R U U R`
+
         pass
     
     def _final_step(self):
