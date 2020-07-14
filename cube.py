@@ -1580,7 +1580,6 @@ class RubiksCube:
     def _handle_mid_layer_align_opposing_colors(self, matching_face, opposing_face):
         # turn the piece - what does that mean
         while matching_face != opposing_face:
-            print(f'Matching face is {matching_face}, opposing fae is {opposing_face}')
             self._U()
             matching_face = self._get_next_location('edges', matching_face)
     
