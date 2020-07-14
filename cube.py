@@ -1403,18 +1403,30 @@ class RubiksCube:
                 if self.bot_layer[bottom].sides['bottom'] != match_color:
                         return bottom
     
-    def _get_next_location(self, previous_location):
-        if previous_location == 'front_right':
-            top_location = 'front_left'
-        elif previous_location == 'front_left':
-            top_location = 'back_left'
-        elif previous_location == 'back_left':
-            top_location = 'back_right'
-        elif previous_location == 'back_right':
-            top_location = 'front_right'
+    def _get_next_location(self, pieces, previous_location):
+        if pieces == 'corners':
+            if previous_location == 'front_right':
+                location = 'front_left'
+            elif previous_location == 'front_left':
+                location = 'back_left'
+            elif previous_location == 'back_left':
+                location = 'back_right'
+            elif previous_location == 'back_right':
+                location = 'front_right'
         
-        return top_location
+        elif pieces == 'edges':
+            if previous_location == 'front':
+                location = 'left'
+            elif previous_location == 'left':
+               location = 'back'
+            elif previous_location == 'back':
+                location = 'right'
+            elif previous_location == 'right':
+                location = 'front'
     
+        return location
+
+
     def _handle_top_face(self, top_location, match_color):
 
         while top_location is not None:
@@ -1427,7 +1439,7 @@ class RubiksCube:
             # rotate top until the right color is the same piece 
             while top_location != bottom_location:
                 self._U()
-                top_location = self._get_next_location(top_location)
+                top_location = self._get_next_location('corners', top_location)
             # double trigger -> front and back should cover all bases
             v, h = top_location.split('_')
             self._bot_layer_double_trigger_helper(v, h)
@@ -1542,54 +1554,63 @@ class RubiksCube:
     def _non_yellow_top(self):
         for face in ['front', 'left', 'back', 'right']:
             edge = self.top_layer[f'{face}_middle']
-            if 'y' in edge.sides.values():
+            if 'y' not in edge.sides.values():
+                print(edge.sides)
                 return face
     
     def _handle_mid_layer_get_opposing_face(self, match_color):
         for color_pair in self.opposing_colors:
             color_a, color_b = color_pair
 
-            if color_a == top_color:
-                for center in ['front', 'left', 'back', 'right']:
+            print("opposing colors", color_a, color_b)
+            print("matching color", match_color)
+
+            if color_a == match_color:
+                print("color A matches")
+                for face in ['front', 'left', 'back', 'right']:
                     if self.mid_layer[f'{face}_center'].sides[face] == color_b:
                         return face
 
-            if color_b == top_color:
-                for center in ['front', 'left', 'back', 'right']:
+            if color_b == match_color:
+                print("color b matches")
+                for face in ['front', 'left', 'back', 'right']:
                     if self.mid_layer[f'{face}_center'].sides[face] == color_a:
                         return face
 
-    def _handle_mid_layer_align_opposing_colors(self, piece, opposing_face):
+    def _handle_mid_layer_align_opposing_colors(self, matching_face, opposing_face):
         # turn the piece - what does that mean
-        
+        while matching_face != opposing_face:
+            print(f'Matching face is {matching_face}, opposing fae is {opposing_face}')
+            self._U()
+            matching_face = self._get_next_location('edges', matching_face)
 
-        pass
-
-    def _handle_mid_layer_top_piece(self, piece):
+    def _handle_mid_layer_top_piece(self, matching_face):
         # get the top side color
-        top_color = piece.sides['top']
+        top_color = self.top_layer[f'{matching_face}_middle'].sides['top']
         # find its opposite
         oppo_face = self._handle_mid_layer_get_opposing_face(top_color)
         
         # turn til aligned
-        self._handle_mid_layer_align_opposing_colors(piece, oppo_face)
+        self._handle_mid_layer_align_opposing_colors(matching_face, oppo_face)
         # figure out which way non-top side is
         # handle appropriate turns
-            pass
+        pass
 
     def _solve_mid_layer(self):
         '''
         Solve the middle layer of the cube
         '''
 
+        self._solve_bot_layer()
+
 
         layer_complete = self._mid_layer_solved()
 
         while not layer_complete:
             # first check the top layer for edges that dont have yellow
-            piece = self._non_yellow_top()
+            matching_face = self._non_yellow_top()
             # those edges get aligned properly 
-            self._handle_mid_layer_top_piece(piece)
+            self._handle_mid_layer_top_piece(matching_face)
                 # could just rotate until it matches, then turn away from the other match
                 # or could use better computer logic to just turn it directly to the correct location
                     # where the top side matches its oppposing center,
