@@ -8,6 +8,37 @@ class CubeSolutionTests(unittest.TestCase):
         self.cube = RubiksCube()
 
 # test solution funcs <- make sure the tests arent interfering with each other
+
+    def bottom_face_tester(self):
+        pass
+
+    def bottom_layer_tester(self):
+        right_center = self.cube.mid_layer['right_center'].sides['right']
+        left_center = self.cube.mid_layer['left_center'].sides['left']
+        front_center = self.cube.mid_layer['front_center'].sides['front']
+        back_center = self.cube.mid_layer['back_center'].sides['back']
+
+        self.assertTrue(all(self.cube.bot_layer[bottom].sides['bottom'] for bottom in self.cube.bot_layer))
+        # all 'sides' match their corresponding center
+        self.assertEqual(self.cube.bot_layer['front_right'].sides['front'], front_center)
+        self.assertEqual(self.cube.bot_layer['front_middle'].sides['front'], front_center)
+        self.assertEqual(self.cube.bot_layer['front_left'].sides['front'], front_center)
+
+        self.assertEqual(self.cube.bot_layer['front_left'].sides['left'], left_center)
+        self.assertEqual(self.cube.bot_layer['left_middle'].sides['left'], left_center)
+        self.assertEqual(self.cube.bot_layer['back_left'].sides['left'], left_center)
+
+        self.assertEqual(self.cube.bot_layer['back_left'].sides['back'], back_center)
+        self.assertEqual(self.cube.bot_layer['back_middle'].sides['back'], back_center)
+        self.assertEqual(self.cube.bot_layer['back_right'].sides['back'], back_center)
+
+        self.assertEqual(self.cube.bot_layer['back_right'].sides['right'], right_center)
+        self.assertEqual(self.cube.bot_layer['right_middle'].sides['right'], right_center)
+        self.assertEqual(self.cube.bot_layer['front_right'].sides['right'], right_center)
+        pass
+    
+    def middle_layer_tester(self):
+        pass
     
     def test_make_daisy(self):
 
@@ -43,31 +74,8 @@ class CubeSolutionTests(unittest.TestCase):
         self.assertEqual(self.cube.bot_layer['left_middle'].sides['left'], left_center)
 
     def test_bottom_layer(self):
-
-        right_center = self.cube.mid_layer['right_center'].sides['right']
-        left_center = self.cube.mid_layer['left_center'].sides['left']
-        front_center = self.cube.mid_layer['front_center'].sides['front']
-        back_center = self.cube.mid_layer['back_center'].sides['back']
-
         self.cube._solve_bot_layer()
-
-        self.assertTrue(all(self.cube.bot_layer[bottom].sides['bottom'] for bottom in self.cube.bot_layer))
-        # all 'sides' match their corresponding center
-        self.assertEqual(self.cube.bot_layer['front_right'].sides['front'], front_center)
-        self.assertEqual(self.cube.bot_layer['front_middle'].sides['front'], front_center)
-        self.assertEqual(self.cube.bot_layer['front_left'].sides['front'], front_center)
-
-        self.assertEqual(self.cube.bot_layer['front_left'].sides['left'], left_center)
-        self.assertEqual(self.cube.bot_layer['left_middle'].sides['left'], left_center)
-        self.assertEqual(self.cube.bot_layer['back_left'].sides['left'], left_center)
-
-        self.assertEqual(self.cube.bot_layer['back_left'].sides['back'], back_center)
-        self.assertEqual(self.cube.bot_layer['back_middle'].sides['back'], back_center)
-        self.assertEqual(self.cube.bot_layer['back_right'].sides['back'], back_center)
-
-        self.assertEqual(self.cube.bot_layer['back_right'].sides['right'], right_center)
-        self.assertEqual(self.cube.bot_layer['right_middle'].sides['right'], right_center)
-        self.assertEqual(self.cube.bot_layer['front_right'].sides['right'], right_center)
+        self.bottom_layer_tester()
 
     def test_bottom_layer_robustness(self, n=50):
 
@@ -136,6 +144,10 @@ class CubeSolutionTests(unittest.TestCase):
         for _ in range(n):
             self.cube.initialize_cube()
             self.test_top_face()
+    
+    def test_top_corners(self):
+
+        self.cube._solve_top_corners()
 
     def test_solved_cube(self):
 
