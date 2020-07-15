@@ -1984,6 +1984,66 @@ class RubiksCube:
             if self.top_layer[f'{face}_middle'].sides[face] == self.mid_layer[f'{face}_center'].sides[face]:
                 return face
     
+    def _F_two_clockwise(self, solved_face=None):
+        # solved face is right
+        if solved_face == 'right':
+            self._L()
+            self._L()
+            self._U()
+            self._D()
+            self._F_prime()
+            self._L()
+            self._L()
+            self._D_prime()
+            self._F()
+            self._U()
+            self._L()
+            self._L()
+        # solved face is front
+        if solved_face == 'front':
+            self._B()
+            self._B()
+            self._U()
+            self._R()
+            self._L_prime()
+            self._B()
+            self._B()
+            self._R_prime
+            self._L()
+            self._U()
+            self._B()
+            self._B()
+
+        # solved face is left
+        if solved_face == 'left':
+            self._R()
+            self._R()
+            self._U()
+            self._F()
+            self._B_prime()
+            self._R()
+            self._R()
+            self._F_prime()
+            self._B()
+            self._U()
+            self._R()
+            self._R()
+
+        # else (solved face is back or None)
+        else:
+            self._F()
+            self._F()
+            self._U()
+            self._L()
+            self._R_prime()
+            self._F()
+            self._F()
+            self._R()
+            self._L_prime()
+            self._U()
+            self._F()
+            self._F()
+    
     def solve_cube(self):
         '''
         User facing function to solve cube.
@@ -1997,18 +2057,9 @@ class RubiksCube:
         while not solved:
 
             solved_face = self._get_solved_face()
-            # if we have no solved faces,
-            if not solved_face:
-                pass
-                # maybe check which direction they're tryna go
-                # or just F F U L R` F F L` R U F F
+
+            # or just F F U L R` F F L` R U F F
+            self._F_two_clockwise(solved_face)
             
-            # if there is a solved face
-            else:
-            # find opposing face
-                pass
-            # figure out which direction the top middle of that face needs to go
-            # do the turns treating opposing face as 'F'
             solved = self._check_cube_solved()
-        pass
 
