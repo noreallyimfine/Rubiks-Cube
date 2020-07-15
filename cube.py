@@ -1833,6 +1833,7 @@ class RubiksCube:
                 if side != 'top':
                     faces_dict[side].add(self.top_layer[piece].sides[side])
 
+        print(faces_dict)
         for face in faces_dict:
             if len(faces_dict[face]) != 1:
                 return False
@@ -1847,27 +1848,28 @@ class RubiksCube:
         self._U_prime()
         self._L()
         self._U()
+        self._R_prime()
         self._RUR_prime()
     
-    def _check_solved_face(self):
-        faces = ['front', 'left', 'back', 'right']
-        faces_dict = {face: set() for face in faces}
+    # def _check_solved_face(self):
+        # faces = ['front', 'left', 'back', 'right']
+        # faces_dict = {face: set() for face in faces}
 
-        for piece in ['front_right', 'front_left', 'back_left', 'back_right']:
-            for side in self.top_layer[piece].sides:
-                if side != 'top':
-                    faces_dict[side].add(self.top_layer[piece].sides[side])
+        # for piece in ['front_right', 'front_left', 'back_left', 'back_right']:
+        #     for side in self.top_layer[piece].sides:
+        #         if side != 'top':
+        #             faces_dict[side].add(self.top_layer[piece].sides[side])
         
-        for face in faces:
-            for side in self.top_layer[f'{face}_middle'].sides:
-                if side != 'top':
-                    faces_dict[face].add(self.top_layer[f'{face}_middle'].sides[side])
+        # for face in faces:
+        #     for side in self.top_layer[f'{face}_middle'].sides:
+        #         if side != 'top':
+        #             faces_dict[face].add(self.top_layer[f'{face}_middle'].sides[side])
 
-        for face in faces_dict:
-            if len(faces_dict[face]) == 1:
-                return True
+        # for face in faces_dict:
+        #     if len(faces_dict[face]) == 1:
+        #         return True
         
-        return False
+        # return False
     
     def _align_corners_to_face(self, matching_center):
         for v in RubiksCube.verticals:
@@ -1940,25 +1942,27 @@ class RubiksCube:
             self.top_layer['front_left']
         ]
 
-        while not all(corner.sides['front'] == 'r' for corner in front_corners):
+        corners_aligned = all(corner.sides['front'] == 'r' for corner in front_corners)
+        while not corners_aligned:
+            print([corner.sides['front'] for corner in front_corners])
             self._U()
+            corners_aligned = all(corner.sides['front'] == 'r' for corner in front_corners)
         
     def _solve_top_corners(self):
         '''
-        Final solve step (this might actually need to be broken up into more
-        steps).
+        Solves top corners by getting them all to match each other
         '''
         self._solve_top_face()
 
         print("Solving Top Corners...")
 
         # need to do this so long as no one face is solved
-        solved_face = self._check_solved_face()
+        # solved_face = self._check_solved_face()
         all_four_corners = self._check_all_four_corners()
 
-        while not solved_face and not all_four_corners:
+        while not all_four_corners:
 
-            print("Is there a solved face?", solved_face)
+            # print("Is there a solved face?", solved_face)
             print("Do all four corners match?", all_four_corners)
             # substitute that with no 3 top colors match each other (or maybe match their center but that seems silly)
             # find corners that match each other
@@ -1977,7 +1981,8 @@ class RubiksCube:
                 # figure out the turns needed
                 self._handle_matching_corners_turns(matching_center)
             # handle those turns based on which face that is
-            solved_face = self._check_solved_face()
+            # solved_face = self._check_solved_face()
+            # breakpoint()
             all_four_corners = self._check_all_four_corners()
         
         # align corners
