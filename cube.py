@@ -2057,6 +2057,7 @@ class RubiksCube:
         while not solved:
 
             solved_face = self._get_solved_face()
+            print("Solved Face", solved_face)
 
             # or just F F U L R` F F L` R U F F
             self._F_two_clockwise(solved_face)
