@@ -169,6 +169,11 @@ class CubeSolutionTests(unittest.TestCase):
         right_center = self.cube.mid_layer['right_center'].sides['right']
         self.assertEqual(self.cube.top_layer['back_right'].sides['right'], right_center)
         self.assertEqual(self.cube.top_layer['front_right'].sides['right'], right_center)
+    
+    def test_top_corners_robustness(self, n=50):
+        for _ in range(n):
+            self.cube.initialize_cube()
+            self.test_top_corners()
 
 
     # def test_solved_cube(self):
