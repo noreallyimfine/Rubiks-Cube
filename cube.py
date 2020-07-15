@@ -83,13 +83,16 @@ class RubiksCube:
         Bottom layer: {self.bot_layer}\n\n\n"""
         return output
 
+    def print_face(self, face):
+
+        # 
+        pass
     def initialize_cube(self):
         '''
-        Function to call to initialize cube. Calls on helper functions for 
-        centers, edges, and corners; in that order.
+        Function to create the solvable cube, scrambled.
+        First creates a comppleted cube, then scrambles it.
         '''
     
-        # THE POINT OF THIS BRANCH IS TO FIND OUT IF THIS IS THE ISSUE
         # initialize a solved cube
 
         # top face - y
