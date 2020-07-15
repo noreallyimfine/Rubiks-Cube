@@ -83,9 +83,19 @@ class RubiksCube:
         Bottom layer: {self.bot_layer}\n\n\n"""
         return output
 
-    def print_face(self, face):
+    def print_cube(self):
 
-        # 
+        # top face
+
+        # front face
+
+        # left face
+
+        # back face
+
+        # right face
+
+        # bottom face
         pass
     def initialize_cube(self):
         '''
@@ -1712,7 +1722,6 @@ class RubiksCube:
                 self._FURURF()
 
             
-    
     def _solve_top_cross(self):
         '''
         Solve the cross on the top layer without messing up solved layers.
@@ -1871,6 +1880,8 @@ class RubiksCube:
                         corner_color = self.top_layer[piece].sides[matching_center]
 
     def _handle_matching_corners_turns(self, matching_center):
+
+        print("matching center:", matching_center)
         # if on the left, LUR func
         if matching_center == 'left':
             self._LURULR()
@@ -1937,6 +1948,9 @@ class RubiksCube:
         all_four_corners = self._check_all_four_corners()
 
         while not solved_face and not all_four_corners:
+
+            print("Is there a solved face?", solved_face)
+            print("Do all four corners match?", all_four_corners)
             # substitute that with no 3 top colors match each other (or maybe match their center but that seems silly)
             # find corners that match each other
             matching_corner = self._get_matching_top_corners()
@@ -1954,10 +1968,17 @@ class RubiksCube:
                 # figure out the turns needed
                 self._handle_matching_corners_turns(matching_center)
             # handle those turns based on which face that is
+            solved_face = self._check_solved_face()
+            all_four_corners = self._check_all_four_corners()
     
     def solve_cube(self):
         '''
         User facing function to solve cube.
         '''
+        self._solve_top_corners()
+
+        print("Solving final step...")
+
+        #
         pass
 
