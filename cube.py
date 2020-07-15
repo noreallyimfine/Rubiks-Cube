@@ -2033,7 +2033,7 @@ class RubiksCube:
             self._L()
             self._L()
         # solved face is front
-        if solved_face == 'front':
+        elif solved_face == 'front':
             self._B()
             self._B()
             self._U()
@@ -2048,7 +2048,7 @@ class RubiksCube:
             self._B()
 
         # solved face is left
-        if solved_face == 'left':
+        elif solved_face == 'left':
             self._R()
             self._R()
             self._U()
@@ -2090,11 +2090,15 @@ class RubiksCube:
         while not solved:
 
             solved_face = self._get_solved_face()
-            print(self)
             print("Solved Face", solved_face)
 
             # or just F F U L R` F F L` R U F F
             self._F_two_clockwise(solved_face)
+            # breakpoint()
             
             solved = self._check_cube_solved()
 
+
+if __name__ == "__main__":
+    cube = RubiksCube()
+    cube.solve_cube()
