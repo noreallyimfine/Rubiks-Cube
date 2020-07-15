@@ -1979,6 +1979,11 @@ class RubiksCube:
         
         return True
     
+    def _get_solved_face(self):
+        for face in ['front', 'left', 'back', 'right']:
+            if self.top_layer[f'{face}_middle'].sides[face] == self.mid_layer[f'{face}_center'].sides[face]:
+                return face
+    
     def solve_cube(self):
         '''
         User facing function to solve cube.
@@ -1990,12 +1995,18 @@ class RubiksCube:
         # as long as not all four top middles match their center
         solved = self._check_cube_solved()
         while not solved:
+
+            solved_face = self._get_solved_face()
             # if we have no solved faces,
-            # maybe check which direction they're tryna go
-            # or just F F U L R` F F L` R U F F
+            if not solved_face:
+                pass
+                # maybe check which direction they're tryna go
+                # or just F F U L R` F F L` R U F F
             
             # if there is a solved face
+            else:
             # find opposing face
+                pass
             # figure out which direction the top middle of that face needs to go
             # do the turns treating opposing face as 'F'
             solved = self._check_cube_solved()
