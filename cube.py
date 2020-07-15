@@ -1977,11 +1977,27 @@ class RubiksCube:
             if self.top_layer[f'{face}_middle'].sides[face] != self.mid_layer[f'{face}_center'].sides[face]:
                 return False
         
+        for v in RubiksCube.verticals:
+            for h in RubiksCube.horizontals:
+                piece = self.top_layer[f'{v}_{h}']
+                for side in piece.sides:
+                    if side != 'top' and piece.sides[side] != self.mid_layer[f'{side}_center'].sides[side]:
+                        return False
+        
         return True
     
     def _get_solved_face(self):
-        for face in ['front', 'left', 'back', 'right']:
-            if self.top_layer[f'{face}_middle'].sides[face] == self.mid_layer[f'{face}_center'].sides[face]:
+        faces = ['front', 'left', 'back', 'right']
+        faces_dict = {face: 0 for face in faces}
+        
+        for piece in self.top_layer:
+            for side in self.top_layer[piece].sides:
+                if side in faces_dict:
+                    if self.top_layer[piece].sides[side] == self.mid_layer[f'{side}_center'].sides[side]:
+                        faces_dict[side] += 1
+
+        for face in faces_dict:
+            if faces_dict[face] == 3:
                 return face
     
     def _F_two_clockwise(self, solved_face=None):
@@ -2038,8 +2054,8 @@ class RubiksCube:
             self._R_prime()
             self._F()
             self._F()
-            self._R()
             self._L_prime()
+            self._R()
             self._U()
             self._F()
             self._F()
@@ -2057,6 +2073,7 @@ class RubiksCube:
         while not solved:
 
             solved_face = self._get_solved_face()
+            print(self)
             print("Solved Face", solved_face)
 
             # or just F F U L R` F F L` R U F F
