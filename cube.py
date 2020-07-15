@@ -1934,6 +1934,15 @@ class RubiksCube:
             self._U()
             self._B_prime()
             
+    def _align_solved_corners(self):
+        front_corners = [
+            self.top_layer['front_right'],
+            self.top_layer['front_left']
+        ]
+
+        while not all(corner.sides['front'] == 'r' for corner in front_corners):
+            self._U()
+        
     def _solve_top_corners(self):
         '''
         Final solve step (this might actually need to be broken up into more
@@ -1970,6 +1979,9 @@ class RubiksCube:
             # handle those turns based on which face that is
             solved_face = self._check_solved_face()
             all_four_corners = self._check_all_four_corners()
+        
+        # align corners
+        self._align_solved_corners()
     
     def _check_cube_solved(self):
 
