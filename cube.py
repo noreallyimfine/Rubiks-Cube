@@ -1979,6 +1979,14 @@ class RubiksCube:
 
         print("Solving final step...")
 
-        #
+        # as long as not all four top middles match their center
+            # if we have no solved faces,
+            # maybe check which direction they're tryna go
+            # or just F F U L R` F F L` R U F F
+            
+            # if there is a solved face
+            # find opposing face
+            # figure out which direction the top middle of that face needs to go
+            # do the turns treating opposing face as 'F'
         pass
 
