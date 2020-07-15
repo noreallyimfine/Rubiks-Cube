@@ -1811,6 +1811,21 @@ class RubiksCube:
         for face in faces_dict:
             if faces_dict[face][0] == faces_dict[face][1]:
                 return faces_dict[face][0]
+        
+    def _check_all_four_corners(self):
+        faces = ['front', 'left', 'back', 'right']
+        faces_dict = {face: set() for face in faces}
+
+        for piece in ['front_right', 'front_left', 'back_left', 'back_right']:
+            for side in self.top_layer[piece].sides:
+                if side != 'top':
+                    faces_dict[side].add(self.top_layer[piece].sides[side])
+
+        for face in faces_dict:
+            if len(faces_dict[face]) != 1:
+                return False
+        
+        return True
 
     
     def _LURULR(self):
@@ -1826,9 +1841,15 @@ class RubiksCube:
         faces = ['front', 'left', 'back', 'right']
         faces_dict = {face: set() for face in faces}
 
-        for piece in self.top_layer:
-            for side in piece.sides:
-                faces_dict[side].add(piece.sides[side])
+        for piece in ['front_right', 'front_left', 'back_left', 'back_right']:
+            for side in self.top_layer[piece].sides:
+                if side != 'top':
+                    faces_dict[side].add(self.top_layer[piece].sides[side])
+        
+        for face in faces:
+            for side in self.top_layer[f'{face}_middle'].sides:
+                if side != 'top':
+                    faces_dict[face].add(self.top_layer[f'{face}_middle'].sides[side])
 
         for face in faces_dict:
             if len(faces_dict[face]) == 1:
@@ -1910,8 +1931,9 @@ class RubiksCube:
 
         # need to do this so long as no one face is solved
         solved_face = self._check_solved_face()
+        all_four_corners = self._check_all_four_corners()
 
-        while not solved_face:
+        while not solved_face and not all_four_corners:
             # substitute that with no 3 top colors match each other (or maybe match their center but that seems silly)
             # find corners that match each other
             matching_corner = self._get_matching_top_corners()
