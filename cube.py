@@ -199,7 +199,7 @@ class RubiksCube:
         ]
 
         # fewer turns for testing where mistakes are happening
-        for _ in range(10):
+        for _ in range(50):
             random.choice(moves)()
         # for _ in range(50):
         #     random.choice(moves)()
@@ -2094,7 +2094,7 @@ class RubiksCube:
 
             # or just F F U L R` F F L` R U F F
             self._F_two_clockwise(solved_face)
-            # breakpoint()
+            breakpoint()
             
             solved = self._check_cube_solved()
 
