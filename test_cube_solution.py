@@ -91,12 +91,12 @@ class CubeSolutionTests(unittest.TestCase):
         self.cube._solve_bot_layer()
         self.bottom_layer_tester()
 
-    def test_bottom_layer_robustness(self, n=50):
+    # def test_bottom_layer_robustness(self, n=50):
 
-        for _ in range(n):
-            self.cube.initialize_cube()
-            self.test_bottom_layer()
-            print("Success")
+    #     for _ in range(n):
+    #         self.cube.initialize_cube()
+    #         self.test_bottom_layer()
+    #         print("Success")
     
     def test_middle_layer(self):
 
@@ -105,10 +105,10 @@ class CubeSolutionTests(unittest.TestCase):
         self.middle_layer_tester()
 
     
-    def test_middle_layer_robustness(self, n=50):
-        for _ in range(n):
-            self.cube.initialize_cube()
-            self.cube._solve_mid_layer()
+    # def test_middle_layer_robustness(self, n=50):
+    #     for _ in range(n):
+    #         self.cube.initialize_cube()
+    #         self.cube._solve_mid_layer()
 
 
     def test_top_cross(self):
@@ -122,10 +122,10 @@ class CubeSolutionTests(unittest.TestCase):
         self.assertEqual(self.cube.top_layer['right_middle'].sides['top'], 'y')
         self.assertEqual(self.cube.top_layer['back_middle'].sides['top'], 'y')
     
-    def test_top_cross_robustness(self, n=50):
-        for _ in range(n):
-            self.cube.initialize_cube()
-            self.test_top_cross()
+    # def test_top_cross_robustness(self, n=50):
+    #     for _ in range(n):
+    #         self.cube.initialize_cube()
+    #         self.test_top_cross()
 
 
     def test_top_face(self):
@@ -137,10 +137,10 @@ class CubeSolutionTests(unittest.TestCase):
 
         self.assertTrue(all(self.cube.top_layer[top].sides['top'] for top in self.cube.top_layer))
     
-    def test_top_face_robustness(self, n=50):
-        for _ in range(n):
-            self.cube.initialize_cube()
-            self.test_top_face()
+    # def test_top_face_robustness(self, n=50):
+    #     for _ in range(n):
+    #         self.cube.initialize_cube()
+    #         self.test_top_face()
     
     def test_top_corners(self):
 
@@ -170,10 +170,10 @@ class CubeSolutionTests(unittest.TestCase):
         self.assertEqual(self.cube.top_layer['back_right'].sides['right'], right_center)
         self.assertEqual(self.cube.top_layer['front_right'].sides['right'], right_center)
     
-    def test_top_corners_robustness(self, n=50):
-        for _ in range(n):
-            self.cube.initialize_cube()
-            self.test_top_corners()
+    # def test_top_corners_robustness(self, n=50):
+    #     for _ in range(n):
+    #         self.cube.initialize_cube()
+    #         self.test_top_corners()
 
 
     def test_solved_cube(self):
