@@ -2023,11 +2023,11 @@ class RubiksCube:
             self._L()
             self._L()
             self._U()
-            self._D()
+            self._B()
             self._F_prime()
             self._L()
             self._L()
-            self._D_prime()
+            self._B_prime()
             self._F()
             self._U()
             self._L()
@@ -2094,7 +2094,7 @@ class RubiksCube:
 
             # or just F F U L R` F F L` R U F F
             self._F_two_clockwise(solved_face)
-            breakpoint()
+            # breakpoint()
             
             solved = self._check_cube_solved()
 
