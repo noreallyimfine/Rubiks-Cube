@@ -2041,7 +2041,7 @@ class RubiksCube:
             self._L_prime()
             self._B()
             self._B()
-            self._R_prime
+            self._R_prime()
             self._L()
             self._U()
             self._B()
