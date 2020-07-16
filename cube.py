@@ -2017,7 +2017,7 @@ class RubiksCube:
             if faces_dict[face] == 3:
                 return face
     
-    def _F_two_clockwise(self, solved_face=None):
+    def _F_two_clockwise(self, solved_face):
         # solved face is right
         if solved_face == 'right':
             self._L()
@@ -2097,6 +2097,7 @@ class RubiksCube:
             # breakpoint()
             
             solved = self._check_cube_solved()
+        print("Solved")
 
 
 if __name__ == "__main__":
